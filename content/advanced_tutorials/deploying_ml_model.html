@@ -99,13 +99,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#the-classifier">The Classifier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-service">The Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s Next?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -251,7 +252,7 @@ mvi service and logger objects:</p>
     <span class="n">classifier</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_handle</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The classifier has a predict function that we want to use. To do this we create a
+<p>The classifier has a predict method that we want to use. To do this we create a
 <code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint using the <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.entrypoint" title="mvi.mvi.MviService.entrypoint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code></a>
 decorator:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
@@ -306,7 +307,7 @@ returns the predictions as a list.</p>
 <h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline">¶</a></h2>
 <p>Just like before, we deploy the service using the CLI:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">iris_classifier</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">iris_project</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME             VERSION    STATUS    RUNNING</span>
@@ -315,7 +316,7 @@ returns the predictions as a list.</p>
 </pre></div>
 </div>
 <p>The service should now be up and running. Go to the documentation to test it out:
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/iris_classifier/docs. The data should be on a format
+<a class="reference external" href="http://your-host/services/iris_classifier/docs">http://your-host/services/iris_classifier/docs</a>. The data should be on a format
 that can be transformed to a pandas dataframe:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;data&quot;</span><span class="p">:</span>
@@ -328,13 +329,11 @@ that can be transformed to a pandas dataframe:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To get validation on your entrypoint input you should take a look at
+<a class="reference internal" href="sdk_typing.html#sdk-typing-reference"><span class="std std-ref">Typing in the SDK</span></a>.</p>
 </div>
-<div class="section" id="what-s-next">
-<h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
-<p>Now you’ve seen how to deploy a pickled machine learning model and test it using
-the interactive API. But you might have seen that it is a bit cumbersome to to
-get the data in the correct format. To add validation and add json schemas to
-the interactive docs, take a look at <a class="reference internal" href="sdk_typing.html#sdk-typing-reference"><span class="std std-ref">Typing in the SDK</span></a>.</p>
 </div>
 </div>
 

@@ -7,10 +7,10 @@ There are a few ways to use the ``deploy`` command from the :ref:`cli-reference`
 that we haven't looked at until this point. In this tutorial we will look at
 those, to make sure you have a good idea of the options you have available.
 
-Always remember the ``--help`` option. It can be used with each command as well
-as the whole ``mvi`` command-line app to get a description of what options you
-have. If you are unsure how and what-for a certain command is used, it should
-be your go-to option.
+.. Note:: Always remember the ``--help`` option. It can be used with each command as well
+    as the whole ``mvi`` command-line app to get a description of what options you
+    have. If you are unsure how and what-for a certain command is used, it should
+    be your go-to option.
 
 So far, we have only deployed services from project directories, but there are
 a few more options. First of all, it is possible to deploy a service from a tarball
@@ -22,7 +22,7 @@ have deployed so far. It is functionally identical to deploying from a
 local directory. For now, it only supports public git repositories:
 
 >>> mvi deploy --git my_service 1.0.0 https://github.com/sclorg/django-ex
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME        VERSION    STATUS    RUNNING
@@ -36,7 +36,7 @@ public images for now. Keep in mind that most pre-build images will not
 support the automatic interactive documentation:
 
 >>> mvi deploy --image my_service2 1.0.0 traefik/whoami --port 80
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME         VERSION    STATUS    RUNNING

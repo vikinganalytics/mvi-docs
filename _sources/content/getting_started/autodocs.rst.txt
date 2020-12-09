@@ -5,9 +5,9 @@ API Autodocs
 
 MVI automatically creates interactive documentation for every service created using
 the :ref:`sdk-reference`. It can be found at
-http://<your-host>/services/servicename_version/docs. For the `hello` service we
+http://your-host/services/servicename_version/docs. For the `hello` service we
 created in :ref:`custom-service-reference` it can be reached at 
-http://<your-host>/services/hello_1.0.0/docs and looks like this:
+http://your-host/services/hello_1.0.0/docs and looks like this:
 
 (click image to enlarge)
 
@@ -25,7 +25,7 @@ name it should return "Hello <name>" and for "World" you should get "Greeting fa
 
 We expect to have gotten a notification, because in the code we wanted to raise a
 notification if a user tried to greet the world, because of time constraints.
-So head over to http://<your-host>/dashboard/ and click the notifications tab.
+So head over to http://your-host/dashboard/ and click the notifications tab.
 And we will see the notification there.
 
 What's Next?

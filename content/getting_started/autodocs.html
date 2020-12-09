@@ -102,8 +102,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -179,9 +181,9 @@
 <span id="autodocs-reference"></span><h1>API Autodocs<a class="headerlink" href="#api-autodocs" title="Permalink to this headline">¶</a></h1>
 <p>MVI automatically creates interactive documentation for every service created using
 the <a class="reference internal" href="../api_reference/sdk.html#sdk-reference"><span class="std std-ref">Software Development Kit</span></a>. It can be found at
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/servicename_version/docs. For the <cite>hello</cite> service we
+<a class="reference external" href="http://your-host/services/servicename_version/docs">http://your-host/services/servicename_version/docs</a>. For the <cite>hello</cite> service we
 created in <a class="reference internal" href="custom_service.html#custom-service-reference"><span class="std std-ref">Creating Your Own service</span></a> it can be reached at
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/hello_1.0.0/docs and looks like this:</p>
+<a class="reference external" href="http://your-host/services/hello_1.0.0/docs">http://your-host/services/hello_1.0.0/docs</a> and looks like this:</p>
 <p>(click image to enlarge)</p>
 <a class="reference internal image-reference" href="../../_images/autodocs.png"><img alt="Screenshot of autodocs" src="../../_images/autodocs.png" style="width: 800px;" /></a>
 <div class="section" id="interacting-with-the-docs">
@@ -192,7 +194,7 @@ the <code class="docutils literal notranslate"><span class="pre">hello/</span></
 name it should return “Hello &lt;name&gt;” and for “World” you should get “Greeting failed”.</p>
 <p>We expect to have gotten a notification, because in the code we wanted to raise a
 notification if a user tried to greet the world, because of time constraints.
-So head over to <a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/dashboard/ and click the notifications tab.
+So head over to <a class="reference external" href="http://your-host/dashboard/">http://your-host/dashboard/</a> and click the notifications tab.
 And we will see the notification there.</p>
 </div>
 <div class="section" id="what-s-next">

@@ -17,7 +17,7 @@ The first service we create will generate a random number between 1 and 6 and
 respond with the result:
 
 >>> mvi init
-Active host: http://<your-host>
+Active host: http://your-host
 project_name [my_project]: die_roller_service
 
 Modify the code in `service.py` to::
@@ -41,7 +41,7 @@ Modify the code in `service.py` to::
 Deploy the service:
 
 >>> mvi deploy die_roller 1.0.0 ./die_roller_service
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME         VERSION    STATUS    RUNNING
@@ -49,7 +49,7 @@ MAIN    NAME         VERSION    STATUS    RUNNING
 *       die_roller   1.0.0      running   Running (since 2020-11-24 11:56:18)
 
 You can test if the service works correctly by going to the interactive 
-documentation at http://<your-host>/services/die_roller/docs.
+documentation at http://your-host/services/die_roller/docs.
 
 Yatzee Service
 --------------
@@ -59,7 +59,7 @@ for each die in play. If the player gets a yatzee (all 6s) we send a notificatio
 Let's create the code for that service:
 
 >>> mvi init
-Active host: http://<your-host>
+Active host: http://your-host
 project_name [my_project]: yatzee_service
 
 And modify `service.py` to::
@@ -80,7 +80,7 @@ And modify `service.py` to::
         for _ in range(n_dice):
             die_roll = call_service(
                 service_name="die_roller",
-                method_name="roll_die",
+                entrypoint_name="roll_die",
             )
             die_rolls.append(die_roll)
         
@@ -88,7 +88,6 @@ And modify `service.py` to::
             notify(
                 msg="YATZEE!!!",
                 severity=Severity.INFO,
-                email=False,
             )
 
         return sorted(die_rolls)
@@ -99,7 +98,7 @@ And modify `service.py` to::
 Deploy the service:
 
 >>> mvi deploy yatzee 1.0.0 ./yatzee_service
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME    VERSION    STATUS    RUNNING
@@ -107,13 +106,13 @@ MAIN    NAME    VERSION    STATUS    RUNNING
 *       yatzee  1.0.0      running   Running (since 2020-11-24 12:15:57)
 
 
-We use the :py:func:`~mvi.mvi.call_service` function to call a method in
+We use the :py:func:`~mvi.mvi.call_service` function to call an entrypoint in
 another service. In this case, the :py:func:`roll_die` function of the `die_roller`
 service. Notice how we did not specify any version of `die_roller`, this way
 the main version will be used. If you wanted to specify a version, then you should
 use the keyword argument ``service_version``.
 
-Try out your new service at http://<your-host>/services/yatzee/docs.
+Try out your new service at http://your-host/services/yatzee/docs.
 
 What's Next?
 ------------

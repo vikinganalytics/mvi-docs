@@ -8,9 +8,9 @@ fastest and easiest way to interact with the Manager is to use the
 :ref:`cli-reference` (CLI). The CLI contains a host of useful commands that make
 the deployment and monitoring of services fast and painless.
 
-You can call ``mvi --help`` at any time, to get a list and short description of
-the available commands and ``mvi <COMMAND> --help`` to get a longer description
-of that command.
+.. note:: You can call ``mvi --help`` at any time, to get a list and short description of
+    the available commands and ``mvi <COMMAND> --help`` to get a longer description
+    of that command.
 
 Logging in to the Manager
 -------------------------
@@ -19,7 +19,7 @@ The first step is to login to the host where MVI is running. To do this,
 we call the login command:
 
 >>> mvi login
-Enter MVI host: http://<your-host>
+Enter MVI host: http://<your-host
 Username: <username>
 Password: <password>
 
@@ -78,15 +78,15 @@ MAIN    NAME              VERSION    STATUS    RUNNING
 ------  ----------------  ---------  --------  -----------------------------------
 *       my_first_service  0.0.1      running   Running (since 2020-11-20 15:48:45)
 
-If you open http://<your-host> in your browser you should see the dashboard where you
+If you open http://your-host in your browser you should see the dashboard where you
 can get much of the same information as through the CLI. And at
-http://<your-host>/services/my_first_service_0.0.1/docs you can read the automated
+http://your-host/services/my_first_service_0.0.1/docs you can read the automated
 API documentation of the service and test its functionality.
 
-To communicate with your services from outside of the documentation you can use
-any HTTP library, which are available in most programming languages. In python
-`requests <https://requests.readthedocs.io/en/master/>`_ is commonly used, or 
-`curl <https://curl.se/>`_ in bash.
+.. note:: To communicate with your services from outside of the documentation you can use
+    any HTTP library, which are available in most programming languages. In python
+    `requests <https://requests.readthedocs.io/en/master/>`_ is commonly used, or 
+    `curl <https://curl.se/>`_ in bash.
 
 Killing a Service
 -----------------

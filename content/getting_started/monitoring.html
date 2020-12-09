@@ -104,8 +104,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -258,7 +260,74 @@ formats.</p>
 </div>
 <div class="section" id="getting-the-data">
 <h2>Getting the Data<a class="headerlink" href="#getting-the-data" title="Permalink to this headline">¶</a></h2>
-<p>The floor is yours, Fredrik Mile!</p>
+<p>The MultiViz Integrator provides three options for accessing the time-series data for
+your monitored variables.</p>
+<p><strong>Option 1: Json format</strong></p>
+<p>The time-series data in json format can be collected via the following entrypoint:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~monitor</span></code></p>
+<p>It is possible to specify start time and end time for the wanted time-series data by adding
+<cite>end</cite> and <cite>start</cite> query parameters to the url, like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce&gt;_&lt;service_version&gt;/~monitor?end=&lt;...&gt;?start=&lt;...&gt;</span></code></p>
+<p>The <cite>end</cite> and <cite>start</cite> query parameters needs to have the following format:
+<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD[T]HH:MM[:SS[.ffffff]][Z</span> <span class="pre">or</span> <span class="pre">[±]HH[:]MM]]]</span></code>, so for instance: 2020-01-01 02:30</p>
+<p>It it also possible to specify which variables to query time-series by specify the query parameter
+<cite>variables</cite>, like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~monitor?end=&lt;...&gt;?start=&lt;...&gt;?variables=v1?variables=v2</span></code></p>
+<p>This will query time-series data for variable <cite>a</cite> and <cite>b</cite>. The returned json time-series data will be on the following format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">tn</span><span class="p">]</span>
+        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">vn</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">tn</span><span class="p">]</span>
+        <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="n">vn</span><span class="p">]</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example, using the <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a>
+package in python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">GET</span><span class="p">(</span>
+    <span class="s2">&quot;services/name_version/~monitor&quot;</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">TOKEN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Option 2: CSV files</strong></p>
+<p>The time-series data can also be returned in csv format, the entrypoint for this is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~csv</span></code></p>
+<p>It is possible to specify, which variables and in during which time interval to query
+time-series data for by using the following query parameters:
+<cite>end</cite>, <cite>start</cite> and <cite>varaibles</cite>. For instance:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~monitor/csv?end=&lt;...&gt;?start=&lt;...&gt;?variables=v1?variables=v2</span></code></p>
+<p>The <cite>end</cite> and <cite>start</cite> query parameters needs to have the following format:
+<code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD[T]HH:MM[:SS[.ffffff]][Z</span> <span class="pre">or</span> <span class="pre">[±]HH[:]MM]]]</span></code>, so for instance: 2020-01-01 02:30</p>
+<p>This will query time-series data for variable <cite>a</cite> and <cite>b</cite>.This entrypoint returns a zip file containing one csv file per requested variable.
+The csv files has the following format:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>timestamp</p></th>
+<th class="head"><p>value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>t1</p></td>
+<td><p>v1</p></td>
+</tr>
+<tr class="row-odd"><td><p>t2</p></td>
+<td><p>v2</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Option 3: The whole service database</strong></p>
+<p>The time-series data is stored a in sqlite databases and the whole
+service database can be requested at the following entrypoint:</p>
+<p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~monitor/db</span></code></p>
 </div>
 </div>
 

@@ -85,10 +85,10 @@ Notifications
 -------------
 
 Notifications is another feature of MVI. When a notification is raised it can be viewed
-on the dashboard at http://<your-host> or sent to an email address.
-
-To add a notification we need to create a conditional statement and notify the user if
-it's true. With notifications added, the :py:func:`hello` function now looks like this::
+on the dashboard at http://your-host or sent to an email address. To add a notification
+we use the :py:func:`~mvi.mvi.notify` function. They can be placed in a conditional statement
+to send a notification if it's true. With notifications added, the :py:func:`hello` function
+now looks like this::
 
     @mvi.entrypoint
     def hello(name: str) -> str:
@@ -97,7 +97,6 @@ it's true. With notifications added, the :py:func:`hello` function now looks lik
             notify(
                 msg="Someone is trying to greet the World, too time consuming. Skipping!",
                 severity=Severity.WARNING,
-                email=False,
             )
             return "Greeting failed"
         logger.info(f"Greeting someone with the name: {name}")
@@ -138,7 +137,6 @@ looks like this::
             notify(
                 msg="Someone is trying to greet the World, too time consuming. Skipping!",
                 severity=Severity.WARNING,
-                email=False,
             )
             return "Greeting failed"
         logger.info(f"Greeting someone with the name: {name}")

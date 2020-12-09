@@ -108,8 +108,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -258,9 +260,10 @@ more detailed guide on how typing is handled in MVI.</p>
 <div class="section" id="notifications">
 <h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h2>
 <p>Notifications is another feature of MVI. When a notification is raised it can be viewed
-on the dashboard at <a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt; or sent to an email address.</p>
-<p>To add a notification we need to create a conditional statement and notify the user if
-it’s true. With notifications added, the <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> function now looks like this:</p>
+on the dashboard at <a class="reference external" href="http://your-host">http://your-host</a> or sent to an email address. To add a notification
+we use the <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.notify" title="mvi.mvi.notify"><code class="xref py py-func docutils literal notranslate"><span class="pre">notify()</span></code></a> function. They can be placed in a conditional statement
+to send a notification if it’s true. With notifications added, the <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> function
+now looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
@@ -268,7 +271,6 @@ it’s true. With notifications added, the <code class="xref py py-func docutils
         <span class="n">notify</span><span class="p">(</span>
             <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Someone is trying to greet the World, too time consuming. Skipping!&quot;</span><span class="p">,</span>
             <span class="n">severity</span><span class="o">=</span><span class="n">Severity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
-            <span class="n">email</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Greeting failed&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -307,7 +309,6 @@ looks like this:</p>
         <span class="n">notify</span><span class="p">(</span>
             <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Someone is trying to greet the World, too time consuming. Skipping!&quot;</span><span class="p">,</span>
             <span class="n">severity</span><span class="o">=</span><span class="n">Severity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
-            <span class="n">email</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="s2">&quot;Greeting failed&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

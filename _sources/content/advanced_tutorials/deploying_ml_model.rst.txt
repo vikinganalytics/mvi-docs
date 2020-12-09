@@ -77,7 +77,7 @@ We use pickle to unpack the model, which we want to do only once::
     with open("./model/classifier.pkl", "rb") as file_handle:
         classifier = pickle.load(file_handle)
 
-The classifier has a predict function that we want to use. To do this we create a
+The classifier has a predict method that we want to use. To do this we create a
 :py:func:`predict` entrypoint using the :py:meth:`~mvi.mvi.MviService.entrypoint` 
 decorator::
 
@@ -134,7 +134,7 @@ Deployment
 Just like before, we deploy the service using the CLI:
 
 >>> mvi deploy iris_classifier 1.0.0 ./iris_project
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME             VERSION    STATUS    RUNNING
@@ -142,7 +142,7 @@ MAIN    NAME             VERSION    STATUS    RUNNING
 *       iris_classifier  1.0.0      running   Running (since 2020-11-23 16:22:46)
 
 The service should now be up and running. Go to the documentation to test it out:
-http://<your-host>/services/iris_classifier/docs. The data should be on a format
+http://your-host/services/iris_classifier/docs. The data should be on a format
 that can be transformed to a pandas dataframe::
 
     {
@@ -155,10 +155,5 @@ that can be transformed to a pandas dataframe::
         } 
     }
 
-What's Next?
-------------
-
-Now you've seen how to deploy a pickled machine learning model and test it using 
-the interactive API. But you might have seen that it is a bit cumbersome to to
-get the data in the correct format. To add validation and add json schemas to
-the interactive docs, take a look at :ref:`sdk-typing-reference`.
+.. Note:: To get validation on your entrypoint input you should take a look at
+    :ref:`sdk-typing-reference`.

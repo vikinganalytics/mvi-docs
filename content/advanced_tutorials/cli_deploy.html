@@ -29,7 +29,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Autocompletion" href="cli_autocompletion.html" />
-    <link rel="prev" title="Using Multiple Hosts" href="using_multiple_hosts.html" /> 
+    <link rel="prev" title="Email Notifications" href="email_notifications.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -98,8 +98,10 @@
 <li class="toctree-l1"><a class="reference internal" href="deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -176,10 +178,13 @@
 <p>There are a few ways to use the <code class="docutils literal notranslate"><span class="pre">deploy</span></code> command from the <a class="reference internal" href="../api_reference/cli.html#cli-reference"><span class="std std-ref">Command-line Interface</span></a>
 that we haven’t looked at until this point. In this tutorial we will look at
 those, to make sure you have a good idea of the options you have available.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Always remember the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option. It can be used with each command as well
 as the whole <code class="docutils literal notranslate"><span class="pre">mvi</span></code> command-line app to get a description of what options you
 have. If you are unsure how and what-for a certain command is used, it should
 be your go-to option.</p>
+</div>
 <p>So far, we have only deployed services from project directories, but there are
 a few more options. First of all, it is possible to deploy a service from a tarball
 (.tar.gz file), which is actually what is been happening behind the scenes.</p>
@@ -188,7 +193,7 @@ service given a git repository with the same contents as the services we
 have deployed so far. It is functionally identical to deploying from a
 local directory. For now, it only supports public git repositories:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">git</span> <span class="n">my_service</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sclorg</span><span class="o">/</span><span class="n">django</span><span class="o">-</span><span class="n">ex</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME        VERSION    STATUS    RUNNING</span>
@@ -202,7 +207,7 @@ SDK within the MVI framework. Similar to the <code class="docutils literal notra
 public images for now. Keep in mind that most pre-build images will not
 support the automatic interactive documentation:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">image</span> <span class="n">my_service2</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">traefik</span><span class="o">/</span><span class="n">whoami</span> <span class="o">--</span><span class="n">port</span> <span class="mi">80</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME         VERSION    STATUS    RUNNING</span>
@@ -249,7 +254,7 @@ from git repositories, but it might be necessary when deploying from an image.</
         <a href="cli_autocompletion.html" class="btn btn-neutral float-right" title="Autocompletion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="using_multiple_hosts.html" class="btn btn-neutral" title="Using Multiple Hosts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="email_notifications.html" class="btn btn-neutral" title="Email Notifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

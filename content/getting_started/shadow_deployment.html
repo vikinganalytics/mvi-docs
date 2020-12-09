@@ -91,7 +91,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#deploying-a-shadow-service">Deploying a Shadow Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changing-main-service">Changing Main Service</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#killing-services">Killing Services</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#what-s-next">What’s Next?</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reaching_service_from_external_applications.html">Reaching a service from external applications</a></li>
@@ -104,8 +103,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -181,8 +182,8 @@
 <span id="versioning-shadow-reference"></span><h1>Versioning and Shadow Deployment<a class="headerlink" href="#versioning-and-shadow-deployment" title="Permalink to this headline">¶</a></h1>
 <p>MVI supports something called shadow deployment, which means to deploy new versions
 of a program “in the background” of an older version that is known to be stable.
-This way, the two or more services can run side by side and it becomes possible
-to test the new version in an undisruptive manner, without risking crashes or
+This way, two or more services can run side by side and it becomes easy
+to test new versions in an undisruptive manner, without risking crashes or
 other unwanted behaviour in production.</p>
 <p>This works by mirroring the input to every version of a service, but only
 returning the response of the main verision.</p>
@@ -190,17 +191,17 @@ returning the response of the main verision.</p>
 <h2>Deploying a Shadow Service<a class="headerlink" href="#deploying-a-shadow-service" title="Permalink to this headline">¶</a></h2>
 <p>Deploying a shadow service in MVI is as easy as deploying any other service.
 When deploying a service for the first time, it will always be the main version
-and every subsequent service with the name will be a shadow of the main
+and every subsequent service with the same name will be a shadow of the main
 service. Let’s try this out with the <cite>hello</cite> service we get from <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">init</span></code>:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">project_name [my_project]: hello</span>
 </pre></div>
 </div>
 <p>(If you still have a <cite>hello</cite> service running from a previous tutorial,
 you can skip to the next step)</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">hello</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">hello</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
@@ -209,7 +210,7 @@ you can skip to the next step)</p>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">hello</span> <span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">hello</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
@@ -218,7 +219,7 @@ you can skip to the next step)</p>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">ls</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
 <span class="go">------  ------  ---------  --------  -----------------------------------</span>
 <span class="go">*       hello   1.0.0      running   Running (since 2020-11-23 11:30:00)</span>
@@ -226,9 +227,9 @@ you can skip to the next step)</p>
 </pre></div>
 </div>
 <p>The asterisk in the main column indicates that a service is the main version of
-that service, otherwise it is a shadow. Each individual service is reached at
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/name_version/ and the shadow deployment setup is
-reached at <a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/name/. At this URL, requests will be sent
+that service, otherwise it is a shadow. Each individual service can be reached at
+<a class="reference external" href="http://your-host/services/name_version/">http://your-host/services/name_version/</a> and the shadow deployment setup is
+reached at <a class="reference external" href="http://your-host/services/name/">http://your-host/services/name/</a>. At this URL, requests will be sent
 to every running service with that name, but you will only get the response from
 the main. Functionally, it is identical to communicating with the main directly.
 This way it’s possible to use shadow deployment and still be able to communicate
@@ -239,7 +240,7 @@ with individual services.</p>
 <p>When new service seems performs to a satisfactory level you can change it to
 the main service using the CLI command <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">assign</span></code>:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">assign</span> <span class="n">hello</span> <span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Change hello 2.0.0 to main? [y/N]: y</span>
 <span class="go">Changed main version to hello 2.0.0</span>
 <span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
@@ -259,13 +260,6 @@ is to protect the user from accidentally removing the main service and disruptin
 the production system. Shadow services can be killed freely or all versions of a
 service can be killed simultaneously with <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">kill</span> <span class="pre">&lt;name&gt;</span></code>. Main services
 can be killed if they are the only service with that name.</p>
-</div>
-<div class="section" id="what-s-next">
-<h2>What’s Next?<a class="headerlink" href="#what-s-next" title="Permalink to this headline">¶</a></h2>
-<p>Now you have seen how to create multiple versions of a service and how to
-change which version is the main service. Now you can move on to learn more
-about how to communicate between services to create more advanced applications:
-<a class="reference internal" href="cross_service_communication.html#cross-service-reference"><span class="std std-ref">Cross-service Communication</span></a>.</p>
 </div>
 </div>
 

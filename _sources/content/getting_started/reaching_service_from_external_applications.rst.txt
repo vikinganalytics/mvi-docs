@@ -13,7 +13,7 @@ To generate this authentication token, you will need to use the CLI.
 Start by making sure that you are logged in by calling the login command:
 
 >>> mvi login
-Enter MVI host: http://<your-host>
+Enter MVI host: http://your-host
 Username: <username>
 Password: <password>
 

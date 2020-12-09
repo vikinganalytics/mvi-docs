@@ -36,8 +36,10 @@ doing what they love and less time writing `flask` API:s and `dockerfiles`.
    content/advanced_tutorials/deploying_ml_model
    content/advanced_tutorials/sdk_typing
    content/advanced_tutorials/using_multiple_hosts
+   content/advanced_tutorials/email_notifications
    content/advanced_tutorials/cli_deploy
    content/advanced_tutorials/cli_autocompletion
+   content/advanced_tutorials/manager_env_vars
    content/advanced_tutorials/proxy_dashboard
    content/advanced_tutorials/going_beyond_sdk
 

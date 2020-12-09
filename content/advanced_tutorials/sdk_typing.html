@@ -103,8 +103,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -218,11 +220,11 @@ example it would be:</p>
 </div>
 <p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code> helps the API to know what format the input json should
 conform to. If the request body of your API call does not match the model it will
-send a 422 HTTP-error with a error description.</p>
+send a 422 HTTP-error with an error description.</p>
 <p>Let’s create a new service that will take data in a schema similar to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">IrisData</span></code> and respond with the sum of its rows:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">project_name [my_project]: row_sum_service</span>
 </pre></div>
 </div>
@@ -262,7 +264,7 @@ send a 422 HTTP-error with a error description.</p>
 </div>
 <p>And deploy the new service:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">row_sum</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">row_sum_service</span>
-<span class="go">Active host: http://&lt;your-host&gt;</span>
+<span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
 <span class="go">MAIN    NAME     VERSION    STATUS    RUNNING</span>
@@ -271,7 +273,7 @@ send a 422 HTTP-error with a error description.</p>
 </pre></div>
 </div>
 <p>Now if we head on to the automatic documentation at
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/row_sum/docs you should see the following:</p>
+<a class="reference external" href="http://your-host/services/row_sum/docs">http://your-host/services/row_sum/docs</a> you should see the following:</p>
 <a class="reference internal image-reference" href="../../_images/data_model.png"><img alt="Screenshot of autodocs with data model" src="../../_images/data_model.png" style="width: 800px;" /></a>
 <p>We can see that now, we have an example input ready for us in the schema view, which
 makes testing with the interactive docs much faster, but the most important feature
@@ -307,7 +309,7 @@ we get is validation of the input. Let’s try to change the value of “col1”
 </div>
 <p>Which tells us that the value of “col1” in “data” in the request body is not a valid list.
 If we had used no type hinting or instead used a dictionary we would not get this
-level of control of what data we accept into the function, which invites many
+level of control of what data we accept into the entrypoint, which invites many
 bugs due to data validation issues.</p>
 </div>
 <div class="section" id="custom-validation">

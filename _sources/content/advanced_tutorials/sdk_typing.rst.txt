@@ -45,13 +45,13 @@ example it would be::
 
 The :py:class:`BaseModel` helps the API to know what format the input json should
 conform to. If the request body of your API call does not match the model it will
-send a 422 HTTP-error with a error description.
+send a 422 HTTP-error with an error description.
 
 Let's create a new service that will take data in a schema similar to
 :py:class:`IrisData` and respond with the sum of its rows:
 
 >>> mvi init
-Active host: http://<your-host>
+Active host: http://your-host
 project_name [my_project]: row_sum_service
 
 Then in `service.py` write the following code::
@@ -91,7 +91,7 @@ And add `pydantic` and `pandas` to `requirements.txt`::
 And deploy the new service:
 
 >>> mvi deploy row_sum 1.0.0 ./row_sum_service
-Active host: http://<your-host>
+Active host: http://your-host
 Deploying service...
 Service deployed successfully
 MAIN    NAME     VERSION    STATUS    RUNNING
@@ -99,7 +99,7 @@ MAIN    NAME     VERSION    STATUS    RUNNING
 *       row_sum  1.0.0      running   Running (since 2020-11-24 10:11:37)
 
 Now if we head on to the automatic documentation at
-http://<your-host>/services/row_sum/docs you should see the following:
+http://your-host/services/row_sum/docs you should see the following:
 
 .. image:: ../img/data_model.png
   :width: 800
@@ -139,7 +139,7 @@ And we get the response 422	Error: Unprocessable Entity::
 
 Which tells us that the value of "col1" in "data" in the request body is not a valid list.
 If we had used no type hinting or instead used a dictionary we would not get this
-level of control of what data we accept into the function, which invites many
+level of control of what data we accept into the entrypoint, which invites many
 bugs due to data validation issues.
 
 Custom Validation

@@ -105,8 +105,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -184,15 +186,18 @@
 fastest and easiest way to interact with the Manager is to use the
 <a class="reference internal" href="../api_reference/cli.html#cli-reference"><span class="std std-ref">Command-line Interface</span></a> (CLI). The CLI contains a host of useful commands that make
 the deployment and monitoring of services fast and painless.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>You can call <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">--help</span></code> at any time, to get a list and short description of
 the available commands and <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">&lt;COMMAND&gt;</span> <span class="pre">--help</span></code> to get a longer description
 of that command.</p>
+</div>
 <div class="section" id="logging-in-to-the-manager">
 <h2>Logging in to the Manager<a class="headerlink" href="#logging-in-to-the-manager" title="Permalink to this headline">¶</a></h2>
 <p>The first step is to login to the host where MVI is running. To do this,
 we call the login command:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span>
-<span class="go">Enter MVI host: http://&lt;your-host&gt;</span>
+<span class="go">Enter MVI host: http://&lt;your-host</span>
 <span class="go">Username: &lt;username&gt;</span>
 <span class="go">Password: &lt;password&gt;</span>
 </pre></div>
@@ -251,14 +256,17 @@ specify the path to the project directory.</p>
 <span class="go">*       my_first_service  0.0.1      running   Running (since 2020-11-20 15:48:45)</span>
 </pre></div>
 </div>
-<p>If you open <a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt; in your browser you should see the dashboard where you
+<p>If you open <a class="reference external" href="http://your-host">http://your-host</a> in your browser you should see the dashboard where you
 can get much of the same information as through the CLI. And at
-<a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt;/services/my_first_service_0.0.1/docs you can read the automated
+<a class="reference external" href="http://your-host/services/my_first_service_0.0.1/docs">http://your-host/services/my_first_service_0.0.1/docs</a> you can read the automated
 API documentation of the service and test its functionality.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>To communicate with your services from outside of the documentation you can use
 any HTTP library, which are available in most programming languages. In python
 <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a> is commonly used, or
 <a class="reference external" href="https://curl.se/">curl</a> in bash.</p>
+</div>
 </div>
 <div class="section" id="killing-a-service">
 <h2>Killing a Service<a class="headerlink" href="#killing-a-service" title="Permalink to this headline">¶</a></h2>

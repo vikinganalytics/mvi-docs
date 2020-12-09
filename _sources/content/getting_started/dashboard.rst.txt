@@ -4,17 +4,17 @@ Dashboard
 =========
 
 MVI creates a dashboard that shows information about the services in a graphical
-interface. The dashboard can be reached at the host url: http://<your-host> after
+interface. The dashboard can be reached at the host url: http://your-host after
 logging in. It consists of two tabs: services and notifications.
 
 Services
 --------
 
 Here you can see all the running services on this host. It shows similar information
-to the ``mvi ls`` CLI command, such as service name, version, state, etc. There is
-also a link to the service logs that links to a raw text output of that service's
-logs, which can be very convenient when debugging. The same logs can be reached
-using ``mvi logs`` in the CLI.
+to the ``mvi ls`` CLI command, such as service name, version, state, etc. There are
+also links to the service logs and API documentation, which can be very convenient
+when debugging a new service. The same logs can be reached using ``mvi logs`` in the
+CLI.
 
 Notifications
 -------------

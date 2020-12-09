@@ -102,8 +102,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
@@ -178,15 +180,15 @@
   <div class="section" id="dashboard">
 <span id="dashboard-reference"></span><h1>Dashboard<a class="headerlink" href="#dashboard" title="Permalink to this headline">¶</a></h1>
 <p>MVI creates a dashboard that shows information about the services in a graphical
-interface. The dashboard can be reached at the host url: <a class="reference external" href="http:/">http:/</a>/&lt;your-host&gt; after
+interface. The dashboard can be reached at the host url: <a class="reference external" href="http://your-host">http://your-host</a> after
 logging in. It consists of two tabs: services and notifications.</p>
 <div class="section" id="services">
 <h2>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h2>
 <p>Here you can see all the running services on this host. It shows similar information
-to the <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">ls</span></code> CLI command, such as service name, version, state, etc. There is
-also a link to the service logs that links to a raw text output of that service’s
-logs, which can be very convenient when debugging. The same logs can be reached
-using <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">logs</span></code> in the CLI.</p>
+to the <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">ls</span></code> CLI command, such as service name, version, state, etc. There are
+also links to the service logs and API documentation, which can be very convenient
+when debugging a new service. The same logs can be reached using <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">logs</span></code> in the
+CLI.</p>
 </div>
 <div class="section" id="notifications">
 <h2>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h2>
