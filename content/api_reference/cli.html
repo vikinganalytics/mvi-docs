@@ -171,8 +171,135 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="command-line-interface">
-<span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-mvi.cli">
+<span id="command-line-interface"></span><span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#module-mvi.cli" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="mvi.cli.assign">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">assign</code><span class="sig-paren">(</span><em class="sig-param">name: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: str = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.assign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes main service to the service specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the service to change to primary.</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Version of the service to change to primary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the user does not validate the assign.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.deploy">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">deploy</code><span class="sig-paren">(</span><em class="sig-param">name: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">source: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">port: Optional[int] = &lt;typer.models.OptionInfo object&gt;</em>, <em class="sig-param">image_flag: Optional[bool] = &lt;typer.models.OptionInfo object&gt;</em>, <em class="sig-param">git_flag: Optional[bool] = &lt;typer.models.OptionInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a new service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the new service.</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Version of the new service.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – Path to the source of the service.</p></li>
+<li><p><strong>port</strong> (<em>int</em><em>, </em><em>optional</em>) – Internal port for the service.</p></li>
+<li><p><strong>image_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Indicate that an image is
+being used for creating the service. Default False.</p></li>
+<li><p><strong>git_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Indicate that a git repository
+is being used for creating the service. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the user specifies both the -i and the -g option.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.init">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">path: Optional[pathlib.Path] = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates skeleton code for a new MVI project</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Project generation output directory.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the output directory could not be found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.kill">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">kill</code><span class="sig-paren">(</span><em class="sig-param">name: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">all_: Optional[bool] = &lt;typer.models.OptionInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill one or multiple services by name and version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the service(s) to kill. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service to kill. Defaults to None.</p></li>
+<li><p><strong>all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Kill all services. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.login">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login to the specified host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.logs">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">logs</code><span class="sig-paren">(</span><em class="sig-param">name: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the logs for a service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the service. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the service name is not provided or the service cannot be found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.ls">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">ls</code><span class="sig-paren">(</span><em class="sig-param">name: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>List running services, filtered by name and version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – List services with this name. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – List services of a certain name with this
+version. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.token">
+<code class="sig-prename descclassname">mvi.cli.</code><code class="sig-name descname">token</code><span class="sig-paren">(</span><em class="sig-param">lifetime: Optional[int] = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new authentication token</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lifetime</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Number of days the token should be valid.mvi
+Default to None which correpsonds to a long-lived token.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

@@ -252,7 +252,7 @@ mvi service and logger objects:</p>
 </pre></div>
 </div>
 <p>The classifier has a predict function that we want to use. To do this we create a
-<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint using the <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.entrypoint" title="mvi.mvi.MviService.entrypoint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code></a>
 decorator:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
@@ -266,7 +266,7 @@ decorator:</p>
 <p>This entrypoint takes a dictionary as input data and returns a list of predictions.
 It writes the recieved data to the logger, predicts using the data, prints and
 returns the predictions as a list.</p>
-<p>We end <cite>service.py</cite> with the <code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code> method:</p>
+<p>We end <cite>service.py</cite> with the <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.run" title="mvi.mvi.MviService.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>

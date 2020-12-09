@@ -187,9 +187,9 @@ in the early stages.</p>
 <div class="section" id="monitoring-variables">
 <h2>Monitoring Variables<a class="headerlink" href="#monitoring-variables" title="Permalink to this headline">¶</a></h2>
 <p>To monitor the value of a variable in the code you can use the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> function. It takes an arbitrary number of keyword
+<a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.store" title="mvi.mvi.store"><code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code></a> function. It takes an arbitrary number of keyword
 arguments and saves their values in a time-series database, where they can be
-retrieved at a later time. <code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> supports integer,
+retrieved at a later time. <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.store" title="mvi.mvi.store"><code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code></a> supports integer,
 float and string data. Let’s use the <cite>hello</cite> service as an example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">store</span>
@@ -215,7 +215,7 @@ float and string data. Let’s use the <cite>hello</cite> service as an example:
 <h2>Monitoring an Entrypoint<a class="headerlink" href="#monitoring-an-entrypoint" title="Permalink to this headline">¶</a></h2>
 <p>It is also possible to automatically monitor the input and output of a service
 entrypoint. To do this we pass <code class="docutils literal notranslate"><span class="pre">monitor=True</span></code> to the
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code> decorator:</p>
+<a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.entrypoint" title="mvi.mvi.MviService.entrypoint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code></a> decorator:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">store</span>
 
