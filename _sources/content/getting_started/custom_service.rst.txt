@@ -47,6 +47,8 @@ add parameters and start the service. The logger is just a regular python loggin
 object, which MVI natively supports. The logs from a service can be read from the
 dashboard or using ``mvi logs <name> <version>``.
 
+.. _custom-service_defining_parameters-reference:
+
 Defining parameters
 -------------------
 
@@ -62,6 +64,18 @@ To use the parameter in the code you do::
 
 This way you can control the behaviour of your running services without having
 to make any code changes. We recommend using this for e.g. tuning parameters.
+
+These parameters can be changed via the docs of the service, see :ref:`autodocs-reference` for how to do it.
+Another way to change these parameters is by sending HTTP POST requests directly, for instance via pythons `requests <https://requests.readthedocs.io/en/master/>`_ library.
+
+Example of changing the ``greeting_phrase`` parameter for this service::
+
+    json_data = {"greeting_phrase": "Bonjour"}
+
+    response = requests.post(
+        "http:://<host>/services/<my_service>/parameters/greeting_phrase",
+        json=json_data,
+        headers={"Authorization": f"Bearer {TOKEN}"})
 
 Creating an Entrypoint
 ----------------------

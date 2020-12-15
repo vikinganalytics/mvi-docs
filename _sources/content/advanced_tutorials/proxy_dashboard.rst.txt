@@ -1,6 +1,6 @@
 .. _proxy-dashboard-reference:
 
-Proxy dashboard
+Proxy Dashboard
 ===============
 
 All external communication to the MVI manager happens through a proxy.

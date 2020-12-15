@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,38 +11,42 @@
   
 
   
-  
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Deploying Your First Service" href="content/getting_started/first_service.html" /> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  
+  
+  
 
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MultiViz Integrator" href="content/overview/mvi_description.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -73,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -80,8 +84,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/first_service.html">Deploying Your First Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/custom_service.html">Creating Your Own service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/dashboard.html">Dashboard</a></li>
@@ -100,8 +109,11 @@
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
@@ -113,6 +125,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -151,7 +164,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
       <li>Welcome to the Multiviz Integrator documentation!</li>
     
@@ -174,16 +187,30 @@
             
   <div class="section" id="welcome-to-the-multiviz-integrator-documentation">
 <h1>Welcome to the Multiviz Integrator documentation!<a class="headerlink" href="#welcome-to-the-multiviz-integrator-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Multiviz Integrator (MVI) is a software deployment tool that is perfect for
+<p>MultiViz Integrator (MVI) is a software deployment tool that is perfect for
 smaller applications where Time-to-Market and ease of use is more important than
 scalability to tens of thousands of users and requests.</p>
 <p>MVI strives to make writing and deploying services (small applications) as quick
 and easy as possible without requiring much, or any, prior knowledge
 and experience. We want Data Scientists and Algorithm Engineers to spend their time
 doing what they love and less time writing <cite>flask</cite> API:s and <cite>dockerfiles</cite>.</p>
+<div class="section" id="viking-analytics-ab">
+<h2>Viking Analytics AB<a class="headerlink" href="#viking-analytics-ab" title="Permalink to this headline">¶</a></h2>
+<p>MultiViz Integrator is developed by Viking Analytics AB. Viking Analytics is a
+computer software and services company founded in 2017 and headquartered in
+Gothenburg, Sweden. Our vision is to enable our customers to unlock the potential
+in their data. For more information, head to our homepage <a class="reference external" href="https://vikinganalytics.se/">https://vikinganalytics.se/</a>.
+If you want to get in contact, you can reach us at <a class="reference external" href="mailto:info&#37;&#52;&#48;vikinganalytics&#46;se">info<span>&#64;</span>vikinganalytics<span>&#46;</span>se</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+</div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/first_service.html">Deploying Your First Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/custom_service.html">Creating Your Own service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/getting_started/dashboard.html">Dashboard</a></li>
@@ -204,8 +231,11 @@ doing what they love and less time writing <cite>flask</cite> API:s and <cite>do
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
 </div>
@@ -215,6 +245,7 @@ doing what they love and less time writing <cite>flask</cite> API:s and <cite>do
 <li class="toctree-l1"><a class="reference internal" href="content/api_reference/cli.html">Command-line Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/api_reference/sdk.html">Software Development Kit</a></li>
 </ul>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -234,7 +265,7 @@ doing what they love and less time writing <cite>flask</cite> API:s and <cite>do
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="content/getting_started/first_service.html" class="btn btn-neutral float-right" title="Deploying Your First Service" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="content/overview/mvi_description.html" class="btn btn-neutral float-right" title="MultiViz Integrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -244,11 +275,19 @@ doing what they love and less time writing <cite>flask</cite> API:s and <cite>do
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Viking Analytics AB
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -260,34 +299,16 @@ doing what they love and less time writing <cite>flask</cite> API:s and <cite>do
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

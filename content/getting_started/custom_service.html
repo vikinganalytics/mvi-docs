@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,39 +11,43 @@
   
 
   
-  
-  
-  
-
-  
-
-  
-  
-    
-
-  
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Dashboard" href="dashboard.html" />
     <link rel="prev" title="Deploying Your First Service" href="first_service.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -74,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -81,8 +85,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="first_service.html">Deploying Your First Service</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Creating Your Own service</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
@@ -111,8 +120,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
@@ -124,6 +136,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -162,7 +175,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Creating Your Own service</li>
     
@@ -227,7 +240,7 @@ object, which MVI natively supports. The logs from a service can be read from th
 dashboard or using <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">logs</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;version&gt;</span></code>.</p>
 </div>
 <div class="section" id="defining-parameters">
-<h2>Defining parameters<a class="headerlink" href="#defining-parameters" title="Permalink to this headline">¶</a></h2>
+<span id="custom-service-defining-parameters-reference"></span><h2>Defining parameters<a class="headerlink" href="#defining-parameters" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to define variables that automatically get exposed to the API and
 can be freely changed from outside a running service:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
@@ -239,6 +252,17 @@ can be freely changed from outside a running service:</p>
 </div>
 <p>This way you can control the behaviour of your running services without having
 to make any code changes. We recommend using this for e.g. tuning parameters.</p>
+<p>These parameters can be changed via the docs of the service, see <a class="reference internal" href="autodocs.html#autodocs-reference"><span class="std std-ref">API Autodocs</span></a> for how to do it.
+Another way to change these parameters is by sending HTTP POST requests directly, for instance via pythons <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a> library.</p>
+<p>Example of changing the <code class="docutils literal notranslate"><span class="pre">greeting_phrase</span></code> parameter for this service:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">:</span> <span class="s2">&quot;Bonjour&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;http:://&lt;host&gt;/services/&lt;my_service&gt;/parameters/greeting_phrase&quot;</span><span class="p">,</span>
+    <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">TOKEN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="creating-an-entrypoint">
 <h2>Creating an Entrypoint<a class="headerlink" href="#creating-an-entrypoint" title="Permalink to this headline">¶</a></h2>
@@ -350,7 +374,7 @@ manager <a class="reference internal" href="dashboard.html#dashboard-reference">
         <a href="dashboard.html" class="btn btn-neutral float-right" title="Dashboard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="first_service.html" class="btn btn-neutral" title="Deploying Your First Service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="first_service.html" class="btn btn-neutral float-left" title="Deploying Your First Service" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -359,11 +383,19 @@ manager <a class="reference internal" href="dashboard.html#dashboard-reference">
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Viking Analytics AB
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -375,34 +407,16 @@ manager <a class="reference internal" href="dashboard.html#dashboard-reference">
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'../../',
-            VERSION:'',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="../../_static/jquery.js"></script>
-      <script type="text/javascript" src="../../_static/underscore.js"></script>
-      <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="../../_static/language_data.js"></script>
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
