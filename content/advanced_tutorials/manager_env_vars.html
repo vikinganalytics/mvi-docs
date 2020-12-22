@@ -29,7 +29,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -108,7 +107,8 @@
 <li class="toctree-l1"><a class="reference internal" href="sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Manager Environment Variables</a></li>
@@ -257,8 +257,27 @@
 <td><p>null</p></td>
 <td><p>Port to SMTP server, usually 587 or 465.</p></td>
 </tr>
+<tr class="row-even"><td><p>MVI_ACTIVATION_KEY</p></td>
+<td><p>“”</p></td>
+<td><p>License activation key. Without key Manager lives for 12h.</p></td>
+</tr>
 </tbody>
 </table>
+<p>The example below starts a Manager instance that is listening on <code class="docutils literal notranslate"><span class="pre">my.domain.com</span></code>, enforcing traffic over https with access
+control enabled and being activated using a provided activation key:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker run
+    --name mvi_manager
+    -v /var/run/docker.sock:/var/run/docker.sock
+    -v mvi_data:/data
+    -p <span class="m">80</span>:80
+    -p <span class="m">443</span>:443
+    -e <span class="nv">MVI_HOST_NAME</span><span class="o">=</span>my.domain.com
+    -e <span class="nv">MVI_PROXY_HTTPS</span><span class="o">=</span>True
+    -e <span class="nv">MVI_AUTH_ENABLED</span><span class="o">=</span>True
+    -e <span class="nv">MVI_ACTIVATION_KEY</span><span class="o">=</span>...
+    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
+</pre></div>
+</div>
 </div>
 
 

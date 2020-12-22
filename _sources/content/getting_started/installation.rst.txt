@@ -21,14 +21,46 @@ The Manager
 To install the Manager, you first have to have `Docker <https://docs.docker.com/>`_
 installed.
 
-Given a `manager.tar` file, install it by calling::
+The Manager application runs as a single docker container and the only thing needed to
+get started is a Manager docker image. There are two ways of getting your hands on an
+image:
 
-    docker load -i path/to/manager.tar
-    docker volume create mvi_data
-    docker run --name mvi_manager -v /var/run/docker.sock:/var/run/docker.sock -v mvi_data:/data -p 80:80 -p 443:443 -e MVI_HOST_NAME="your-host-name" -e MVI_AUTH_ENABLED=True -d vikinganalyticsab/mvi_manager:latest
+- By means of pulling a docker image from Viking Analytics container registry. Viking Analytics
+  leverage the built-in container registry in Github (ghcr.io) so in order to get access, a github
+  account with access rights is needed (please contact Viking Analytics!):
 
-Where you change ``"your-host-name"`` to the URL or ip-adress you have for that
-machine or ``"localhost"`` if running locally.
+  .. code-block:: shell
+
+      docker login ghcr.io
+      docker pull ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
+
+- By means of getting an exported docker image (tar-file) directly from Viking Analytics:
+
+  .. code-block:: shell
+
+      docker load -i path/to/mvi_manager.tar
+
+
+Once a Manager docker image is available on your system, a Manager container can be started using
+a regular ``docker run`` command. A minimal example is given below:
+
+.. code-block:: shell
+
+    # We create a docker volume for keeping our data persistent across restarts/upgrades
+    docker volume create mvi_data  
+
+    # Start a Manager instance in detached mode
+    docker run 
+        --name mvi_manager 
+        -v /var/run/docker.sock:/var/run/docker.sock 
+        -v mvi_data:/data 
+        -p 80:80 
+        -p 443:443 
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
+
+This will start a Manager instance listening on ``localhost`` without any access control which is probably what you want
+if running locally as a test/development setup. For production usage, please refer
+to :ref:`manager-env-vars-reference` for details about available configuration options!
 
 License Activation
 ^^^^^^^^^^^^^^^^^^
@@ -38,7 +70,7 @@ you can use without restrictions up to 12 hours. In order to use the Manager for
 continuously running applications you will need to activate it using an Activation Key.
 
 To activate the Manager with an Activation Key, start it by adding the following flag
-to the above `docker run` command::
+to the above ``docker run`` command::
 
     docker run --name mvi_manager ... -e MVI_ACTIVATION_KEY="your activation key" ... -d vikinganalyticsab/mvi_manager:latest
 

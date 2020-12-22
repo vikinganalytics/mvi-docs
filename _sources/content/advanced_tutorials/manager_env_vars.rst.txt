@@ -1,3 +1,4 @@
+
 .. _manager-env-vars-reference:
 
 Manager Environment Variables
@@ -34,3 +35,23 @@ Manager Environment Variables
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
 | MVI_NOTIFICATION_SMTP_PORT             | null                  | Port to SMTP server, usually 587 or 465.                    |
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_ACTIVATION_KEY                     | ""                    | License activation key. Without key Manager lives for 12h.  |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+
+
+The example below starts a Manager instance that is listening on ``my.domain.com``, enforcing traffic over https with access
+control enabled and being activated using a provided activation key:
+
+.. code-block:: shell
+
+    docker run
+        --name mvi_manager
+        -v /var/run/docker.sock:/var/run/docker.sock
+        -v mvi_data:/data
+        -p 80:80
+        -p 443:443
+        -e MVI_HOST_NAME=my.domain.com
+        -e MVI_PROXY_HTTPS=True
+        -e MVI_AUTH_ENABLED=True
+        -e MVI_ACTIVATION_KEY=...
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}

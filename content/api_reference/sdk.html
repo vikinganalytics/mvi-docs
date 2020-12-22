@@ -29,7 +29,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -107,7 +106,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
@@ -243,7 +243,7 @@ every <cite>seconds</cite>.</p>
 
 <dl class="py method">
 <dt id="mvi.mvi.MviService.entrypoint">
-<code class="sig-name descname">entrypoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">monitor</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">fastapi_kwargs</span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#mvi.mvi.MviService.entrypoint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">entrypoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Callable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">monitor</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">fastapi_kwargs</span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#mvi.mvi.MviService.entrypoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a function as an entrypoint, which will make it reachable
 as an HTTP method on your host machine.</p>
 <p>Decorate a function with this method to create an entrypoint for it:</p>
@@ -341,12 +341,13 @@ entrypoints etc for the service has been specified</p>
 
 <dl class="py function">
 <dt id="mvi.mvi.call_service">
-<code class="sig-prename descclassname">mvi.mvi.</code><code class="sig-name descname">call_service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">entrypoint_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">arguments</span><span class="p">:</span> <span class="n">dict</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">service_version</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#mvi.mvi.call_service" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mvi.mvi.</code><code class="sig-name descname">call_service</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">entrypoint_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">arguments</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">service_version</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">request_kwargs</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#mvi.mvi.call_service" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call an entrypoint in a different service.</p>
 <p>Example usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">call_service</span><span class="p">(</span>
     <span class="n">service_name</span><span class="o">=</span><span class="s2">&quot;data_connector&quot;</span><span class="p">,</span>
     <span class="n">entrypoint_name</span><span class="o">=</span> <span class="s2">&quot;get_data&quot;</span><span class="p">,</span>
+    <span class="n">arguments</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variable_name&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -361,6 +362,7 @@ jsonable_encoder, otherwise it won’t be reachable.</p></li>
 In the form: {“argument_name”: value, …}. Default None.</p></li>
 <li><p><strong>service_version</strong> (<em>str</em>) – The specific version of the service to call.
 Default None, the main version and the shadows versions will be called.</p></li>
+<li><p><strong>**request_kwargs</strong> – Keyword arguments to pass on to :func:<code class="docutils literal notranslate"><span class="pre">requests.post</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -402,7 +404,7 @@ Default None, the main version and the shadows versions will be called.</p></li>
 
 <dl class="py function">
 <dt id="mvi.mvi.notify">
-<code class="sig-prename descclassname">mvi.mvi.</code><code class="sig-name descname">notify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">severity</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#mvi.mvi.Severity" title="mvi.mvi.Severity">mvi.mvi.Severity</a></span></em>, <em class="sig-param"><span class="n">dashboard</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">emails</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timer</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.mvi.notify" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mvi.mvi.</code><code class="sig-name descname">notify</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">msg</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">severity</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#mvi.mvi.Severity" title="mvi.mvi.Severity">mvi.mvi.Severity</a></span></em>, <em class="sig-param"><span class="n">dashboard</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">emails</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timer</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.mvi.notify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates and sends a notification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

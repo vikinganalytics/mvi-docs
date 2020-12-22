@@ -29,7 +29,6 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -115,7 +114,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
@@ -210,21 +210,49 @@ install MVI with:</p>
 <h2>The Manager<a class="headerlink" href="#the-manager" title="Permalink to this headline">¶</a></h2>
 <p>To install the Manager, you first have to have <a class="reference external" href="https://docs.docker.com/">Docker</a>
 installed.</p>
-<p>Given a <cite>manager.tar</cite> file, install it by calling:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">load</span> <span class="o">-</span><span class="n">i</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">manager</span><span class="o">.</span><span class="n">tar</span>
-<span class="n">docker</span> <span class="n">volume</span> <span class="n">create</span> <span class="n">mvi_data</span>
-<span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">mvi_manager</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span> <span class="o">-</span><span class="n">v</span> <span class="n">mvi_data</span><span class="p">:</span><span class="o">/</span><span class="n">data</span> <span class="o">-</span><span class="n">p</span> <span class="mi">80</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span><span class="n">p</span> <span class="mi">443</span><span class="p">:</span><span class="mi">443</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_HOST_NAME</span><span class="o">=</span><span class="s2">&quot;your-host-name&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_AUTH_ENABLED</span><span class="o">=</span><span class="kc">True</span> <span class="o">-</span><span class="n">d</span> <span class="n">vikinganalyticsab</span><span class="o">/</span><span class="n">mvi_manager</span><span class="p">:</span><span class="n">latest</span>
+<p>The Manager application runs as a single docker container and the only thing needed to
+get started is a Manager docker image. There are two ways of getting your hands on an
+image:</p>
+<ul>
+<li><p>By means of pulling a docker image from Viking Analytics container registry. Viking Analytics
+leverage the built-in container registry in Github (ghcr.io) so in order to get access, a github
+account with access rights is needed (please contact Viking Analytics!):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker login ghcr.io
+docker pull ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
 </pre></div>
 </div>
-<p>Where you change <code class="docutils literal notranslate"><span class="pre">&quot;your-host-name&quot;</span></code> to the URL or ip-adress you have for that
-machine or <code class="docutils literal notranslate"><span class="pre">&quot;localhost&quot;</span></code> if running locally.</p>
+</li>
+<li><p>By means of getting an exported docker image (tar-file) directly from Viking Analytics:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker load -i path/to/mvi_manager.tar
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Once a Manager docker image is available on your system, a Manager container can be started using
+a regular <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command. A minimal example is given below:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># We create a docker volume for keeping our data persistent across restarts/upgrades</span>
+docker volume create mvi_data
+
+<span class="c1"># Start a Manager instance in detached mode</span>
+docker run
+    --name mvi_manager
+    -v /var/run/docker.sock:/var/run/docker.sock
+    -v mvi_data:/data
+    -p <span class="m">80</span>:80
+    -p <span class="m">443</span>:443
+    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
+</pre></div>
+</div>
+<p>This will start a Manager instance listening on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> without any access control which is probably what you want
+if running locally as a test/development setup. For production usage, please refer
+to <a class="reference internal" href="../advanced_tutorials/manager_env_vars.html#manager-env-vars-reference"><span class="std std-ref">Manager Environment Variables</span></a> for details about available configuration options!</p>
 <div class="section" id="license-activation">
 <h3>License Activation<a class="headerlink" href="#license-activation" title="Permalink to this headline">¶</a></h3>
 <p>Starting the Manager according to above will give you a short-lived trial instance that
 you can use without restrictions up to 12 hours. In order to use the Manager for
 continuously running applications you will need to activate it using an Activation Key.</p>
 <p>To activate the Manager with an Activation Key, start it by adding the following flag
-to the above <cite>docker run</cite> command:</p>
+to the above <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">mvi_manager</span> <span class="o">...</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_ACTIVATION_KEY</span><span class="o">=</span><span class="s2">&quot;your activation key&quot;</span> <span class="o">...</span> <span class="o">-</span><span class="n">d</span> <span class="n">vikinganalyticsab</span><span class="o">/</span><span class="n">mvi_manager</span><span class="p">:</span><span class="n">latest</span>
 </pre></div>
 </div>
