@@ -13,26 +13,27 @@ Monitoring Variables
 --------------------
 
 To monitor the value of a variable in the code you can use the
-:py:func:`~mvi.mvi.store` function. It takes an arbitrary number of keyword
+:py:func:`~mvi.service.store` function. It takes an arbitrary number of keyword
 arguments and saves their values in a time-series database, where they can be
-retrieved at a later time. :py:func:`~mvi.mvi.store` supports integer,
-float and string data. Let's use the `hello` service as an example::
+retrieved at a later time. :py:func:`~mvi.service.store` supports integer,
+float and string data. Let's use the `hello` service as an example
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, store
+    from mvi import service
     
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
-    mvi.add_parameter("greeting_phrase", "Hello")
+    service.add_parameter("greeting_phrase", "Hello")
 
-    @mvi.entrypoint
+    @service.entrypoint
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        greeting_phrase = service.get_parameter("greeting_phrase")
         logger.info(f"Greeting someone with the name: {name}")
         
         # Now the name and greeting will be stored everytime this function is called
-        store(name=name, greeting=greeting_phrase)
+        service.store(name=name, greeting=greeting_phrase)
 
         return f"{greeting_phrase} {name}"
 
@@ -41,20 +42,21 @@ Monitoring an Entrypoint
 
 It is also possible to automatically monitor the input and output of a service
 entrypoint. To do this we pass ``monitor=True`` to the 
-:py:meth:`~mvi.mvi.MviService.entrypoint` decorator::
+:py:meth:`~mvi.service.entrypoint` decorator
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, store
+    from mvi import service
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
-    mvi.add_parameter("greeting_phrase", "Hello")
+    service.add_parameter("greeting_phrase", "Hello")
 
     # Now the input and output of this entrypoint is stored after each call 
-    @mvi.entrypoint(monitor=True)
+    @service.entrypoint(monitor=True)
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        greeting_phrase = service.get_parameter("greeting_phrase")
         logger.info(f"Greeting someone with the name: {name}")
         return f"{greeting_phrase} {name}"
 
@@ -64,21 +66,22 @@ formats.
 Monitoring a Parameter
 ----------------------
 
-Parameters set with :py:func:`~mvi.mvi.add_parameter` can also be monitored by passing
-``monitor=True``, which also supports integer, float and string data::
+Parameters set with :py:func:`~mvi.service.add_parameter` can also be monitored by passing
+``monitor=True``, which also supports integer, float and string data
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, store
+    from mvi import service
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
     # Now the value of ``"greeting_phrase"`` is stored every time it's updated
-    mvi.add_parameter("greeting_phrase", "Hello", monitor=True)
+    service.add_parameter("greeting_phrase", "Hello", monitor=True)
 
-    @mvi.entrypoint
+    @service.entrypoint
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        greeting_phrase = service.get_parameter("greeting_phrase")
         logger.info(f"Greeting someone with the name: {name}")
         return f"{greeting_phrase} {name}"
 

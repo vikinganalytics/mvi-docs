@@ -16,7 +16,7 @@ With this connection, you can subscribe to time-series data of your monitored va
 This connection is handled by a separate and independent service, called mv_connector, which needs to be deployed besides your already deployed services.
 The easiest way to deploy the mv_connector service is to run: 
 
->>> mvi deploy mv_connector 1.0.0 -g https://github.com/vikinganalytics/mvi-mvx-connector
+>>> mvi deploy mv_connector 1.0.0 -g https://github.com/vikinganalytics/mvi-mvx-connector # doctest: +SKIP
 
 For the mv_connector service a few mvi parameters need to be set: 
 

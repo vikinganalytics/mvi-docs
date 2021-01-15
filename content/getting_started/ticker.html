@@ -113,12 +113,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -195,16 +198,16 @@
 <span id="ticker"></span><h1>Schedule Repeating Actions<a class="headerlink" href="#schedule-repeating-actions" title="Permalink to this headline">¶</a></h1>
 <p>Every now and then you reach the point where you need some part of your code to be called
 continuously at a certain interval. May it be every second, 24 hours or two months.</p>
-<p>For this, MVI contain the <cite>call_every</cite> decorator that can be used as such:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span>
+<p>For this, MVI contain the <cite>call_every</cite> decorator that can be used as such</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">call_every</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">call_every</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">heartbeat</span><span class="p">():</span>
     <span class="c1"># do something every minute</span>
+    <span class="k">pass</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>By using this decorator, MVI will take care of calling your decorated fuction at the specified interval.
@@ -226,7 +229,7 @@ adhere to this requirement.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

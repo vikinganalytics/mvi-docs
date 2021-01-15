@@ -11,7 +11,7 @@ Luckily this is very simple and is done with the ``mvi login`` command just like
 the first time you logged in. If you run the command now, you should see someting
 like this:
 
->>> mvi login
+>>> mvi login # doctest: +SKIP
 Current hosts:
 0 - http://your-host
 Enter MVI host: 
@@ -19,7 +19,7 @@ Enter MVI host:
 Type in the URL to the new host and your username + password and you will be 
 logged in to the new host:
 
->>> mvi login
+>>> mvi login # doctest: +SKIP
 Current hosts:
 0 - http://your-host
 Enter MVI host: http://your-new-host
@@ -31,7 +31,7 @@ Changed host to http://your-new-host
 Now if you call ``mvi ls`` you should see an empty list of services and a reminder
 of your current host:
 
->>> mvi ls
+>>> mvi ls # doctest: +SKIP
 Active host: http://your-new-host
 MAIN    NAME    VERSION    STATUS    RUNNING
 ------  ------  ---------  --------  ---------
@@ -44,7 +44,7 @@ use ``mvi login``. This is to save you the effort of remembering and repeatedly
 typing in the same URLs. Say that we want to change back to http://your-host,
 then we can simply call ``mvi login`` again, and say that we want host 0:
 
->>> mvi login
+>>> mvi login # doctest: +SKIP
 Current hosts:
 0 - http://your-host
 1 - http://your-new-host

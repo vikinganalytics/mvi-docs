@@ -11,22 +11,17 @@ The MVI :ref:`sdk-reference` is built on top of
 So everything that can be done with the SDK can also be done with FastAPI, or any
 other web framework, but with more effort.
 
-To use FastAPI with MVI you can use the :obj:`app` object in :py:class:`MviService`.
-Some very basic boilerplate to do this could be::
+To use FastAPI with MVI you can use the :obj:`app` object in :py:mod:`mvi.service`.
+Some very basic boilerplate to do this could be
 
-    from mvi.mvi import MviService
+
+.. testcode::
+
+    from mvi import service
     
-    mvi = MviService()
-    app = mvi.app
+    app = service.app
 
     # Your code
 
-    mvi.run()
-
-
-Creating Service-Specific Dashboards
-------------------------------------
-
-`Plotly Dash <https://plotly.com/dash/>`_ enables you to write dashboards and user
-interfaces for your apps and can be used in your MVI services.
-
+    if __name__ == '__main__':
+        service.run()

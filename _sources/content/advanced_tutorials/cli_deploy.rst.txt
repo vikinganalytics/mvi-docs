@@ -21,7 +21,7 @@ service given a git repository with the same contents as the services we
 have deployed so far. It is functionally identical to deploying from a
 local directory. For now, it only supports public git repositories:
 
->>> mvi deploy --git my_service 1.0.0 https://github.com/sclorg/django-ex
+>>> mvi deploy --git my_service 1.0.0 https://github.com/sclorg/django-ex # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -35,7 +35,7 @@ SDK within the MVI framework. Similar to the ``--git`` option it only supports
 public images for now. Keep in mind that most pre-build images will not
 support the automatic interactive documentation:
 
->>> mvi deploy --image my_service2 1.0.0 traefik/whoami --port 80
+>>> mvi deploy --image my_service2 1.0.0 traefik/whoami --port 80 # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -69,8 +69,8 @@ to run properly can be specified when deploying the image via the ``/~image`` PO
 parameters for docker run which can be found `here <https://docker-py.readthedocs.io/en/stable/containers.html>`_.
 
 For instance, a docker image
-that requires ``privileged`` mode to run properly can be deployed like (using pythons request library)
-::
+that requires ``privileged`` mode to run properly can be deployed like (using pythons request library)::
+
     requests.post(
         url='https://<host>/~image,
         headers=<headers>,

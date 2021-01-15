@@ -6,7 +6,7 @@ Autocompletion
 The CLI supports autocompletion for file paths and service name and version after
 installation:
 
->>> mvi --install-completion bash
+>>> mvi --install-completion bash # doctest: +SKIP
 
 Press TAB to complete or press it twice to see which options match your current
 input.

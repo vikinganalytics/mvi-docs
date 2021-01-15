@@ -11,7 +11,7 @@ The Software Development Kit is available as a
 and comes packed with the Command-Line Interface. In your terminal of choice,
 install MVI with:
 
->>> pip install va-mvi
+>>> pip install va-mvi # doctest: +SKIP
 
 Check your installation by running: ``mvi --help`` in a terminal.
 
@@ -55,12 +55,15 @@ a regular ``docker run`` command. A minimal example is given below:
         -v /var/run/docker.sock:/var/run/docker.sock 
         -v mvi_data:/data 
         -p 80:80 
-        -p 443:443 
+        -p 443:443
+        --restart always
         -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
 
-This will start a Manager instance listening on ``localhost`` without any access control which is probably what you want
-if running locally as a test/development setup. For production usage, please refer
-to :ref:`manager-env-vars-reference` for details about available configuration options!
+.. warning:: This will start a Manager instance listening on ``localhost`` **without
+    access control and secured communication channels** which is probably what you want
+    if running locally as a test/development setup. However, such a setup should **never**
+    be exposed publicly to the internet! For production usage, please refer
+    to :ref:`manager-configuration-reference` for details about available configuration options!
 
 License Activation
 ^^^^^^^^^^^^^^^^^^
@@ -69,9 +72,5 @@ Starting the Manager according to above will give you a short-lived trial instan
 you can use without restrictions up to 12 hours. In order to use the Manager for
 continuously running applications you will need to activate it using an Activation Key.
 
-To activate the Manager with an Activation Key, start it by adding the following flag
-to the above ``docker run`` command::
-
-    docker run --name mvi_manager ... -e MVI_ACTIVATION_KEY="your activation key" ... -d vikinganalyticsab/mvi_manager:latest
-
-To get an Activation Key, please contact Viking Analytics.
+To get an Activation Key, please contact Viking Analytics. To see how to use an Activation Key,
+please refer to :ref:`manager-configuration-reference`.

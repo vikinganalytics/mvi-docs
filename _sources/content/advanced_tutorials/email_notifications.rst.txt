@@ -4,20 +4,21 @@ Email Notifications
 ===================
 
 If you remember from :ref:`custom-service-reference`, we created a `hello` service
-with a :func:`hello` entrypoint that took a name and responded with a greeting::
+with a :func:`hello` entrypoint that took a name and responded with a greeting_phrase
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, notify, Severity
+    from mvi import service
+    from mvi.communication import notify, Severity
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
-    mvi.add_parameter("greeting_phrase", "Hello")
+    service.add_parameter("greeting_phrase", "Hello")
 
-
-    @mvi.entrypoint
+    @service.entrypoint
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        greeting_phrase = service.get_parameter("greeting_phrase")
         if name == "World":
             notify(
                 msg="Someone is trying to greet the World, too time consuming. Skipping!",
@@ -27,8 +28,8 @@ with a :func:`hello` entrypoint that took a name and responded with a greeting::
         logger.info(f"Greeting someone with the name: {name}")
         return f"{greeting_phrase} {name}"
 
-
-    mvi.run()
+    if __name__ == '__main__':
+        service.run()
 
 If the user tried to greet "World", a notification would be raised, which could be
 viewed in the notification tab of the dashboard. In this tutorial we will see how
@@ -60,32 +61,36 @@ by setting four different environment variables at manager startup
 
 With the docker CLI:
 
->>> docker run -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -e MVI_AUTH_ENABLED=True -e MVI_NOTIFICATION_SENDER_EMAIL="email@address.com" -e MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD="password" -e MVI_NOTIFICATION_SMTP_SERVER="smtp.server.url" -e MVI_NOTIFICATION_SMTP_PORT=465 -d vikinganalyticsab/mvi_manager:latest
+>>> docker run -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -e MVI_AUTH_ENABLED=True -e MVI_NOTIFICATION_SENDER_EMAIL="email@address.com" -e MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD="password" -e MVI_NOTIFICATION_SMTP_SERVER="smtp.server.url" -e MVI_NOTIFICATION_SMTP_PORT=465 -d vikinganalyticsab/mvi_manager:latest # doctest: +SKIP
 
 If everything worked, an email will be sent from "email@address.com" to itself, to
 show that it successfully connected. Otherwise, as long as the manager could still
 start, any issues with the email configuration will be viewable on the notification
 tab in the dashboard.
+Some configuration of the Manager is also needed to get going, please refer to
+:ref:`manager-configuration-reference`.
 
 SDK Syntax
 ----------
 
-By default, :func:`~mvi.mvi.notify` with not send any emails. For a notification to
+By default, :func:`~mvi.communication.notify` with not send any emails. For a notification to
 become an email notification, you have to pass a list of email addresses to the ``emails``
-keyword argument of :func:`~mvi.mvi.notify`::
+keyword argument of :func:`~mvi.communication.notify`
+
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, notify, Severity
+    from mvi import service
+    from mvi.communication import notify, Severity
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
-    mvi.add_parameter("greeting_phrase", "Hello")
+    service.add_parameter("greeting_phrase", "Hello")
 
-
-    @mvi.entrypoint
+    @service.entrypoint
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        greeting_phrase = service.get_parameter("greeting_phrase")
         if name == "World":
             notify(
                 msg="Someone is trying to greet the World, too time consuming. Skipping!",
@@ -96,23 +101,27 @@ keyword argument of :func:`~mvi.mvi.notify`::
         logger.info(f"Greeting someone with the name: {name}")
         return f"{greeting_phrase} {name}"
 
+    if __name__ == '__main__':
+        service.run()
+
 To make the email recipients dynamically changeable, we can use this in conjunction with
-:func:`~mvi.mvi.MviService.add_parameter` like so::
+:func:`~mvi.service.add_parameter` like so
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, notify, Severity
+    from mvi import service
+    from mvi.communication import notify, Severity
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
-    mvi.add_parameter("greeting_phrase", "Hello")
-    mvi.add_parameter("emails", ["your@email.com"])
+    service.add_parameter("greeting_phrase", "Hello")
+    service.add_parameter("emails", ["your@email.com"])
 
-
-    @mvi.entrypoint
+    @service.entrypoint
     def hello(name: str) -> str:
-        greeting_phrase = mvi.get_parameter("greeting_phrase")
-        emails = mvi.get_parameter("emails")
+        greeting_phrase = service.get_parameter("greeting_phrase")
+        emails = service.get_parameter("emails")
         if name == "World":
             notify(
                 msg="Someone is trying to greet the World, too time consuming. Skipping!",
@@ -122,6 +131,9 @@ To make the email recipients dynamically changeable, we can use this in conjunct
             return "Greeting failed"
         logger.info(f"Greeting someone with the name: {name}")
         return f"{greeting_phrase} {name}"
+
+    if __name__ == '__main__':
+        service.run()
 
 This way, email addresses can be added and removed. You could of course use different emails
 for different notifications, so different stakeholders get notified of different things.

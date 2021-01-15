@@ -17,8 +17,11 @@ Let's create a simple classifier for the famous iris dataset in this example.
 We will not go into any detail about how it's done. There are plenty of tutorials
 online that go through this process::
 
+
     from sklearn.neighbors import KNeighborsClassifier
     from sklearn import datasets
+    import numpy as np
+    import pickle
 
     iris = datasets.load_iris(as_frame=True)
 
@@ -45,32 +48,33 @@ The Service
 
 Like we have done previously we use ``mvi init`` command to create a new project.
 
->>> mvi init
+>>> mvi init # doctest: +SKIP
 project_name [my_project]: iris_project
 
 The first thing we have to do is to create a directory in `iris_project` to put our
 model.
 
->>> mkdir iris_project/models
->>> mv classifier.pkl iris_project/models/
+>>> mkdir iris_project/models # doctest: +SKIP
+>>> mv classifier.pkl iris_project/models/ # doctest: +SKIP
 
 While it's fresh in our memory, let's add ``sklearn`` to the `requirements.txt` file,
 because while a pickled object does not require its dependencies to be imported, they
 still have to be installed. Now we are ready to start modifying `service.py`. 
-We make some imports, this time we need a few more packages than last time::
+We make some imports and initialize the logger, this time we need a few more packages than last time
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService
+    from mvi import service
     import pickle
     import pandas as pd
 
+    logger = logging.getLogger(__name__)
+
 The new imports from last time are ``pickle`` and ``pandas`` which we are going to
 use to load the model and transform our data. ``pandas`` is not a standard python
-package, so we have to add that to the `requirements.txt` file. Next we create the
-mvi service and logger objects::
+package, so we have to add that to the `requirements.txt` file. Next we create the logger object
 
-    mvi = MviService()
-    logger = logging.getLogger(__name__)
 
 We use pickle to unpack the model, which we want to do only once::
 
@@ -78,10 +82,12 @@ We use pickle to unpack the model, which we want to do only once::
         classifier = pickle.load(file_handle)
 
 The classifier has a predict method that we want to use. To do this we create a
-:py:func:`predict` entrypoint using the :py:meth:`~mvi.mvi.MviService.entrypoint` 
-decorator::
+:py:func:`predict` entrypoint using the :py:obj:`~mvi.service.entrypoint` 
+decoratore
 
-    @mvi.entrypoint
+.. testcode::
+
+    @service.entrypoint
     def predict(data: dict) -> list:
         df = pd.DataFrame(data)
         logger.info(f"Recieved data: \n{df}")
@@ -93,25 +99,24 @@ This entrypoint takes a dictionary as input data and returns a list of predictio
 It writes the recieved data to the logger, predicts using the data, prints and
 returns the predictions as a list.
 
-We end `service.py` with the :py:meth:`~mvi.mvi.MviService.run` method::
+We end `service.py` with the :py:meth:`~mvi.service.run` method::
 
-    mvi.run()
+    service.run()
 
 All together `service.py` looks like::
 
     import logging
-    from mvi.mvi import MviService
+    from mvi import service
     import pickle
     import pandas as pd
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
     with open("./model/classifier.pkl", "rb") as fp:
         classifier = pickle.load(fp)
 
 
-    @mvi.entrypoint
+    @service.entrypoint
     def predict(data: dict) -> list:
         df = pd.DataFrame(data)
         logger.info(f"Recieved data: \n{df}")
@@ -119,8 +124,8 @@ All together `service.py` looks like::
         logger.info(f"Predicted: {pred}")
         return pred.tolist()
 
-
-    mvi.run()
+    if __name__ == '__main__':
+        service.run()
 
 And `requirements.txt`::
 
@@ -133,7 +138,7 @@ Deployment
 
 Just like before, we deploy the service using the CLI:
 
->>> mvi deploy iris_classifier 1.0.0 ./iris_project
+>>> mvi deploy iris_classifier 1.0.0 ./iris_project # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully

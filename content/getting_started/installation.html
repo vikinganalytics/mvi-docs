@@ -120,12 +120,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -206,7 +209,7 @@
 <a class="reference external" href="https://pypi.org/project/va-mvi/">pip package</a>, that can be downloaded by anyone
 and comes packed with the Command-Line Interface. In your terminal of choice,
 install MVI with:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">va</span><span class="o">-</span><span class="n">mvi</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">va</span><span class="o">-</span><span class="n">mvi</span> 
 </pre></div>
 </div>
 <p>Check your installation by running: <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">--help</span></code> in a terminal.</p>
@@ -245,23 +248,25 @@ docker run
     -v mvi_data:/data
     -p <span class="m">80</span>:80
     -p <span class="m">443</span>:443
+    --restart always
     -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
 </pre></div>
 </div>
-<p>This will start a Manager instance listening on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> without any access control which is probably what you want
-if running locally as a test/development setup. For production usage, please refer
-to <a class="reference internal" href="../advanced_tutorials/manager_env_vars.html#manager-env-vars-reference"><span class="std std-ref">Manager Environment Variables</span></a> for details about available configuration options!</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This will start a Manager instance listening on <code class="docutils literal notranslate"><span class="pre">localhost</span></code> <strong>without
+access control and secured communication channels</strong> which is probably what you want
+if running locally as a test/development setup. However, such a setup should <strong>never</strong>
+be exposed publicly to the internet! For production usage, please refer
+to <a class="reference internal" href="../advanced_tutorials/manager_configuration.html#manager-configuration-reference"><span class="std std-ref">Manager Configuration</span></a> for details about available configuration options!</p>
+</div>
 <div class="section" id="license-activation">
 <h3>License Activation<a class="headerlink" href="#license-activation" title="Permalink to this headline">¶</a></h3>
 <p>Starting the Manager according to above will give you a short-lived trial instance that
 you can use without restrictions up to 12 hours. In order to use the Manager for
 continuously running applications you will need to activate it using an Activation Key.</p>
-<p>To activate the Manager with an Activation Key, start it by adding the following flag
-to the above <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">mvi_manager</span> <span class="o">...</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_ACTIVATION_KEY</span><span class="o">=</span><span class="s2">&quot;your activation key&quot;</span> <span class="o">...</span> <span class="o">-</span><span class="n">d</span> <span class="n">vikinganalyticsab</span><span class="o">/</span><span class="n">mvi_manager</span><span class="p">:</span><span class="n">latest</span>
-</pre></div>
-</div>
-<p>To get an Activation Key, please contact Viking Analytics.</p>
+<p>To get an Activation Key, please contact Viking Analytics. To see how to use an Activation Key,
+please refer to <a class="reference internal" href="../advanced_tutorials/manager_configuration.html#manager-configuration-reference"><span class="std std-ref">Manager Configuration</span></a>.</p>
 </div>
 </div>
 </div>
@@ -280,7 +285,7 @@ to the above <code class="docutils literal notranslate"><span class="pre">docker
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

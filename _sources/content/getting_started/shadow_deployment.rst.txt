@@ -20,14 +20,14 @@ When deploying a service for the first time, it will always be the main version
 and every subsequent service with the same name will be a shadow of the main
 service. Let's try this out with the `hello` service we get from ``mvi init``:
 
->>> mvi init
+>>> mvi init # doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: hello
 
 (If you still have a `hello` service running from a previous tutorial,
 you can skip to the next step)
 
->>> mvi deploy hello 1.0.0 ./hello
+>>> mvi deploy hello 1.0.0 ./hello # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -35,7 +35,7 @@ MAIN    NAME    VERSION    STATUS    RUNNING
 ------  ------  ---------  --------  -----------------------------------
 *       hello   1.0.0      running   Running (since 2020-11-23 11:30:00)
 
->>> mvi deploy hello 2.0.0 ./hello
+>>> mvi deploy hello 2.0.0 ./hello # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -43,7 +43,7 @@ MAIN    NAME    VERSION    STATUS    RUNNING
 ------  ------  ---------  --------  -----------------------------------
         hello   2.0.0      running   Running (since 2020-11-23 11:31:44)
 
->>> mvi ls
+>>> mvi ls # doctest: +SKIP
 Active host: http://your-host
 MAIN    NAME    VERSION    STATUS    RUNNING
 ------  ------  ---------  --------  -----------------------------------
@@ -65,7 +65,7 @@ Changing Main Service
 When new service seems performs to a satisfactory level you can change it to
 the main service using the CLI command ``mvi assign``:
 
->>> mvi assign hello 2.0.0
+>>> mvi assign hello 2.0.0 # doctest: +SKIP
 Active host: http://your-host
 Change hello 2.0.0 to main? [y/N]: y
 Changed main version to hello 2.0.0

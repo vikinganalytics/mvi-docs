@@ -118,12 +118,15 @@
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -202,20 +205,33 @@
 as well as well-defined json schemas for the automatic documentation. In this
 tutorial we will see how we can make use of this to make the API and interactive
 docs easier to use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>MVI entrypoints communicate with json schemas and do therefore
+only support json-compatible input and output, such as numericals, strings,
+lists and dictionaries.</p>
+</div>
 <div class="section" id="creating-an-input-model">
 <h2>Creating an Input Model<a class="headerlink" href="#creating-an-input-model" title="Permalink to this headline">¶</a></h2>
 <p>So far we have seen two example services, the <cite>hello</cite> service from
 <a class="reference internal" href="../getting_started/custom_service.html#custom-service-reference"><span class="std std-ref">Creating Your Own service</span></a>, which had a <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> entrypoint
-that we defined like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+that we defined like</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="o">...</span>
+    <span class="k">pass</span>
 </pre></div>
 </div>
 <p>And we’ve seen the <cite>iris</cite> service from <a class="reference internal" href="deploying_ml_model.html#deploy-ml-reference"><span class="std std-ref">Deploying Machine Learning Models</span></a> which had the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint that was defined like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint that was defined like this</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="k">pass</span>
 </pre></div>
 </div>
 <p>In both of these examples we have used standard python types as type hints. This
@@ -225,8 +241,8 @@ of data, and usually only one (or a few) ways are correct. To simplify the life
 of the user, we can define something called a data model, that we create by
 extending the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code> class from
 <a class="reference external" href="https://pydantic-docs.helpmanual.io/">pydantic</a>. For the <cite>iris</cite> service
-example it would be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+example it would be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="k">class</span> <span class="nc">IrisData</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -241,19 +257,18 @@ conform to. If the request body of your API call does not match the model it wil
 send a 422 HTTP-error with an error description.</p>
 <p>Let’s create a new service that will take data in a schema similar to
 <code class="xref py py-class docutils literal notranslate"><span class="pre">IrisData</span></code> and respond with the sum of its rows:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">project_name [my_project]: row_sum_service</span>
 </pre></div>
 </div>
 <p>Then in <cite>service.py</cite> write the following code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">DataForm</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -261,7 +276,7 @@ send a 422 HTTP-error with an error description.</p>
     <span class="n">col2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
     <span class="n">col3</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
 
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">DataForm</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -270,8 +285,8 @@ send a 422 HTTP-error with an error description.</p>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row sums: </span><span class="si">{</span><span class="n">row_sum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">row_sum</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
 
-
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>And add <cite>pydantic</cite> and <cite>pandas</cite> to <cite>requirements.txt</cite>:</p>
@@ -281,7 +296,7 @@ send a 422 HTTP-error with an error description.</p>
 </pre></div>
 </div>
 <p>And deploy the new service:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">row_sum</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">row_sum_service</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">row_sum</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">row_sum_service</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
@@ -415,7 +430,7 @@ within the data model:</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

@@ -119,12 +119,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -207,25 +210,24 @@ in the early stages.</p>
 <div class="section" id="monitoring-variables">
 <h2>Monitoring Variables<a class="headerlink" href="#monitoring-variables" title="Permalink to this headline">¶</a></h2>
 <p>To monitor the value of a variable in the code you can use the
-<a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.store" title="mvi.mvi.store"><code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code></a> function. It takes an arbitrary number of keyword
+<code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> function. It takes an arbitrary number of keyword
 arguments and saves their values in a time-series database, where they can be
-retrieved at a later time. <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.store" title="mvi.mvi.store"><code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code></a> supports integer,
-float and string data. Let’s use the <cite>hello</cite> service as an example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">store</span>
+retrieved at a later time. <code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> supports integer,
+float and string data. Let’s use the <cite>hello</cite> service as an example</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Now the name and greeting will be stored everytime this function is called</span>
-    <span class="n">store</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">greeting</span><span class="o">=</span><span class="n">greeting_phrase</span><span class="p">)</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">greeting</span><span class="o">=</span><span class="n">greeting_phrase</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
@@ -235,19 +237,18 @@ float and string data. Let’s use the <cite>hello</cite> service as an example:
 <h2>Monitoring an Entrypoint<a class="headerlink" href="#monitoring-an-entrypoint" title="Permalink to this headline">¶</a></h2>
 <p>It is also possible to automatically monitor the input and output of a service
 entrypoint. To do this we pass <code class="docutils literal notranslate"><span class="pre">monitor=True</span></code> to the
-<a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.entrypoint" title="mvi.mvi.MviService.entrypoint"><code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code></a> decorator:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">store</span>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">entrypoint()</span></code> decorator</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
 <span class="c1"># Now the input and output of this entrypoint is stored after each call</span>
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
@@ -258,19 +259,18 @@ formats.</p>
 <div class="section" id="monitoring-a-parameter">
 <h2>Monitoring a Parameter<a class="headerlink" href="#monitoring-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>Parameters set with <code class="xref py py-func docutils literal notranslate"><span class="pre">add_parameter()</span></code> can also be monitored by passing
-<code class="docutils literal notranslate"><span class="pre">monitor=True</span></code>, which also supports integer, float and string data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">store</span>
+<code class="docutils literal notranslate"><span class="pre">monitor=True</span></code>, which also supports integer, float and string data</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 <span class="c1"># Now the value of ``&quot;greeting_phrase&quot;`` is stored every time it&#39;s updated</span>
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
@@ -363,7 +363,7 @@ service database can be requested at the following entrypoint:</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

@@ -111,12 +111,15 @@
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -194,7 +197,6 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#K"><strong>K</strong></a>
@@ -210,11 +212,11 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.add_parameter">add_parameter() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.add_parameter">add_parameter() (in module mvi._service._Service)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.assign">assign() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.assign">assign() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -222,13 +224,13 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.call_every">call_every() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.call_every">call_every() (in module mvi._service._Service)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.call_service">call_service() (in module mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.call_service">call_service() (in module mvi.communication)</a>
 </li>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.Severity.CRITICAL">CRITICAL (mvi.mvi.Severity attribute)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.Severity.CRITICAL">CRITICAL (mvi.communication.Severity attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -236,15 +238,7 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.deploy">deploy() (in module mvi.cli)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.entrypoint">entrypoint() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.deploy">deploy() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -252,15 +246,25 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.get_all_parameters">get_all_parameters() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_authorized_domains">get_authorized_domains() (in module mvi.utilities)</a>
 </li>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.get_authorized_domains">get_authorized_domains() (in module mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_headers">get_headers() (in module mvi.utilities)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_mvi_manager_hostname">get_mvi_manager_hostname() (in module mvi.utilities)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_mvi_manager_url">get_mvi_manager_url() (in module mvi.utilities)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.get_headers">get_headers() (in module mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.get_parameter">get_parameter() (in module mvi._service._Service)</a>
 </li>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.get_parameter">get_parameter() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_service_access_token">get_service_access_token() (in module mvi.utilities)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_service_name">get_service_name() (in module mvi.utilities)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_service_root_path">get_service_root_path() (in module mvi.utilities)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi.utilities.get_service_version">get_service_version() (in module mvi.utilities)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -268,11 +272,11 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.Severity.INFO">INFO (mvi.mvi.Severity attribute)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.Severity.INFO">INFO (mvi.communication.Severity attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.init">init() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.init">init() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -280,7 +284,7 @@
 <h2 id="K">K</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.kill">kill() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.kill">kill() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -288,13 +292,13 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.login">login() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.login">login() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.logs">logs() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.logs">logs() (in module mvi.cli.cli)</a>
 </li>
-      <li><a href="content/api_reference/cli.html#mvi.cli.ls">ls() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.ls">ls() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -306,36 +310,45 @@
     module
 
       <ul>
-        <li><a href="content/api_reference/cli.html#module-mvi.cli">mvi.cli</a>
+        <li><a href="content/api_reference/cli.html#module-mvi.cli.cli">mvi.cli.cli</a>
 </li>
-        <li><a href="content/api_reference/sdk.html#module-mvi.mvi">mvi.mvi</a>
+        <li><a href="content/api_reference/sdk.html#module-mvi.communication">mvi.communication</a>
+</li>
+        <li><a href="content/api_reference/sdk.html#module-mvi.utilities">mvi.utilities</a>
 </li>
       </ul></li>
       <li>
-    mvi.cli
+    mvi.cli.cli
 
       <ul>
-        <li><a href="content/api_reference/cli.html#module-mvi.cli">module</a>
+        <li><a href="content/api_reference/cli.html#module-mvi.cli.cli">module</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    mvi.mvi
+    mvi.communication
 
       <ul>
-        <li><a href="content/api_reference/sdk.html#module-mvi.mvi">module</a>
+        <li><a href="content/api_reference/sdk.html#module-mvi.communication">module</a>
 </li>
       </ul></li>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService">MviService (class in mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.mvi.entrypoint">mvi.entrypoint() (in module mvi._service._Service)</a>
 </li>
+      <li>
+    mvi.utilities
+
+      <ul>
+        <li><a href="content/api_reference/sdk.html#module-mvi.utilities">module</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.notify">notify() (in module mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.notify">notify() (in module mvi.communication)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -343,7 +356,7 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.MviService.run">run() (mvi.mvi.MviService method)</a>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.run">run() (in module mvi._service._Service)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -351,11 +364,13 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.Severity">Severity (class in mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.service">service (mvi attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.store">store() (in module mvi.mvi)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.Severity">Severity (class in mvi.communication)</a>
+</li>
+      <li><a href="content/api_reference/sdk.html#mvi._service._Service.store">store() (in module mvi._service._Service)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -363,7 +378,11 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/cli.html#mvi.cli.token">token() (in module mvi.cli)</a>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.test">test() (in module mvi.cli.cli)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="content/api_reference/cli.html#mvi.cli.cli.token">token() (in module mvi.cli.cli)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -371,7 +390,7 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="content/api_reference/sdk.html#mvi.mvi.Severity.WARNING">WARNING (mvi.mvi.Severity attribute)</a>
+      <li><a href="content/api_reference/sdk.html#mvi.communication.Severity.WARNING">WARNING (mvi.communication.Severity attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -387,7 +406,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

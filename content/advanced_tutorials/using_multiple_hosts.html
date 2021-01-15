@@ -116,12 +116,15 @@
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -202,7 +205,7 @@ you want to use that one.</p>
 <p>Luckily this is very simple and is done with the <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code> command just like
 the first time you logged in. If you run the command now, you should see someting
 like this:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
 <span class="go">Current hosts:</span>
 <span class="go">0 - http://your-host</span>
 <span class="go">Enter MVI host:</span>
@@ -210,7 +213,7 @@ like this:</p>
 </div>
 <p>Type in the URL to the new host and your username + password and you will be
 logged in to the new host:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
 <span class="go">Current hosts:</span>
 <span class="go">0 - http://your-host</span>
 <span class="go">Enter MVI host: http://your-new-host</span>
@@ -222,7 +225,7 @@ logged in to the new host:</p>
 </div>
 <p>Now if you call <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">ls</span></code> you should see an empty list of services and a reminder
 of your current host:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">ls</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">ls</span> 
 <span class="go">Active host: http://your-new-host</span>
 <span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
 <span class="go">------  ------  ---------  --------  ---------</span>
@@ -234,7 +237,7 @@ of your current host:</p>
 use <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code>. This is to save you the effort of remembering and repeatedly
 typing in the same URLs. Say that we want to change back to <a class="reference external" href="http://your-host">http://your-host</a>,
 then we can simply call <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code> again, and say that we want host 0:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
 <span class="go">Current hosts:</span>
 <span class="go">0 - http://your-host</span>
 <span class="go">1 - http://your-new-host</span>
@@ -259,7 +262,7 @@ then we can simply call <code class="docutils literal notranslate"><span class="
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

@@ -3,7 +3,7 @@
 Command-line Interface
 ======================
 
-.. automodule:: mvi.cli
+.. automodule:: mvi.cli.cli
    :members:
    :undoc-members:
    :show-inheritance:

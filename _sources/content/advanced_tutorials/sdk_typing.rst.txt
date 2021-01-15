@@ -8,22 +8,38 @@ as well as well-defined json schemas for the automatic documentation. In this
 tutorial we will see how we can make use of this to make the API and interactive
 docs easier to use.
 
+.. note:: MVI entrypoints communicate with json schemas and do therefore
+  only support json-compatible input and output, such as numericals, strings,
+  lists and dictionaries.
+
 Creating an Input Model
 -----------------------
 
 So far we have seen two example services, the `hello` service from
 :ref:`custom-service-reference`, which had a :py:func:`hello` entrypoint
-that we defined like::
+that we defined like
 
-    @mvi.entrypoint
+.. testcode::
+    
+    from mvi import service
+
+    @service.entrypoint
     def hello(name: str) -> str:
         ...
+        pass
 
 And we've seen the `iris` service from :ref:`deploy-ml-reference` which had the
-:py:func:`predict` entrypoint that was defined like this::
+:py:func:`predict` entrypoint that was defined like this
 
-    @mvi.entrypoint
+.. testcode::
+    
+    from mvi import service
+
+    @service.entrypoint
     def predict(data: dict) -> list:
+        ...
+        pass
+    
 
 In both of these examples we have used standard python types as type hints. This
 will make sure that only strings can be used as input for :py:func:`hello` and
@@ -32,7 +48,9 @@ of data, and usually only one (or a few) ways are correct. To simplify the life
 of the user, we can define something called a data model, that we create by
 extending the :py:class:`BaseModel` class from 
 `pydantic <https://pydantic-docs.helpmanual.io/>`_. For the `iris` service
-example it would be::
+example it would be
+
+.. testcode::
 
     from pydantic import BaseModel
     from typing import List
@@ -50,19 +68,18 @@ send a 422 HTTP-error with an error description.
 Let's create a new service that will take data in a schema similar to
 :py:class:`IrisData` and respond with the sum of its rows:
 
->>> mvi init
+>>> mvi init # doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: row_sum_service
 
 Then in `service.py` write the following code::
 
     import logging
-    from mvi.mvi import MviService
+    from mvi import service
     import pandas as pd
     from pydantic import BaseModel
     from typing import List
 
-    mvi = MviService()
     logger = logging.getLogger(__name__)
 
     class DataForm(BaseModel):
@@ -70,7 +87,7 @@ Then in `service.py` write the following code::
         col2: List[float]
         col3: List[float]
 
-    @mvi.entrypoint
+    @service.entrypoint
     def calculate(data: DataForm) -> list:
         data = data.dict()
         df = pd.DataFrame(data)
@@ -79,8 +96,8 @@ Then in `service.py` write the following code::
         logger.info(f"Row sums: {row_sum}")
         return row_sum.to_list()
 
-
-    mvi.run()
+    if __name__ == '__main__':
+        service.run()
 
 And add `pydantic` and `pandas` to `requirements.txt`::
 
@@ -90,7 +107,7 @@ And add `pydantic` and `pandas` to `requirements.txt`::
 
 And deploy the new service:
 
->>> mvi deploy row_sum 1.0.0 ./row_sum_service
+>>> mvi deploy row_sum 1.0.0 ./row_sum_service # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully

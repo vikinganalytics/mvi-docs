@@ -118,12 +118,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -207,31 +210,28 @@ throws a die and another that handles the game logic.</p>
 <h2>Die Roller Service<a class="headerlink" href="#die-roller-service" title="Permalink to this headline">¶</a></h2>
 <p>The first service we create will generate a random number between 1 and 6 and
 respond with the result:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">project_name [my_project]: die_roller_service</span>
 </pre></div>
 </div>
-<p>Modify the code in <cite>service.py</cite> to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span>
+<p>Modify the code in <cite>service.py</cite> to</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
-
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">roll_die</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 
-
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Deploy the service:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">die_roller</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">die_roller_service</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">die_roller</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">die_roller_service</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
@@ -248,21 +248,19 @@ documentation at <a class="reference external" href="http://your-host/services/d
 <p>The <cite>yatzee</cite> service will call the <code class="xref py py-func docutils literal notranslate"><span class="pre">roll_die()</span></code> method of the <cite>die_roller</cite>
 for each die in play. If the player gets a yatzee (all 6s) we send a notification!
 Let’s create the code for that service:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">init</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">project_name [my_project]: yatzee_service</span>
 </pre></div>
 </div>
-<p>And modify <cite>service.py</cite> to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span><span class="p">,</span> <span class="n">call_service</span>
-
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
+<p>And modify <cite>service.py</cite> to</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+<span class="kn">from</span> <span class="nn">mvi.communication</span> <span class="kn">import</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span><span class="p">,</span> <span class="n">call_service</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">play</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="n">n_dice</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">die_rolls</span> <span class="o">=</span> <span class="p">[]</span>
@@ -283,11 +281,12 @@ Let’s create the code for that service:</p>
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">die_rolls</span><span class="p">)</span>
 
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Deploy the service:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">yatzee</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">yatzee_service</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="n">yatzee</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="o">./</span><span class="n">yatzee_service</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
@@ -296,7 +295,7 @@ Let’s create the code for that service:</p>
 <span class="go">*       yatzee  1.0.0      running   Running (since 2020-11-24 12:15:57)</span>
 </pre></div>
 </div>
-<p>We use the <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.call_service" title="mvi.mvi.call_service"><code class="xref py py-func docutils literal notranslate"><span class="pre">call_service()</span></code></a> function to call an entrypoint in
+<p>We use the <a class="reference internal" href="../api_reference/sdk.html#mvi.communication.call_service" title="mvi.communication.call_service"><code class="xref py py-func docutils literal notranslate"><span class="pre">call_service()</span></code></a> function to call an entrypoint in
 another service. In this case, the <code class="xref py py-func docutils literal notranslate"><span class="pre">roll_die()</span></code> function of the <cite>die_roller</cite>
 service. Notice how we did not specify any version of <cite>die_roller</cite>, this way
 the main version will be used. If you wanted to specify a version, then you should
@@ -326,7 +325,7 @@ to move on to the advanced tutorials.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

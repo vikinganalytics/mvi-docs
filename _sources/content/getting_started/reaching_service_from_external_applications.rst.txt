@@ -12,14 +12,14 @@ Generate an Authentication Token
 To generate this authentication token, you will need to use the CLI.
 Start by making sure that you are logged in by calling the login command:
 
->>> mvi login
+>>> mvi login # doctest: +SKIP
 Enter MVI host: http://your-host
 Username: <username>
 Password: <password>
 
 When you are logged in, use the token command:
 
->>> mvi token
+>>> mvi token # doctest: +SKIP
 {your_token}
 
 This will generate a long-lived authentication token. This means that this token
@@ -28,7 +28,7 @@ remain valid indefinitely, which can potentially pose a security risk.
 If you want a semi-long lived authentication, specify the number of days it should
 be valid by specifying an integer with your command call:
 
->>> mvi token 10
+>>> mvi token 10 # doctest: +SKIP
 {your_token}
 
 This will generate a token that is valid for 10 days.

@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Connecting MVI with Other Tools" href="integration_with_other_tools.html" />
-    <link rel="prev" title="Manager Environment Variables" href="manager_env_vars.html" /> 
+    <link rel="prev" title="Manager Configuration" href="manager_configuration.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -113,12 +113,15 @@
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -198,6 +201,7 @@ The proxy uses the <a class="reference external" href="https://doc.traefik.io/tr
 that comes with a dashboard, where you can inspect how the data is being routed.
 It is mostly useful for debugging, to see if the data is actually being sent where
 it should be, or if it is a problem with the service code.</p>
+<p>The proxy dashboard is available at <cite>http://&lt;your-host&gt;/proxy/dashboard/</cite></p>
 <p>(click image to enlarge)</p>
 <a class="reference internal image-reference" href="../../_images/proxy.png"><img alt="Screenshot of proxy dashboard" src="../../_images/proxy.png" style="width: 800px;" /></a>
 </div>
@@ -209,14 +213,14 @@ it should be, or if it is a problem with the service code.</p>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="integration_with_other_tools.html" class="btn btn-neutral float-right" title="Connecting MVI with Other Tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="manager_env_vars.html" class="btn btn-neutral float-left" title="Manager Environment Variables" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="manager_configuration.html" class="btn btn-neutral float-left" title="Manager Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

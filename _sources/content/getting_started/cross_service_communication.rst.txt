@@ -16,31 +16,30 @@ Die Roller Service
 The first service we create will generate a random number between 1 and 6 and
 respond with the result:
 
->>> mvi init
+>>> mvi init # doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: die_roller_service
 
-Modify the code in `service.py` to::
+Modify the code in `service.py` to
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService
+    from mvi import service
     from random import randint
-
-    mvi = MviService()
 
     logger = logging.getLogger(__name__)
 
-
-    @mvi.entrypoint
+    @service.entrypoint
     def roll_die() -> int:
         return randint(1, 6)
 
-
-    mvi.run()
+    if __name__ == '__main__':
+        service.run()
 
 Deploy the service:
 
->>> mvi deploy die_roller 1.0.0 ./die_roller_service
+>>> mvi deploy die_roller 1.0.0 ./die_roller_service # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -58,21 +57,21 @@ The `yatzee` service will call the :py:func:`roll_die` method of the `die_roller
 for each die in play. If the player gets a yatzee (all 6s) we send a notification!
 Let's create the code for that service:
 
->>> mvi init
+>>> mvi init #doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: yatzee_service
 
-And modify `service.py` to::
+And modify `service.py` to
+
+.. testcode::
 
     import logging
-    from mvi.mvi import MviService, notify, Severity, call_service
-
-    mvi = MviService()
+    from mvi import service
+    from mvi.communication import notify, Severity, call_service
 
     logger = logging.getLogger(__name__)
 
-
-    @mvi.entrypoint
+    @service.entrypoint
     def play() -> list:
         n_dice = 5
         die_rolls = []
@@ -93,11 +92,12 @@ And modify `service.py` to::
         return sorted(die_rolls)
 
 
-    mvi.run()
+    if __name__ == '__main__':
+        service.run()
 
 Deploy the service:
 
->>> mvi deploy yatzee 1.0.0 ./yatzee_service
+>>> mvi deploy yatzee 1.0.0 ./yatzee_service # doctest: +SKIP
 Active host: http://your-host
 Deploying service...
 Service deployed successfully
@@ -106,7 +106,7 @@ MAIN    NAME    VERSION    STATUS    RUNNING
 *       yatzee  1.0.0      running   Running (since 2020-11-24 12:15:57)
 
 
-We use the :py:func:`~mvi.mvi.call_service` function to call an entrypoint in
+We use the :py:func:`~mvi.communication.call_service` function to call an entrypoint in
 another service. In this case, the :py:func:`roll_die` function of the `die_roller`
 service. Notice how we did not specify any version of `die_roller`, this way
 the main version will be used. If you wanted to specify a version, then you should

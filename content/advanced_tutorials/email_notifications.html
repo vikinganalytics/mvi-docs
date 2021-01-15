@@ -117,12 +117,15 @@
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -198,19 +201,18 @@
   <div class="section" id="email-notifications">
 <span id="email-notification-reference"></span><h1>Email Notifications<a class="headerlink" href="#email-notifications" title="Permalink to this headline">¶</a></h1>
 <p>If you remember from <a class="reference internal" href="../getting_started/custom_service.html#custom-service-reference"><span class="std std-ref">Creating Your Own service</span></a>, we created a <cite>hello</cite> service
-with a <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> entrypoint that took a name and responded with a greeting:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
+with a <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> entrypoint that took a name and responded with a greeting_phrase</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+<span class="kn">from</span> <span class="nn">mvi.communication</span> <span class="kn">import</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;World&quot;</span><span class="p">:</span>
         <span class="n">notify</span><span class="p">(</span>
             <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Someone is trying to greet the World, too time consuming. Skipping!&quot;</span><span class="p">,</span>
@@ -220,8 +222,8 @@ with a <code class="xref py py-func docutils literal notranslate"><span class="p
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
 
-
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>If the user tried to greet “World”, a notification would be raised, which could be
@@ -262,31 +264,32 @@ by setting four different environment variables at manager startup</p>
 </tbody>
 </table>
 <p>With the docker CLI:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span> <span class="o">-</span><span class="n">p</span> <span class="mi">80</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span><span class="n">p</span> <span class="mi">443</span><span class="p">:</span><span class="mi">443</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_AUTH_ENABLED</span><span class="o">=</span><span class="kc">True</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SENDER_EMAIL</span><span class="o">=</span><span class="s2">&quot;email@address.com&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;password&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.server.url&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SMTP_PORT</span><span class="o">=</span><span class="mi">465</span> <span class="o">-</span><span class="n">d</span> <span class="n">vikinganalyticsab</span><span class="o">/</span><span class="n">mvi_manager</span><span class="p">:</span><span class="n">latest</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">sock</span> <span class="o">-</span><span class="n">p</span> <span class="mi">80</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span><span class="n">p</span> <span class="mi">443</span><span class="p">:</span><span class="mi">443</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_AUTH_ENABLED</span><span class="o">=</span><span class="kc">True</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SENDER_EMAIL</span><span class="o">=</span><span class="s2">&quot;email@address.com&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD</span><span class="o">=</span><span class="s2">&quot;password&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SMTP_SERVER</span><span class="o">=</span><span class="s2">&quot;smtp.server.url&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="n">MVI_NOTIFICATION_SMTP_PORT</span><span class="o">=</span><span class="mi">465</span> <span class="o">-</span><span class="n">d</span> <span class="n">vikinganalyticsab</span><span class="o">/</span><span class="n">mvi_manager</span><span class="p">:</span><span class="n">latest</span> 
 </pre></div>
 </div>
 <p>If everything worked, an email will be sent from “<a class="reference external" href="mailto:email&#37;&#52;&#48;address&#46;com">email<span>&#64;</span>address<span>&#46;</span>com</a>” to itself, to
 show that it successfully connected. Otherwise, as long as the manager could still
 start, any issues with the email configuration will be viewable on the notification
-tab in the dashboard.</p>
+tab in the dashboard.
+Some configuration of the Manager is also needed to get going, please refer to
+<a class="reference internal" href="manager_configuration.html#manager-configuration-reference"><span class="std std-ref">Manager Configuration</span></a>.</p>
 </div>
 <div class="section" id="sdk-syntax">
 <h2>SDK Syntax<a class="headerlink" href="#sdk-syntax" title="Permalink to this headline">¶</a></h2>
-<p>By default, <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.notify" title="mvi.mvi.notify"><code class="xref py py-func docutils literal notranslate"><span class="pre">notify()</span></code></a> with not send any emails. For a notification to
+<p>By default, <a class="reference internal" href="../api_reference/sdk.html#mvi.communication.notify" title="mvi.communication.notify"><code class="xref py py-func docutils literal notranslate"><span class="pre">notify()</span></code></a> with not send any emails. For a notification to
 become an email notification, you have to pass a list of email addresses to the <code class="docutils literal notranslate"><span class="pre">emails</span></code>
-keyword argument of <a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.notify" title="mvi.mvi.notify"><code class="xref py py-func docutils literal notranslate"><span class="pre">notify()</span></code></a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
+keyword argument of <a class="reference internal" href="../api_reference/sdk.html#mvi.communication.notify" title="mvi.communication.notify"><code class="xref py py-func docutils literal notranslate"><span class="pre">notify()</span></code></a></p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+<span class="kn">from</span> <span class="nn">mvi.communication</span> <span class="kn">import</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;World&quot;</span><span class="p">:</span>
         <span class="n">notify</span><span class="p">(</span>
             <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Someone is trying to greet the World, too time consuming. Skipping!&quot;</span><span class="p">,</span>
@@ -296,24 +299,26 @@ keyword argument of <a class="reference internal" href="../api_reference/sdk.htm
         <span class="k">return</span> <span class="s2">&quot;Greeting failed&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>To make the email recipients dynamically changeable, we can use this in conjunction with
-<a class="reference internal" href="../api_reference/sdk.html#mvi.mvi.MviService.add_parameter" title="mvi.mvi.MviService.add_parameter"><code class="xref py py-func docutils literal notranslate"><span class="pre">add_parameter()</span></code></a> like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span><span class="p">,</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
+<code class="xref py py-func docutils literal notranslate"><span class="pre">add_parameter()</span></code> like so</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+<span class="kn">from</span> <span class="nn">mvi.communication</span> <span class="kn">import</span> <span class="n">notify</span><span class="p">,</span> <span class="n">Severity</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
-<span class="n">mvi</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;emails&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;your@email.com&quot;</span><span class="p">])</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
+<span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;emails&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;your@email.com&quot;</span><span class="p">])</span>
 
-
-<span class="nd">@mvi</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
-    <span class="n">emails</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;emails&quot;</span><span class="p">)</span>
+    <span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
+    <span class="n">emails</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;emails&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;World&quot;</span><span class="p">:</span>
         <span class="n">notify</span><span class="p">(</span>
             <span class="n">msg</span><span class="o">=</span><span class="s2">&quot;Someone is trying to greet the World, too time consuming. Skipping!&quot;</span><span class="p">,</span>
@@ -323,6 +328,9 @@ keyword argument of <a class="reference internal" href="../api_reference/sdk.htm
         <span class="k">return</span> <span class="s2">&quot;Greeting failed&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Greeting someone with the name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">greeting_phrase</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>This way, email addresses can be added and removed. You could of course use different emails
@@ -344,7 +352,7 @@ for different notifications, so different stakeholders get notified of different
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

@@ -113,12 +113,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -210,7 +213,7 @@ a few more options. First of all, it is possible to deploy a service from a tarb
 service given a git repository with the same contents as the services we
 have deployed so far. It is functionally identical to deploying from a
 local directory. For now, it only supports public git repositories:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">git</span> <span class="n">my_service</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sclorg</span><span class="o">/</span><span class="n">django</span><span class="o">-</span><span class="n">ex</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">git</span> <span class="n">my_service</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sclorg</span><span class="o">/</span><span class="n">django</span><span class="o">-</span><span class="n">ex</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
@@ -224,7 +227,7 @@ This can be useful for deploying applications that are not written using the
 SDK within the MVI framework. Similar to the <code class="docutils literal notranslate"><span class="pre">--git</span></code> option it only supports
 public images for now. Keep in mind that most pre-build images will not
 support the automatic interactive documentation:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">image</span> <span class="n">my_service2</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">traefik</span><span class="o">/</span><span class="n">whoami</span> <span class="o">--</span><span class="n">port</span> <span class="mi">80</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">deploy</span> <span class="o">--</span><span class="n">image</span> <span class="n">my_service2</span> <span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span> <span class="n">traefik</span><span class="o">/</span><span class="n">whoami</span> <span class="o">--</span><span class="n">port</span> <span class="mi">80</span> 
 <span class="go">Active host: http://your-host</span>
 <span class="go">Deploying service...</span>
 <span class="go">Service deployed successfully</span>
@@ -267,7 +270,7 @@ to run properly can be specified when deploying the image via the <code class="d
 <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> arguments should be specified under the <code class="docutils literal notranslate"><span class="pre">docker_run_args</span></code> key in the request data field. The accepted
 parameters for docker run which can be found <a class="reference external" href="https://docker-py.readthedocs.io/en/stable/containers.html">here</a>.</p>
 <p>For instance, a docker image
-that requires <code class="docutils literal notranslate"><span class="pre">privileged</span></code> mode to run properly can be deployed like (using pythons request library)</p>
+that requires <code class="docutils literal notranslate"><span class="pre">privileged</span></code> mode to run properly can be deployed like (using pythons request library):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
     <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://&lt;host&gt;/~image,</span>
     <span class="n">headers</span><span class="o">=&lt;</span><span class="n">headers</span><span class="o">&gt;</span><span class="p">,</span>
@@ -300,7 +303,7 @@ that requires <code class="docutils literal notranslate"><span class="pre">privi
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>

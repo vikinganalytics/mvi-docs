@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Command-line Interface" href="../api_reference/cli.html" />
-    <link rel="prev" title="Service with Graphical User Interface" href="ui_streamlit.html" /> 
+    <link rel="next" title="Upload local docker image" href="upload_image.html" />
+    <link rel="prev" title="Using Plotly Dash to build a dashboard" href="ui_plotly_dash.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -113,16 +113,18 @@
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html">CLI Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_https.html">Secure Manager Connection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_env_vars.html">Manager Environment Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Service with Graphical User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Going Beyond the SDK</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#increased-api-design-freedom">Increased API Design Freedom</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#creating-service-specific-dashboards">Creating Service-Specific Dashboards</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -203,23 +205,18 @@
 <a class="reference external" href="https://fastapi.tiangolo.com/">FastAPI</a>, which is an open source web framework.
 So everything that can be done with the SDK can also be done with FastAPI, or any
 other web framework, but with more effort.</p>
-<p>To use FastAPI with MVI you can use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">app</span></code> object in <code class="xref py py-class docutils literal notranslate"><span class="pre">MviService</span></code>.
-Some very basic boilerplate to do this could be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi.mvi</span> <span class="kn">import</span> <span class="n">MviService</span>
+<p>To use FastAPI with MVI you can use the <code class="xref py py-obj docutils literal notranslate"><span class="pre">app</span></code> object in <a class="reference internal" href="../api_reference/sdk.html#mvi.service" title="mvi.service"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.service</span></code></a>.
+Some very basic boilerplate to do this could be</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
-<span class="n">mvi</span> <span class="o">=</span> <span class="n">MviService</span><span class="p">()</span>
-<span class="n">app</span> <span class="o">=</span> <span class="n">mvi</span><span class="o">.</span><span class="n">app</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">app</span>
 
 <span class="c1"># Your code</span>
 
-<span class="n">mvi</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="creating-service-specific-dashboards">
-<h2>Creating Service-Specific Dashboards<a class="headerlink" href="#creating-service-specific-dashboards" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://plotly.com/dash/">Plotly Dash</a> enables you to write dashboards and user
-interfaces for your apps and can be used in your MVI services.</p>
 </div>
 </div>
 
@@ -229,15 +226,15 @@ interfaces for your apps and can be used in your MVI services.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../api_reference/cli.html" class="btn btn-neutral float-right" title="Command-line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="ui_streamlit.html" class="btn btn-neutral float-left" title="Service with Graphical User Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="upload_image.html" class="btn btn-neutral float-right" title="Upload local docker image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ui_plotly_dash.html" class="btn btn-neutral float-left" title="Using Plotly Dash to build a dashboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2020, Viking Analytics AB.
+        &#169; Copyright 2021, Viking Analytics AB.
 
     </p>
   </div>
