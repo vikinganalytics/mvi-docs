@@ -103,7 +103,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/ticker.html">Schedule Repeating Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/monitoring.html">Monitoring Your Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cross_service_communication.html">Cross-service Communication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/service_logs.html">Read Logs From Service</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
 <ul class="current">
@@ -241,39 +240,43 @@
 <td><p>False</p></td>
 <td><p>Using the Manager requires login if true.</p></td>
 </tr>
-<tr class="row-odd"><td><p>MVI_LOG_LEVEL</p></td>
+<tr class="row-odd"><td><p>MVI_MAX_REQUEST_BODY</p></td>
+<td><p>1000000000</p></td>
+<td><p>Maximum allowed transferred filesize. 1GB default.</p></td>
+</tr>
+<tr class="row-even"><td><p>MVI_LOG_LEVEL</p></td>
 <td><p>“INFO”</p></td>
 <td><p>Minimum logger level for Manager.</p></td>
 </tr>
-<tr class="row-even"><td><p>MVI_ACCESS_LOGS_ENABLED</p></td>
+<tr class="row-odd"><td><p>MVI_ACCESS_LOGS_ENABLED</p></td>
 <td><p>True</p></td>
 <td><p>Whether to print access logs.</p></td>
 </tr>
-<tr class="row-odd"><td><p>MVI_PROXY_HTTPS</p></td>
+<tr class="row-even"><td><p>MVI_PROXY_HTTPS</p></td>
 <td><p>False</p></td>
 <td><p>Sets up a secure connection to the Manager if true</p></td>
 </tr>
-<tr class="row-even"><td><p>MVI_HTTPS_STAGING_SERVER</p></td>
+<tr class="row-odd"><td><p>MVI_HTTPS_STAGING_SERVER</p></td>
 <td><p>False</p></td>
 <td><p>Sets if a staging server without rate limits should be used</p></td>
 </tr>
-<tr class="row-odd"><td><p>MVI_CONFIG_EMAIL</p></td>
+<tr class="row-even"><td><p>MVI_CONFIG_EMAIL</p></td>
 <td><p>null</p></td>
 <td><p>Email address HTTPS and sending notifications.</p></td>
 </tr>
-<tr class="row-even"><td><p>MVI_CONFIG_EMAIL_PASSWORD</p></td>
+<tr class="row-odd"><td><p>MVI_CONFIG_EMAIL_PASSWORD</p></td>
 <td><p>null</p></td>
 <td><p>Password for config email, only required for notifications.</p></td>
 </tr>
-<tr class="row-odd"><td><p>MVI_NOTIFICATION_SMTP_SERVER</p></td>
+<tr class="row-even"><td><p>MVI_NOTIFICATION_SMTP_SERVER</p></td>
 <td><p>null</p></td>
 <td><p>SMTP server URL.</p></td>
 </tr>
-<tr class="row-even"><td><p>MVI_NOTIFICATION_SMTP_PORT</p></td>
+<tr class="row-odd"><td><p>MVI_NOTIFICATION_SMTP_PORT</p></td>
 <td><p>null</p></td>
 <td><p>Port to SMTP server, usually 587 or 465.</p></td>
 </tr>
-<tr class="row-odd"><td><p>MVI_ACTIVATION_KEY</p></td>
+<tr class="row-even"><td><p>MVI_ACTIVATION_KEY</p></td>
 <td><p>“”</p></td>
 <td><p>License activation key. Without key Manager lives for 12h.</p></td>
 </tr>

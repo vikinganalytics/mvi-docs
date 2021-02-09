@@ -103,7 +103,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/ticker.html">Schedule Repeating Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/monitoring.html">Monitoring Your Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cross_service_communication.html">Cross-service Communication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/service_logs.html">Read Logs From Service</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
 <ul>
@@ -286,19 +285,13 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.logs">
-<code class="sig-prename descclassname">mvi.cli.cli.</code><code class="sig-name descname">logs</code><span class="sig-paren">(</span><em class="sig-param">name: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">tail: Optional[int] = &lt;typer.models.OptionInfo object&gt;</em>, <em class="sig-param">stream: Optional[bool] = &lt;typer.models.OptionInfo object&gt;</em>, <em class="sig-param">date: Optional[datetime.datetime] = &lt;typer.models.OptionInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">mvi.cli.cli.</code><code class="sig-name descname">logs</code><span class="sig-paren">(</span><em class="sig-param">name: str = &lt;typer.models.ArgumentInfo object&gt;</em>, <em class="sig-param">version: Optional[str] = &lt;typer.models.ArgumentInfo object&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the logs for a service</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Name of the service. Defaults to None.</p></li>
 <li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service. Defaults to None.</p></li>
-<li><p><strong>tail</strong> (<em>int</em><em>, </em><em>optional</em>) – Output specified number of lines at the end of logs.
-Default to 50</p></li>
-<li><p><strong>stream</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the logs should be streamed. Defaults to False.</p></li>
-<li><p><strong>date</strong> (<em>datetime</em><em>, </em><em>optional</em>) – Show logs since given datetime.
-Valid forrmats: [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S].
-Default to None.</p></li>
 </ul>
 </dd>
 </dl>
