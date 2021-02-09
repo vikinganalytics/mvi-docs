@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>CLI Deployment Options &mdash; Multiviz Integrator  documentation</title>
+  <title>Deployment Options &mdash; Multiviz Integrator  documentation</title>
   
 
   
@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Autocompletion" href="cli_autocompletion.html" />
-    <link rel="prev" title="Email Notifications" href="email_notifications.html" /> 
+    <link rel="prev" title="Manager API" href="manager_api.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/ticker.html">Schedule Repeating Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/monitoring.html">Monitoring Your Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cross_service_communication.html">Cross-service Communication</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/service_logs.html">Read Logs From Service</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
 <ul class="current">
@@ -110,17 +111,25 @@
 <li class="toctree-l1"><a class="reference internal" href="sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">CLI Deployment Options</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manager_api.html">Manager API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deployment Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proxy_dashboard.html">Proxy Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="going_beyond_sdk.html">Going Beyond the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="upload_image.html">Upload local docker image</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Special Usecases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/conda.html">Using MVI with Conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/gpu_services.html">Access NVIDIA GPUs</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Api Reference</span></p>
 <ul>
@@ -174,13 +183,13 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>CLI Deployment Options</li>
+      <li>Deployment Options</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/content/advanced_tutorials/cli_deploy.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/content/advanced_tutorials/adv_deploy.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -193,8 +202,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cli-deployment-options">
-<span id="cli-deploy-reference"></span><h1>CLI Deployment Options<a class="headerlink" href="#cli-deployment-options" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="deployment-options">
+<span id="cli-deploy-reference"></span><h1>Deployment Options<a class="headerlink" href="#deployment-options" title="Permalink to this headline">¶</a></h1>
 <p>There are a few ways to use the <code class="docutils literal notranslate"><span class="pre">deploy</span></code> command from the <a class="reference internal" href="../api_reference/cli.html#cli-reference"><span class="std std-ref">Command-line Interface</span></a>
 that we haven’t looked at until this point. In this tutorial we will look at
 those, to make sure you have a good idea of the options you have available.</p>
@@ -273,9 +282,8 @@ from git repositories, but it might be necessary when deploying from an image.</
 </tr>
 </tbody>
 </table>
-</div>
 <div class="section" id="advanced-deployment-of-docker-images">
-<h1>Advanced Deployment of Docker Images<a class="headerlink" href="#advanced-deployment-of-docker-images" title="Permalink to this headline">¶</a></h1>
+<h2>Advanced Deployment of Docker Images<a class="headerlink" href="#advanced-deployment-of-docker-images" title="Permalink to this headline">¶</a></h2>
 <p>Extra <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> arguments (beyond port number and environment variables) needed for the docker image
 to run properly can be specified when deploying the image via the <code class="docutils literal notranslate"><span class="pre">/~image</span></code> POST HTTP endpoint. These extra
 <code class="docutils literal notranslate"><span class="pre">key:</span> <span class="pre">value</span></code> arguments should be specified under the <code class="docutils literal notranslate"><span class="pre">docker_run_args</span></code> key in the request data field. The accepted
@@ -286,18 +294,18 @@ that requires <code class="docutils literal notranslate"><span class="pre">privi
     <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://&lt;host&gt;/~image,</span>
     <span class="n">headers</span><span class="o">=&lt;</span><span class="n">headers</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;image&#39;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">image</span><span class="o">&gt;</span>
-        <span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="p">,</span>
-        <span class="s1">&#39;version&#39;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="p">,</span>
-        <span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">image</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="p">,</span>
+        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span><span class="p">,</span>
         <span class="s1">&#39;docker_run_args&#39;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s1">&#39;privileged&#39;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s1">&#39;privileged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
             <span class="o">...</span>
         <span class="p">}</span>
     <span class="p">})</span>
 </pre></div>
 </div>
-<p>The interactive docs at <code class="docutils literal notranslate"><span class="pre">&lt;host&gt;/docs</span></code> is also very useful for this kind of deployment.</p>
+</div>
 </div>
 
 
@@ -307,7 +315,7 @@ that requires <code class="docutils literal notranslate"><span class="pre">privi
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="cli_autocompletion.html" class="btn btn-neutral float-right" title="Autocompletion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="email_notifications.html" class="btn btn-neutral float-left" title="Email Notifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="manager_api.html" class="btn btn-neutral float-left" title="Manager API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Using Multiple Hosts &mdash; Multiviz Integrator  documentation</title>
+  <title>Manager API &mdash; Multiviz Integrator  documentation</title>
   
 
   
@@ -38,8 +38,8 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Email Notifications" href="email_notifications.html" />
-    <link rel="prev" title="Typing in the SDK" href="sdk_typing.html" /> 
+    <link rel="next" title="Deployment Options" href="adv_deploy.html" />
+    <link rel="prev" title="Email Notifications" href="email_notifications.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -109,12 +109,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sdk_typing.html">Typing in the SDK</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Multiple Hosts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#changing-between-hosts">Changing between hosts</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="email_notifications.html">Email Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="manager_api.html">Manager API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Manager API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="adv_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli_autocompletion.html">Autocompletion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manager_configuration.html">Manager Configuration</a></li>
@@ -183,13 +180,13 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Using Multiple Hosts</li>
+      <li>Manager API</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/content/advanced_tutorials/using_multiple_hosts.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/content/advanced_tutorials/manager_api.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -202,55 +199,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="using-multiple-hosts">
-<span id="multiple-hosts-reference"></span><h1>Using Multiple Hosts<a class="headerlink" href="#using-multiple-hosts" title="Permalink to this headline">¶</a></h1>
-<p>In <a class="reference internal" href="../getting_started/first_service.html#first-service-reference"><span class="std std-ref">Deploying Your First Service</span></a> we logged in to our first host:
-<a class="reference external" href="http://your-host">http://your-host</a>, but now you have the manager running on a second machine and
-you want to use that one.</p>
-<p>Luckily this is very simple and is done with the <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code> command just like
-the first time you logged in. If you run the command now, you should see someting
-like this:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
-<span class="go">Current hosts:</span>
-<span class="go">0 - http://your-host</span>
-<span class="go">Enter MVI host:</span>
-</pre></div>
-</div>
-<p>Type in the URL to the new host and your username + password and you will be
-logged in to the new host:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
-<span class="go">Current hosts:</span>
-<span class="go">0 - http://your-host</span>
-<span class="go">Enter MVI host: http://your-new-host</span>
-<span class="go">Logging in to MVI instance at http://your-new-host</span>
-<span class="go">Username: &lt;username&gt;</span>
-<span class="go">Password: &lt;password&gt;</span>
-<span class="go">Changed host to http://your-new-host</span>
-</pre></div>
-</div>
-<p>Now if you call <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">ls</span></code> you should see an empty list of services and a reminder
-of your current host:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">ls</span> 
-<span class="go">Active host: http://your-new-host</span>
-<span class="go">MAIN    NAME    VERSION    STATUS    RUNNING</span>
-<span class="go">------  ------  ---------  --------  ---------</span>
-</pre></div>
-</div>
-<div class="section" id="changing-between-hosts">
-<h2>Changing between hosts<a class="headerlink" href="#changing-between-hosts" title="Permalink to this headline">¶</a></h2>
-<p>As you might have observed, your previous hosts are already listed for you when you
-use <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code>. This is to save you the effort of remembering and repeatedly
-typing in the same URLs. Say that we want to change back to <a class="reference external" href="http://your-host">http://your-host</a>,
-then we can simply call <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">login</span></code> again, and say that we want host 0:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mvi</span> <span class="n">login</span> 
-<span class="go">Current hosts:</span>
-<span class="go">0 - http://your-host</span>
-<span class="go">1 - http://your-new-host</span>
-<span class="go">Enter MVI host: 0</span>
-<span class="go">Changed host to http://your-new-host</span>
-</pre></div>
-</div>
-</div>
+  <div class="section" id="manager-api">
+<span id="manager-api-reference"></span><h1>Manager API<a class="headerlink" href="#manager-api" title="Permalink to this headline">¶</a></h1>
+<p>The manager has an HTTP API that can be used to programmatically deploy, list
+and kill services and more. It is used internally by the CLI for most of its
+functions. The manager API has an interactive documentation just like for the
+services, which can be reached at <cite>http://your-host/docs</cite>.</p>
 </div>
 
 
@@ -259,8 +213,8 @@ then we can simply call <code class="docutils literal notranslate"><span class="
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="email_notifications.html" class="btn btn-neutral float-right" title="Email Notifications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="sdk_typing.html" class="btn btn-neutral float-left" title="Typing in the SDK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="adv_deploy.html" class="btn btn-neutral float-right" title="Deployment Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="email_notifications.html" class="btn btn-neutral float-left" title="Email Notifications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

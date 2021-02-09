@@ -45,6 +45,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/getting_started/ticker
    content/getting_started/monitoring
    content/getting_started/cross_service_communication
+   content/getting_started/service_logs
 
 .. toctree::
    :maxdepth: 1
@@ -54,16 +55,24 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/advanced_tutorials/sdk_typing
    content/advanced_tutorials/using_multiple_hosts
    content/advanced_tutorials/email_notifications
-   content/advanced_tutorials/cli_deploy
+   content/advanced_tutorials/manager_api
+   content/advanced_tutorials/adv_deploy
    content/advanced_tutorials/cli_autocompletion
    content/advanced_tutorials/manager_configuration
    content/advanced_tutorials/testing_services
    content/advanced_tutorials/proxy_dashboard
    content/advanced_tutorials/integration_with_other_tools
-   content/advanced_tutorials/ui_streamlit
-   content/advanced_tutorials/ui_plotly_dash
    content/advanced_tutorials/going_beyond_sdk
    content/advanced_tutorials/upload_image
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Special Usecases
+
+   content/special_usecases/ui_streamlit
+   content/special_usecases/ui_plotly_dash
+   content/special_usecases/conda
+   content/special_usecases/gpu_services
 
 .. toctree::
    :glob:

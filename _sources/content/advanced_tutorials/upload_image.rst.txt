@@ -9,7 +9,7 @@ deploy the image as a service::
     >>> mvi deploy --image my_service 0.1.0 my_image # doctest: +SKIP
 
 If the pre-built docker images are only available locally on your machine, you have to upload the images to the manager host before they are deployed like above. 
-To upload the images to the MVI manager host one can use the ``/~upload-image`` entrypoint via the docs. This entrypoint takes as input a tar file, and to store 
+To upload the images to the MVI manager host one can use the ``services/~upload-image`` entrypoint via the docs. This entrypoint takes as input a tar file, and to store 
 your docker image as a tar file you can run::
 
     >>> docker save --output my_image.tar my_image # doctest: +SKIP

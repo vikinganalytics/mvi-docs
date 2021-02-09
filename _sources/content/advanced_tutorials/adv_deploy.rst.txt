@@ -1,7 +1,7 @@
 .. _cli-deploy-reference:
 
-CLI Deployment Options
-======================
+Deployment Options
+==================
 
 There are a few ways to use the ``deploy`` command from the :ref:`cli-reference`
 that we haven't looked at until this point. In this tutorial we will look at
@@ -73,7 +73,7 @@ Each of these options can also be used with only their first letter:
 
 
 Advanced Deployment of Docker Images
-====================================
+------------------------------------
 
 Extra ``key: value`` arguments (beyond port number and environment variables) needed for the docker image
 to run properly can be specified when deploying the image via the ``/~image`` POST HTTP endpoint. These extra
@@ -87,14 +87,12 @@ that requires ``privileged`` mode to run properly can be deployed like (using py
         url='https://<host>/~image,
         headers=<headers>,
         data = {
-            'image':<image>
-            'name':<name>,
-            'version':<version>,
-            'port':<port>,
+            'image': <image>,
+            'name': <name>,
+            'version': <version>,
+            'port': <port>,
             'docker_run_args': {
-                'privileged': true,
+                'privileged': True,
                 ...
             }
         })
-
-The interactive docs at ``<host>/docs`` is also very useful for this kind of deployment. 

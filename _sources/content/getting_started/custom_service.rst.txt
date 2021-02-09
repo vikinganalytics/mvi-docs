@@ -20,7 +20,8 @@ Where `service.py` contains the service source code. Let's look at how a typical
 Setup
 -----
 
-As usual, the first step is to import packages and initialize the logger
+As usual, the first step is to import packages. We also initialize a logger
+so we can get information about our services for debugging:
 
 .. testcode::
 
