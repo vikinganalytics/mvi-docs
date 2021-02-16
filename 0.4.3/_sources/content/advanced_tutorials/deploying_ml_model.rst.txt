@@ -1,0 +1,164 @@
+.. _deploy-ml-reference:
+
+Deploying Machine Learning Models
+=================================
+
+Machine Learning models are commonly trained in a separate environment from
+the deployment environment. The models are typically serialized as e.g.
+`pickle <https://docs.python.org/3/library/pickle.html>`_ files, which can easily
+be moved between the environments. In this tutorial we are going to look at how we
+can take a pickled `sklearn <https://scikit-learn.org/stable/>`_ classifier model
+and create a service that uses that model to predict a class on data sent to it.
+
+The Classifier
+--------------
+
+Let's create a simple classifier for the famous iris dataset in this example.
+We will not go into any detail about how it's done. There are plenty of tutorials
+online that go through this process::
+
+
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn import datasets
+    import numpy as np
+    import pickle
+
+    iris = datasets.load_iris(as_frame=True)
+
+    X_df = iris["data"]
+    y = iris["target"]
+
+    n = X_df.shape[0]
+    i_train = np.random.choice(n, round(0.7*n))
+
+    y_train = y[i_train]
+    X_train = X_df.loc[i_train, :]
+
+    y_test = y.drop(i_train, axis=0)
+    X_test = X_df.drop(i_train, axis=0)
+
+    knn = KNeighborsClassifier()
+    knn.fit(X_train, y_train)
+
+    with open("./classifier.pkl", "wb+") as fp:
+        pickle.dump(knn, fp)
+
+The Service
+-----------
+
+Like we have done previously we use ``mvi init`` command to create a new project.
+
+>>> mvi init # doctest: +SKIP
+project_name [my_project]: iris_project
+
+The first thing we have to do is to create a directory in `iris_project` to put our
+model.
+
+>>> mkdir iris_project/models # doctest: +SKIP
+>>> mv classifier.pkl iris_project/models/ # doctest: +SKIP
+
+While it's fresh in our memory, let's add ``sklearn`` to the `requirements.txt` file,
+because while a pickled object does not require its dependencies to be imported, they
+still have to be installed. Now we are ready to start modifying `service.py`. 
+We make some imports and initialize the logger, this time we need a few more packages than last time
+
+.. testcode::
+
+    import logging
+    from mvi import service
+    import pickle
+    import pandas as pd
+
+    logger = logging.getLogger(__name__)
+
+The new imports from last time are ``pickle`` and ``pandas`` which we are going to
+use to load the model and transform our data. ``pandas`` is not a standard python
+package, so we have to add that to the `requirements.txt` file. Next we create the logger object
+
+
+We use pickle to unpack the model, which we want to do only once::
+
+    with open("./model/classifier.pkl", "rb") as file_handle:
+        classifier = pickle.load(file_handle)
+
+The classifier has a predict method that we want to use. To do this we create a
+:py:func:`predict` entrypoint using the :py:obj:`~mvi.service.entrypoint` 
+decoratore
+
+.. testcode::
+
+    @service.entrypoint
+    def predict(data: dict) -> list:
+        df = pd.DataFrame(data)
+        logger.info(f"Recieved data: \n{df}")
+        pred = classifier.predict(df)
+        logger.info(f"Predicted: {pred}")
+        return pred.tolist()
+
+This entrypoint takes a dictionary as input data and returns a list of predictions.
+It writes the recieved data to the logger, predicts using the data, prints and
+returns the predictions as a list.
+
+We end `service.py` with the :py:meth:`~mvi.service.run` method::
+
+    service.run()
+
+All together `service.py` looks like::
+
+    import logging
+    from mvi import service
+    import pickle
+    import pandas as pd
+
+    logger = logging.getLogger(__name__)
+
+    with open("./model/classifier.pkl", "rb") as fp:
+        classifier = pickle.load(fp)
+
+
+    @service.entrypoint
+    def predict(data: dict) -> list:
+        df = pd.DataFrame(data)
+        logger.info(f"Recieved data: \n{df}")
+        pred = classifier.predict(df)
+        logger.info(f"Predicted: {pred}")
+        return pred.tolist()
+
+    if __name__ == '__main__':
+        service.run()
+
+And `requirements.txt`::
+
+    va-mvi
+    sklearn
+    pandas
+
+Deployment
+----------
+
+Just like before, we deploy the service using the CLI:
+
+>>> mvi deploy iris_classifier 1.0.0 ./iris_project # doctest: +SKIP
+Active host: http://your-host
+Deploying service...
+Service deployed successfully
+MAIN    NAME             VERSION    STATUS    RUNNING
+------  ---------------  ---------  --------  -----------------------------------
+*       iris_classifier  1.0.0      running   Running (since 2020-11-23 16:22:46)
+
+The service should now be up and running. Go to the documentation to test it out:
+http://your-host/services/iris_classifier/docs. The data should be on a format
+that can be transformed to a pandas dataframe::
+
+    {
+        "data":
+        {
+            "col1": [1, 2],
+            "col2": [1, 2],
+            "col3": [1, 2],
+            "col4": [1, 2],
+        } 
+    }
+
+.. Note:: To get validation on your entrypoint input you should take a look at
+    :ref:`sdk-typing-reference`.

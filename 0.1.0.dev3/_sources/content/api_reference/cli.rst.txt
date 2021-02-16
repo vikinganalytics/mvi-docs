@@ -1,0 +1,7 @@
+Command-line Interface
+======================
+
+.. automodule:: mvi.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:

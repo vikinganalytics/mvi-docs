@@ -1,0 +1,117 @@
+.. _streamlit-service-reference:
+
+Using Streamlit to build a dashboard
+====================================
+
+In this tutorial we will see how to create a service with a graphical interface
+using a very convenient python package called `streamlit <https://www.streamlit.io/>`_.
+
+With streamlit it is very quick to make graphical applications and this can be
+used together with MVI to make dashboards for monitoring or configuration of
+your algorithms, just to name a few examples. We will not go into detail into how
+to use streamlit itself, but rather how to deploy a streamlit application in MVI and
+have it communicate with your services.
+
+Creating the Streamlit Service
+------------------------------
+
+Let's reuse the `Die Roller` service we created as part of the `Yatzee` game in
+:ref:`cross-service-reference` and create a roll button and a display for the
+die roll. We start by creating a new project:
+
+>>> mvi init # doctest: +SKIP
+Active host: http://your-host
+project_name [my_project]: die_app
+
+The first thing we have to do is to add ``streamlit`` to the `requirements.txt`
+file::
+
+    va-mvi
+    streamlit
+
+We also rename `service.py` to `die_app.py`. This is where we will write our
+streamlit app, but in order for it to run when we start the service, we have to
+create a new file called `app.sh` with the contents::
+
+    streamlit run die_app.py
+
+``streamlit run script.py`` is the command that is used to start a streamlit app,
+and we have to make MVI run that command when it starts the service. Normally MVI
+runs `service.py` but this can be changed by modifying ``APP_SCIPT`` in
+`.s2i/environment`::
+
+    APP_SCRIPT = app.sh
+
+This way we tell MVI that `app.sh` is the main file of the service and that it should
+be run on startup. Now that all the boring stuff is out of the way, we can start
+writing the app in `die_app.py`
+
+.. testcode::
+
+    import streamlit as st
+    from mvi.communication import call_service
+
+    st.title("Die App")
+
+    roll = st.button("Roll")
+
+    if roll:
+        data = call_service(
+            service_name="die_roller",
+            entrypoint_name="roll_die"
+        )
+
+
+        st.header("Roll:")
+        st.write(data)
+
+Deploying the Service
+---------------------
+
+Since `die_app` is dependent of `die_roller_service` it has to be up and running
+before `die_app` can be used. The code for `die_roller_service` itself
+
+.. testcode::
+
+    import logging
+    from mvi import service
+    from random import randint
+
+    logger = logging.getLogger(__name__)
+
+    @service.entrypoint
+    def roll_die() -> int:
+        return randint(1, 6)
+
+    if __name__ == '__main__':
+        service.run()
+
+>>> mvi deploy die_roller 1.0.0 ./die_roller_service # doctest: +SKIP
+Active host: http://your-host
+Deploying service...
+Service deployed successfully
+MAIN    NAME         VERSION    STATUS    RUNNING
+------  -----------  ---------  --------  -----------------------------------
+*       die_roller   1.0.0      running   Running (since 2020-12-15 12:10:25)
+
+We can now deploy the streamlit app, like we would any other, with one important
+difference. Streamlit uses internal port 8501 to communicate so we have to explicitly
+set the port when deploying:
+
+>>> mvi deploy die_app 1.0.0 ./die_app --port 8501 # doctest: +SKIP
+Active host: http://your-host
+Deploying service...
+Service deployed successfully
+MAIN    NAME     VERSION    STATUS    RUNNING
+------  -------  ---------  --------  -----------------------------------
+*       die_app  1.0.0      running   Running (since 2020-12-15 12:15:35)
+
+.. note:: MVI services created using the SDK use port 8000, which is the default
+    port for ``mvi deploy``. But when deploying other apps it might be necessary
+    to change it to not get a `Bad Gateway`.
+
+Open http://your-host/services/die_app/ and you should see your app there:
+
+.. image:: ../img/streamlit_service.png
+  :width: 200
+  :alt: Screenshot of streamlit service

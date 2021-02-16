@@ -1,0 +1,9 @@
+.. _cli-reference:
+
+Command-line Interface
+======================
+
+.. automodule:: mvi.cli.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:

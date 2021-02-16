@@ -1,0 +1,35 @@
+.. _sdk-reference:
+
+Software Development Kit
+========================
+
+Service API (:py:mod:`mvi.service`)
+-----------------------------------
+
+.. note:: :py:mod:`mvi.service` is an object (not a module), and should be used accordingly.
+
+.. attribute:: mvi.service
+
+   .. autofunction:: mvi._service._Service.entrypoint
+   .. autofunction:: mvi._service._Service.store
+   .. autofunction:: mvi._service._Service.call_every
+   .. autofunction:: mvi._service._Service.get_parameter
+   .. autofunction:: mvi._service._Service.add_parameter
+   .. autofunction:: mvi._service._Service.run
+
+
+Communication API (:py:mod:`mvi.communication`)
+-----------------------------------------------
+
+.. automodule:: mvi.communication
+   :members: notify, Severity, call_service
+   :undoc-members:
+   :show-inheritance:
+
+Utilities API (:py:mod:`mvi.utilities`)
+-------------------------------------------------
+
+.. automodule:: mvi.utilities
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,18 @@
+.. _https-reference:
+
+Secure Manager Connection
+=========================
+
+It is possible to get a secure HTTPS connection to the manager using automatically
+created certificates from `Let's Encrypt <https://letsencrypt.org>`. For this to work,
+the server must have a valid hostname which sersolves via DNS to the server's IP
+address. It will not work if you access the manager using an IP addres or
+``localhost`` due to how TLS certificates are generated.
+
+To enable HTTPS you must start a new manager with the environment variable
+``MVI_PROXY_HTTPS`` set to true. We also recommend that you set an email
+address with the environment variable ``MVI_CONFIG_EMAIL``, so you can get
+notified if the certificate is about to run out. All in all, to start a manager
+with a secure connection run the following command:
+
+>>> docker run --name mvi_manager -v /var/run/docker.sock:/var/run/docker.sock -v mvi_data:/data -p 80:80 -p 443:443 -e MVI_HOST_NAME="your-host-name.com" -e MVI_AUTH_ENABLED=True -e MVI_CONFIG_EMAIL="your@email.com" -e MVI_PROXY_HTTPS=True -d vikinganalyticsab/mvi_manager:latest

@@ -1,0 +1,52 @@
+.. _multiple-hosts-reference:
+
+Using Multiple Hosts
+====================
+
+In :ref:`first-service-reference` we logged in to our first host:
+http://your-host, but now you have the manager running on a second machine and
+you want to use that one.
+
+Luckily this is very simple and is done with the ``mvi login`` command just like
+the first time you logged in. If you run the command now, you should see someting
+like this:
+
+>>> mvi login # doctest: +SKIP
+Current hosts:
+0 - http://your-host
+Enter MVI host: 
+
+Type in the URL to the new host and your username + password and you will be 
+logged in to the new host:
+
+>>> mvi login # doctest: +SKIP
+Current hosts:
+0 - http://your-host
+Enter MVI host: http://your-new-host
+Logging in to MVI instance at http://your-new-host
+Username: <username>
+Password: <password>
+Changed host to http://your-new-host
+
+Now if you call ``mvi ls`` you should see an empty list of services and a reminder
+of your current host:
+
+>>> mvi ls # doctest: +SKIP
+Active host: http://your-new-host
+MAIN    NAME    VERSION    STATUS    RUNNING
+------  ------  ---------  --------  ---------
+
+Changing between hosts
+----------------------
+
+As you might have observed, your previous hosts are already listed for you when you
+use ``mvi login``. This is to save you the effort of remembering and repeatedly
+typing in the same URLs. Say that we want to change back to http://your-host,
+then we can simply call ``mvi login`` again, and say that we want host 0:
+
+>>> mvi login # doctest: +SKIP
+Current hosts:
+0 - http://your-host
+1 - http://your-new-host
+Enter MVI host: 0
+Changed host to http://your-new-host

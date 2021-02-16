@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Command-line Interface &mdash; Multiviz Integrator  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Software Development Kit" href="sdk.html" />
+    <link rel="prev" title="Upload local docker image" href="../advanced_tutorials/upload_image.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html">
+          
+
+          
+            
+            <img src="../../_static/VA_Symbol_DarkBlue.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/first_service.html">Deploying Your First Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/custom_service.html">Creating Your Own service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/autodocs.html">API Autodocs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/shadow_deployment.html">Versioning and Shadow Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/reaching_service_from_external_applications.html">Reaching a service from external applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/ticker.html">Schedule Repeating Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/monitoring.html">Monitoring Your Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/cross_service_communication.html">Cross-service Communication</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html">CLI Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_deploy.html#advanced-deployment-of-docker-images">Advanced Deployment of Docker Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/upload_image.html">Upload local docker image</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Command-line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdk.html">Software Development Kit</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Multiviz Integrator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Command-line Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/content/api_reference/cli.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mvi.cli.cli">
+<span id="command-line-interface"></span><span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#module-mvi.cli.cli" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="mvi.cli.cli.assign">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">assign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.assign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes main service to the service specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the service to change to primary.</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Version of the service to change to primary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the user does not validate the assign.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.deploy">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">deploy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">source:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">port:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">image_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">git_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.deploy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a new service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the new service.</p></li>
+<li><p><strong>version</strong> (<em>str</em>) – Version of the new service.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – Path to the source of the service.</p></li>
+<li><p><strong>port</strong> (<em>int</em><em>, </em><em>optional</em>) – Internal port for the service.</p></li>
+<li><p><strong>image_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Indicate that an image is
+being used for creating the service. Default False.</p></li>
+<li><p><strong>git_flag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Indicate that a git repository
+is being used for creating the service. Default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the user specifies both the -i and the -g option.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.init">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates skeleton code for a new MVI project</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Project generation output directory.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the output directory could not be found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.kill">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">all_:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.kill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kill one or multiple services by name and version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the service(s) to kill. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service to kill. Defaults to None.</p></li>
+<li><p><strong>all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Kill all services. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.login">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Login to the specified host</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.logs">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">logs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shows the logs for a service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of the service. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.ls">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">ls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>List running services, filtered by name and version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – List services with this name. Defaults to None.</p></li>
+<li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – List services of a certain name with this
+version. Defaults to None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.test">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">test</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">service_path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test a service before deployment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>service_path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Path to the directory of the service
+to test. Defaults to Path.cwd().</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – Exits with exit code 0 if all tests pass, otherwise 1-5</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="mvi.cli.cli.token">
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">lifetime:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a new authentication token</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lifetime</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Number of days the token should be valid.mvi
+Default to None which correpsonds to a long-lived token.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sdk.html" class="btn btn-neutral float-right" title="Software Development Kit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../advanced_tutorials/upload_image.html" class="btn btn-neutral float-left" title="Upload local docker image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Viking Analytics AB.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 0.4.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="../../../0.1.0/content/api_reference/cli.html">0.1.0</a></dd>
+      <dd><a href="../../../0.1.0.dev1/content/api_reference/cli.html">0.1.0.dev1</a></dd>
+      <dd><a href="../../../0.1.0.dev2/content/api_reference/cli.html">0.1.0.dev2</a></dd>
+      <dd><a href="../../../0.1.0.dev3/content/api_reference/cli.html">0.1.0.dev3</a></dd>
+      <dd><a href="../../../0.1.0.dev4/content/api_reference/cli.html">0.1.0.dev4</a></dd>
+      <dd><a href="../../../0.1.0.dev5/content/api_reference/cli.html">0.1.0.dev5</a></dd>
+      <dd><a href="../../../0.1.1/content/api_reference/cli.html">0.1.1</a></dd>
+      <dd><a href="../../../0.2.0/content/api_reference/cli.html">0.2.0</a></dd>
+      <dd><a href="../../../0.3.0/content/api_reference/cli.html">0.3.0</a></dd>
+      <dd><a href="../../../0.3.0.dev1/content/api_reference/cli.html">0.3.0.dev1</a></dd>
+      <dd><a href="../../../0.3.0.dev2/content/api_reference/cli.html">0.3.0.dev2</a></dd>
+      <dd><a href="../../../0.3.1/content/api_reference/cli.html">0.3.1</a></dd>
+      <dd><a href="../../../0.3.2/content/api_reference/cli.html">0.3.2</a></dd>
+      <dd><a href="../../../0.3.3/content/api_reference/cli.html">0.3.3</a></dd>
+      <dd><a href="../../../0.3.4/content/api_reference/cli.html">0.3.4</a></dd>
+      <dd><a href="cli.html">0.4.0</a></dd>
+      <dd><a href="../../../0.4.1/content/api_reference/cli.html">0.4.1</a></dd>
+      <dd><a href="../../../0.4.2/content/api_reference/cli.html">0.4.2</a></dd>
+      <dd><a href="../../../0.4.3/content/api_reference/cli.html">0.4.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="../../../develop/content/api_reference/cli.html">develop</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

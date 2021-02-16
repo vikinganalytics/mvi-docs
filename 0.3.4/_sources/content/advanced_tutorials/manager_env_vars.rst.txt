@@ -1,0 +1,57 @@
+
+.. _manager-env-vars-reference:
+
+Manager Environment Variables
+=============================
+
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| Environment Variable                   | Default Value         | Description                                                 |
++========================================+=======================+=============================================================+
+| MVI_HOST_NAME                          | "localhost"           | Host name of the machine running the manager.               |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_PROXY_HTTP_PORT                    | 80                    | Proxy port for HTTP communication with manager.             |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_PROXY_HTTPS_PORT                   | 443                   | Proxy port for HTTP communication with manager.             |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_PROXY_CONFIG_PATH                  | "proxy_config"        | Path to proxy configuration files.                          |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_AUTH_ENABLED                       | False                 | Using the manager required login if true.                   |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_MAX_REQUEST_BODY                   | 1000000000            | Maximum allowed transferred filesize. 1GB default.          |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_LOG_LEVEL                          | "INFO"                | Minimum logger level for manager.                           |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_ACCESS_LOGS_ENABLED                | True                  | Whether to print access logs.                               |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_PROXY_HTTPS                        | False                 | Sets up a secure connection to the manager if true          |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_HTTPS_STAGING_SERVER               | False                 | Sets if a staging server without rate limits should be used |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_CONFIG_EMAIL                       | null                  | Email address HTTPS and sending notifications.              |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_CONFIG_EMAIL_PASSWORD              | null                  | Password for config email, only required for notifications. |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_NOTIFICATION_SMTP_SERVER           | null                  | SMTP server URL.                                            |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_NOTIFICATION_SMTP_PORT             | null                  | Port to SMTP server, usually 587 or 465.                    |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_ACTIVATION_KEY                     | ""                    | License activation key. Without key Manager lives for 12h.  |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
+
+
+The example below starts a Manager instance that is listening on ``my.domain.com``, enforcing traffic over https with access
+control enabled and being activated using a provided activation key:
+
+.. code-block:: shell
+
+    docker run
+        --name mvi_manager
+        -v /var/run/docker.sock:/var/run/docker.sock
+        -v mvi_data:/data
+        -p 80:80
+        -p 443:443
+        -e MVI_HOST_NAME=my.domain.com
+        -e MVI_PROXY_HTTPS=True
+        -e MVI_AUTH_ENABLED=True
+        -e MVI_ACTIVATION_KEY=...
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}

@@ -1,0 +1,127 @@
+.. _email-notification-reference:
+
+Email Notifications
+===================
+
+If you remember from :ref:`custom-service-reference`, we created a `hello` service
+with a :func:`hello` entrypoint that took a name and responded with a greeting::
+
+    import logging
+    from mvi.mvi import MviService, notify, Severity
+
+    mvi = MviService()
+    logger = logging.getLogger(__name__)
+
+    mvi.add_parameter("greeting_phrase", "Hello")
+
+
+    @mvi.entrypoint
+    def hello(name: str) -> str:
+        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        if name == "World":
+            notify(
+                msg="Someone is trying to greet the World, too time consuming. Skipping!",
+                severity=Severity.WARNING,
+            )
+            return "Greeting failed"
+        logger.info(f"Greeting someone with the name: {name}")
+        return f"{greeting_phrase} {name}"
+
+
+    mvi.run()
+
+If the user tried to greet "World", a notification would be raised, which could be
+viewed in the notification tab of the dashboard. In this tutorial we will see how
+that same notification can be sent as an email.
+
+Manager Configuration
+---------------------
+
+The first step is to set up an email address that the MVI Manager can use to send
+the notification emails. For this you need an
+`SMTP <https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol>`_ server with
+an email account that you can use. We recommend to have a dedicated email address
+for sending MVI notifications.
+
+The manager is configured with a notification sender email at startup. We do this
+by setting four different environment variables at manager startup
+
++----------------------------------------+-----------------------+
+| Environment Variable                   | Value                 |
++========================================+=======================+
+| MVI_NOTIFICATION_SENDER_EMAIL          | "email@address.com"   |
++----------------------------------------+-----------------------+
+| MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD | "password"            |
++----------------------------------------+-----------------------+
+| MVI_NOTIFICATION_SMTP_SERVER           | "smtp.server.url"     |
++----------------------------------------+-----------------------+
+| MVI_NOTIFICATION_SMTP_PORT             | Usually 587 or 465    |
++----------------------------------------+-----------------------+
+
+With the docker CLI:
+
+>>> docker run -v /var/run/docker.sock:/var/run/docker.sock -p 80:80 -p 443:443 -e MVI_AUTH_ENABLED=True -e MVI_NOTIFICATION_SENDER_EMAIL="email@address.com" -e MVI_NOTIFICATION_SENDER_EMAIL_PASSWORD="password" -e MVI_NOTIFICATION_SMTP_SERVER="smtp.server.url" -e MVI_NOTIFICATION_SMTP_PORT=465 -d vikinganalyticsab/mvi_manager:latest
+
+If everything worked, an email will be sent from "email@address.com" to itself, to
+show that it successfully connected. Otherwise, as long as the manager could still
+start, any issues with the email configuration will be viewable on the notification
+tab in the dashboard.
+
+SDK Syntax
+----------
+
+By default, :func:`~mvi.mvi.notify` with not send any emails. For a notification to
+become an email notification, you have to pass a list of email addresses to the ``emails``
+keyword argument of :func:`~mvi.mvi.notify`::
+
+    import logging
+    from mvi.mvi import MviService, notify, Severity
+
+    mvi = MviService()
+    logger = logging.getLogger(__name__)
+
+    mvi.add_parameter("greeting_phrase", "Hello")
+
+
+    @mvi.entrypoint
+    def hello(name: str) -> str:
+        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        if name == "World":
+            notify(
+                msg="Someone is trying to greet the World, too time consuming. Skipping!",
+                severity=Severity.WARNING,
+                emails=["your@email.com"],
+            )
+            return "Greeting failed"
+        logger.info(f"Greeting someone with the name: {name}")
+        return f"{greeting_phrase} {name}"
+
+To make the email recipients dynamically changeable, we can use this in conjunction with
+:func:`~mvi.mvi.MviService.add_parameter` like so::
+
+    import logging
+    from mvi.mvi import MviService, notify, Severity
+
+    mvi = MviService()
+    logger = logging.getLogger(__name__)
+
+    mvi.add_parameter("greeting_phrase", "Hello")
+    mvi.add_parameter("emails", ["your@email.com"])
+
+
+    @mvi.entrypoint
+    def hello(name: str) -> str:
+        greeting_phrase = mvi.get_parameter("greeting_phrase")
+        emails = mvi.get_parameter("emails")
+        if name == "World":
+            notify(
+                msg="Someone is trying to greet the World, too time consuming. Skipping!",
+                severity=Severity.WARNING,
+                emails=emails,
+            )
+            return "Greeting failed"
+        logger.info(f"Greeting someone with the name: {name}")
+        return f"{greeting_phrase} {name}"
+
+This way, email addresses can be added and removed. You could of course use different emails
+for different notifications, so different stakeholders get notified of different things.

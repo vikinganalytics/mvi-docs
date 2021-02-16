@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Welcome to the Multiviz Integrator documentation! &mdash; Multiviz Integrator  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MultiViz Integrator" href="content/overview/mvi_description.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#">
+          
+
+          
+            
+            <img src="_static/VA_Symbol_DarkBlue.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/first_service.html">Deploying Your First Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/custom_service.html">Creating Your Own service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/autodocs.html">API Autodocs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/shadow_deployment.html">Versioning and Shadow Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/reaching_service_from_external_applications.html">Reaching a service from external applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/ticker.html">Schedule Repeating Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/monitoring.html">Monitoring Your Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/cross_service_communication.html">Cross-service Communication</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/email_notifications.html">Email Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_api.html">Manager API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/adv_deploy.html">Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/upload_image.html">Upload local docker image</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Special Usecases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/conda.html">Using MVI with Conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/gpu_services.html">Access NVIDIA GPUs</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/api_reference/cli.html">Command-line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/api_reference/sdk.html">Software Development Kit</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Multiviz Integrator</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Welcome to the Multiviz Integrator documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-the-multiviz-integrator-documentation">
+<h1>Welcome to the Multiviz Integrator documentation!<a class="headerlink" href="#welcome-to-the-multiviz-integrator-documentation" title="Permalink to this headline">¶</a></h1>
+<p>MultiViz Integrator (MVI) is a software deployment tool that is perfect for
+smaller applications where Time-to-Market and ease of use is more important than
+scalability to tens of thousands of users and requests.</p>
+<p>MVI strives to make writing and deploying services (small applications) as quick
+and easy as possible without requiring much, or any, prior knowledge
+and experience. We want Data Scientists and Algorithm Engineers to spend their time
+doing what they love and less time writing <cite>flask</cite> API:s and <cite>dockerfiles</cite>.</p>
+<div class="section" id="viking-analytics-ab">
+<h2>Viking Analytics AB<a class="headerlink" href="#viking-analytics-ab" title="Permalink to this headline">¶</a></h2>
+<p>MultiViz Integrator is developed by Viking Analytics AB. Viking Analytics is a
+computer software and services company founded in 2017 and headquartered in
+Gothenburg, Sweden. Our vision is to enable our customers to unlock the potential
+in their data. For more information, head to our homepage <a class="reference external" href="https://vikinganalytics.se/">https://vikinganalytics.se/</a>.
+If you want to get in contact, you can reach us at <a class="reference external" href="mailto:info&#37;&#52;&#48;vikinganalytics&#46;se">info<span>&#64;</span>vikinganalytics<span>&#46;</span>se</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview/mvi_description.html">MultiViz Integrator</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/first_service.html">Deploying Your First Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/custom_service.html">Creating Your Own service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/dashboard.html">Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/autodocs.html">API Autodocs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/shadow_deployment.html">Versioning and Shadow Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/reaching_service_from_external_applications.html">Reaching a service from external applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/ticker.html">Schedule Repeating Actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/monitoring.html">Monitoring Your Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/getting_started/cross_service_communication.html">Cross-service Communication</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/email_notifications.html">Email Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_api.html">Manager API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/adv_deploy.html">Deployment Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/integration_with_other_tools.html">Connecting MVI with Other Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/going_beyond_sdk.html">Going Beyond the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/advanced_tutorials/upload_image.html">Upload local docker image</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Special Usecases</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/conda.html">Using MVI with Conda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/special_usecases/gpu_services.html">Access NVIDIA GPUs</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Api Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/api_reference/cli.html">Command-line Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/api_reference/sdk.html">Software Development Kit</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="content/overview/mvi_description.html" class="btn btn-neutral float-right" title="MultiViz Integrator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Viking Analytics AB.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: 0.4.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Tags</dt>
+      <dd><a href="../0.1.0/index.html">0.1.0</a></dd>
+      <dd><a href="../0.1.0.dev1/index.html">0.1.0.dev1</a></dd>
+      <dd><a href="../0.1.0.dev2/index.html">0.1.0.dev2</a></dd>
+      <dd><a href="../0.1.0.dev3/index.html">0.1.0.dev3</a></dd>
+      <dd><a href="../0.1.0.dev4/index.html">0.1.0.dev4</a></dd>
+      <dd><a href="../0.1.0.dev5/index.html">0.1.0.dev5</a></dd>
+      <dd><a href="../0.1.1/index.html">0.1.1</a></dd>
+      <dd><a href="../0.2.0/index.html">0.2.0</a></dd>
+      <dd><a href="../0.3.0/index.html">0.3.0</a></dd>
+      <dd><a href="../0.3.0.dev1/index.html">0.3.0.dev1</a></dd>
+      <dd><a href="../0.3.0.dev2/index.html">0.3.0.dev2</a></dd>
+      <dd><a href="../0.3.1/index.html">0.3.1</a></dd>
+      <dd><a href="../0.3.2/index.html">0.3.2</a></dd>
+      <dd><a href="../0.3.3/index.html">0.3.3</a></dd>
+      <dd><a href="../0.3.4/index.html">0.3.4</a></dd>
+      <dd><a href="../0.4.0/index.html">0.4.0</a></dd>
+      <dd><a href="../0.4.1/index.html">0.4.1</a></dd>
+      <dd><a href="index.html">0.4.2</a></dd>
+      <dd><a href="../0.4.3/index.html">0.4.3</a></dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="../develop/index.html">develop</a></dd>
+    </dl>
+  </div>
+</div>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
