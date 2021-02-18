@@ -19,8 +19,6 @@ The Manager is highly configurable using environment variables.
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
 | MVI_AUTH_ENABLED                       | False                 | Using the Manager requires login if true.                   |
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
-| MVI_MAX_REQUEST_BODY                   | 1000000000            | Maximum allowed transferred filesize. 1GB default.          |
-+----------------------------------------+-----------------------+-------------------------------------------------------------+
 | MVI_LOG_LEVEL                          | "INFO"                | Minimum logger level for Manager.                           |
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
 | MVI_ACCESS_LOGS_ENABLED                | True                  | Whether to print access logs.                               |

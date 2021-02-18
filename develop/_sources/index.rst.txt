@@ -45,6 +45,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/getting_started/ticker
    content/getting_started/monitoring
    content/getting_started/cross_service_communication
+   content/getting_started/service_logs
 
 .. toctree::
    :maxdepth: 1
