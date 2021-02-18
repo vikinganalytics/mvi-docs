@@ -280,14 +280,23 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.logs">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">logs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">logs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">tail:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">follow:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">date:</span> <span class="pre">Optional[datetime.datetime]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the logs for a service</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Name of the service. Defaults to None.</p></li>
 <li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service. Defaults to None.</p></li>
+<li><p><strong>tail</strong> (<em>int</em><em>, </em><em>optional</em>) – Output specified number of lines at the end of logs.
+Default to 50</p></li>
+<li><p><strong>follow</strong> (<em>bool</em><em>, </em><em>optional</em>) – If the logs should be followed. Defaults to False.</p></li>
+<li><p><strong>date</strong> (<em>datetime</em><em>, </em><em>optional</em>) – Show logs since given datetime.
+Valid forrmats: [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S].
+Default to None.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If the tail input has a wrong type.</p>
 </dd>
 </dl>
 </dd></dl>
