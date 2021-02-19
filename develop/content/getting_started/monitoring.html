@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#monitoring-an-entrypoint">Monitoring an Entrypoint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#monitoring-a-parameter">Monitoring a Parameter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-the-data">Getting the Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limiting-the-number-of-records-in-the-database">Limiting the Number of Records in the Database</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cross_service_communication.html">Cross-service Communication</a></li>
@@ -120,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_api.html">Manager API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/adv_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/service_environment.html">Service Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
@@ -216,9 +218,9 @@ in the early stages.</p>
 <h2>Monitoring Variables<a class="headerlink" href="#monitoring-variables" title="Permalink to this headline">¶</a></h2>
 <p>To monitor the value of a variable in the code you can use the
 <code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> function. It takes an arbitrary number of keyword
-arguments and saves their values in a time-series database, where they can be
-retrieved at a later time. <code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> supports integer,
-float and string data. Let’s use the <cite>hello</cite> service as an example</p>
+arguments and saves their values in a service-specific database, where they can be
+retrieved at a later time. <code class="xref py py-func docutils literal notranslate"><span class="pre">store()</span></code> supports numeric and
+string data. Let’s use the <cite>hello</cite> service as an example</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
@@ -351,6 +353,32 @@ The csv files has the following format:</p>
 <p>The time-series data is stored a in sqlite databases and the whole
 service database can be requested at the following entrypoint:</p>
 <p><code class="docutils literal notranslate"><span class="pre">http://&lt;host&gt;/services/&lt;servce_name&gt;_&lt;service_version&gt;/~monitor/db</span></code></p>
+</div>
+<div class="section" id="limiting-the-number-of-records-in-the-database">
+<h2>Limiting the Number of Records in the Database<a class="headerlink" href="#limiting-the-number-of-records-in-the-database" title="Permalink to this headline">¶</a></h2>
+<p>Service databases are not meant as permanent data storage. The records are kept for
+365 days by default, but if a service stores large amounts of data often there is a
+risk of filling the disk of the host machine. To prevent this it’s possible to change
+how many instances of each variable can be stored or to automatically remove old instances.</p>
+<p>These options are set using an environment variable in the service’s runtime. The easiest
+way to set these are in <cite>.s2i/environment</cite>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>MVI_SERVICE_DB_TABLE_LIMIT</dt><dd><ul>
+<li><p>Should have the format &lt;number&gt;&lt;limiter&gt;</p></li>
+<li><p>Limiter options: rows, days, hours, minutes or seconds.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>To limit the number of days to store variables to 30 we would add the following
+to <cite>.s2i/environment</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MVI_SERVICE_DB_TABLE_LIMIT</span><span class="o">=</span><span class="mi">30</span><span class="n">days</span>
+</pre></div>
+</div>
 </div>
 </div>
 

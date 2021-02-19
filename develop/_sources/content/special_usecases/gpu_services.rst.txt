@@ -16,7 +16,7 @@ drivers installed on your manager host. Drivers are available from
 
 Installing nvidia-container-runtime
 -----------------------------------
- 
+
 Follow the steps 
 `here <https://github.com/NVIDIA/nvidia-container-runtime#installation>`_ to install
 the `nvidia-container-runtime`. The same URL describes a few ways to register the
@@ -28,7 +28,6 @@ Restart docker:
 
 >>> sudo systemctl daemon-reload  # doctest: +SKIP
 >>> sudo systemctl restart docker  # doctest: +SKIP
-
 At this point you can start a manager on this machine and use it like normal.
 
 Deploying services with GPU access

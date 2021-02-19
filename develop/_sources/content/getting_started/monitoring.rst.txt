@@ -14,9 +14,9 @@ Monitoring Variables
 
 To monitor the value of a variable in the code you can use the
 :py:func:`~mvi.service.store` function. It takes an arbitrary number of keyword
-arguments and saves their values in a time-series database, where they can be
-retrieved at a later time. :py:func:`~mvi.service.store` supports integer,
-float and string data. Let's use the `hello` service as an example
+arguments and saves their values in a service-specific database, where they can be
+retrieved at a later time. :py:func:`~mvi.service.store` supports numeric and
+string data. Let's use the `hello` service as an example
 
 .. testcode::
 
@@ -171,3 +171,23 @@ The time-series data is stored a in sqlite databases and the whole
 service database can be requested at the following entrypoint:
 
 ``http://<host>/services/<servce_name>_<service_version>/~monitor/db``
+
+Limiting the Number of Records in the Database
+----------------------------------------------
+
+Service databases are not meant as permanent data storage. The records are kept for
+365 days by default, but if a service stores large amounts of data often there is a
+risk of filling the disk of the host machine. To prevent this it's possible to change
+how many instances of each variable can be stored or to automatically remove old instances.
+
+These options are set using an environment variable in the service's runtime. The easiest
+way to set these are in `.s2i/environment`:
+
+    * MVI_SERVICE_DB_TABLE_LIMIT
+        * Should have the format <number><limiter>
+        * Limiter options: rows, days, hours, minutes or seconds.
+
+To limit the number of days to store variables to 30 we would add the following
+to `.s2i/environment`::
+
+    MVI_SERVICE_DB_TABLE_LIMIT=30days

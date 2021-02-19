@@ -429,6 +429,25 @@ before the same notification can be send again. Defaults to 0.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt id="mvi.utilities.get_db_table_limit">
+<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_db_table_limit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#mvi.utilities.get_db_table_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit of rows or duration to keep records in service database.
+Reads from the environment variable MVI_SERVICE_DB_TABLE_LIMIT.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>int: Maximum rows/days etc. of database. Defaults to 365</p></li>
+<li><p>str: One of rows, days, hours, minutes, seconds. Defaults to “days”</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="mvi.utilities.get_headers">
 <code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_headers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#mvi.utilities.get_headers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating headers for API calls</p>

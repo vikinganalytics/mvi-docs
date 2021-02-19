@@ -58,6 +58,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/advanced_tutorials/manager_api
    content/advanced_tutorials/adv_deploy
    content/advanced_tutorials/cli_autocompletion
+   content/advanced_tutorials/service_environment
    content/advanced_tutorials/manager_configuration
    content/advanced_tutorials/testing_services
    content/advanced_tutorials/proxy_dashboard

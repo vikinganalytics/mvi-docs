@@ -114,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_api.html">Manager API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/adv_deploy.html">Deployment Options</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/cli_autocompletion.html">Autocompletion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/service_environment.html">Service Environment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/manager_configuration.html">Manager Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/testing_services.html">Testing Services Before Deployment</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/proxy_dashboard.html">Proxy Dashboard</a></li>
@@ -231,9 +232,9 @@ configuration file and set nvidia as the default runtime.</p>
 <p>Restart docker:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">daemon</span><span class="o">-</span><span class="n">reload</span>  
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">restart</span> <span class="n">docker</span>  
+<span class="go">At this point you can start a manager on this machine and use it like normal.</span>
 </pre></div>
 </div>
-<p>At this point you can start a manager on this machine and use it like normal.</p>
 </div>
 <div class="section" id="deploying-services-with-gpu-access">
 <h2>Deploying services with GPU access<a class="headerlink" href="#deploying-services-with-gpu-access" title="Permalink to this headline">¶</a></h2>
