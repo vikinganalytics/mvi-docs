@@ -83,6 +83,12 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/api_reference/cli.rst
    content/api_reference/sdk.rst
 
+.. toctree::
+   :maxdepth: 1
+   :caption: About
+
+   content/3rd_party_software.rst
+
 Indices and tables
 ==================
 
