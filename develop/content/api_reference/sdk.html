@@ -136,6 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#service-api-mvi-service">Service API (<code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.service</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-mvi.communication">Communication API (<code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.communication</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-mvi.utilities">Utilities API (<code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.utilities</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-mvi.data_types">Data Types API (<code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.data_types</span></code>)</a></li>
 </ul>
 </li>
 </ul>
@@ -559,6 +560,57 @@ Can be for example <cite>/services/&lt;service_name&gt;_&lt;service_version&gt;<
 <dd class="field-even"><p>str</p>
 </dd>
 </dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-mvi.data_types">
+<span id="data-types-api-mvi-data-types"></span><h2>Data Types API (<a class="reference internal" href="#module-mvi.data_types" title="mvi.data_types"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.data_types</span></code></a>)<a class="headerlink" href="#module-mvi.data_types" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="mvi.data_types.ArrayInput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mvi.data_types.</span></code><code class="sig-name descname"><span class="pre">ArrayInput</span></code><a class="headerlink" href="#mvi.data_types.ArrayInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+<p>Pydantic compatible data type for numpy ndarray input.</p>
+<dl class="py method">
+<dt id="mvi.data_types.ArrayInput.validate">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">validate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">numpy.ndarray</span><a class="headerlink" href="#mvi.data_types.ArrayInput.validate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mvi.data_types.ArrayOutput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mvi.data_types.</span></code><code class="sig-name descname"><span class="pre">ArrayOutput</span></code><a class="headerlink" href="#mvi.data_types.ArrayOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></p>
+<p>Pydantic compatible data type for numpy ndarray output.</p>
+<dl class="py method">
+<dt id="mvi.data_types.ArrayOutput.validate">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">validate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><a class="headerlink" href="#mvi.data_types.ArrayOutput.validate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mvi.data_types.DataFrameInput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mvi.data_types.</span></code><code class="sig-name descname"><span class="pre">DataFrameInput</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dtype</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.data_types.DataFrameInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Pydantic compatible data type for pandas DataFrame input.</p>
+<dl class="py method">
+<dt id="mvi.data_types.DataFrameInput.validate">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">validate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="headerlink" href="#mvi.data_types.DataFrameInput.validate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="mvi.data_types.DataFrameOutput">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mvi.data_types.</span></code><code class="sig-name descname"><span class="pre">DataFrameOutput</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Axes</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dtype</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.data_types.DataFrameOutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.core.frame.DataFrame</span></code></p>
+<p>Pydantic compatible data type for pandas DataFrame output.</p>
+<dl class="py method">
+<dt id="mvi.data_types.DataFrameOutput.validate">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">validate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#mvi.data_types.DataFrameOutput.validate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>

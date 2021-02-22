@@ -255,7 +255,7 @@ in a production environment, for example <cite>numpy==1.19.4</cite></p>
 <p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">service</span></code> object helps us set up entrypoints for the service,
 add parameters and start the service. The logger is just a regular python logging
 object, which MVI natively supports. The logs from a service can be read from the
-dashboard or using <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">logs</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;version&gt;</span></code>.</p>
+dashboard or using <code class="docutils literal notranslate"><span class="pre">mvi</span> <span class="pre">logs</span> <span class="pre">name</span> <span class="pre">version</span></code>.</p>
 </div>
 <div class="section" id="defining-parameters">
 <span id="custom-service-defining-parameters-reference"></span><h2>Defining parameters<a class="headerlink" href="#defining-parameters" title="Permalink to this headline">¶</a></h2>
@@ -264,19 +264,20 @@ can be freely changed from outside a running service</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">service</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To use the parameter in the code you do</p>
+<p>Get the value of a parameter with</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">greeting_phrase</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This way you can control the behaviour of your running services without having
 to make any code changes. We recommend using this for e.g. tuning parameters.</p>
-<p>These parameters can be changed via the docs of the service, see <a class="reference internal" href="autodocs.html#autodocs-reference"><span class="std std-ref">API Autodocs</span></a> for how to do it.
-Another way to change these parameters is by sending HTTP POST requests directly, for instance via pythons <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a> library.</p>
+<p>These parameters can be changed by sending a HTTP POST request, for instance via
+pythons <a class="reference external" href="https://requests.readthedocs.io/en/master/">requests</a> library or the
+docs of the service, see <a class="reference internal" href="autodocs.html#autodocs-reference"><span class="std std-ref">API Autodocs</span></a>.</p>
 <p>Example of changing the <code class="docutils literal notranslate"><span class="pre">greeting_phrase</span></code> parameter for this service:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">json_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;greeting_phrase&quot;</span><span class="p">:</span> <span class="s2">&quot;Bonjour&quot;</span><span class="p">}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-    <span class="s2">&quot;http:://&lt;host&gt;/services/&lt;my_service&gt;/parameters/greeting_phrase&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;http:://your-host/services/name_version/parameters/greeting_phrase&quot;</span><span class="p">,</span>
     <span class="n">json</span><span class="o">=</span><span class="n">json_data</span><span class="p">,</span>
     <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Authorization&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Bearer </span><span class="si">{</span><span class="n">TOKEN</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
 </pre></div>
@@ -299,9 +300,10 @@ the expected data types. Please take a look at <a class="reference internal" hre
 more detailed guide on how typing is handled in MVI.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>MVI entrypoints should have JSON-compatible data as input and output. Note that <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
-and <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> are not JSON-compatible and must be converted to
-lists or dictionaries.</p>
+<p>MVI entrypoints should have JSON-compatible data as input and output. Note that e.g.
+<code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> are not JSON-compatible and must be converted to
+lists or dictionaries. Read <a class="reference internal" href="../advanced_tutorials/sdk_typing.html#sdk-typing-non-json-reference"><span class="std std-ref">Using Non-jsonable Data Types</span></a> on how to make it easier to
+use such data types.</p>
 </div>
 </div>
 <div class="section" id="notifications">

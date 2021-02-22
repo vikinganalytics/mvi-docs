@@ -47,7 +47,7 @@ That way they will be installed the service is deployed.
 The :py:obj:`service` object helps us set up entrypoints for the service,
 add parameters and start the service. The logger is just a regular python logging
 object, which MVI natively supports. The logs from a service can be read from the
-dashboard or using ``mvi logs <name> <version>``.
+dashboard or using ``mvi logs name version``.
 
 .. _custom-service_defining_parameters-reference:
 
@@ -62,7 +62,7 @@ can be freely changed from outside a running service
     service.add_parameter("greeting_phrase", "Hello")
     
 
-To use the parameter in the code you do
+Get the value of a parameter with
 
 .. testcode::
 
@@ -72,15 +72,16 @@ To use the parameter in the code you do
 This way you can control the behaviour of your running services without having
 to make any code changes. We recommend using this for e.g. tuning parameters.
 
-These parameters can be changed via the docs of the service, see :ref:`autodocs-reference` for how to do it.
-Another way to change these parameters is by sending HTTP POST requests directly, for instance via pythons `requests <https://requests.readthedocs.io/en/master/>`_ library.
+These parameters can be changed by sending a HTTP POST request, for instance via
+pythons `requests <https://requests.readthedocs.io/en/master/>`_ library or the
+docs of the service, see :ref:`autodocs-reference`.
 
 Example of changing the ``greeting_phrase`` parameter for this service::
 
     json_data = {"greeting_phrase": "Bonjour"}
 
     response = requests.post(
-        "http:://<host>/services/<my_service>/parameters/greeting_phrase",
+        "http:://your-host/services/name_version/parameters/greeting_phrase",
         json=json_data,
         headers={"Authorization": f"Bearer {TOKEN}"})
 
@@ -103,9 +104,10 @@ will get type verification in your API and the auto-generated documentation will
 the expected data types. Please take a look at :ref:`sdk-typing-reference` for a
 more detailed guide on how typing is handled in MVI.
 
-.. note:: MVI entrypoints should have JSON-compatible data as input and output. Note that ``numpy.ndarray``
-    and ``pandas.DataFrame`` are not JSON-compatible and must be converted to
-    lists or dictionaries.
+.. note:: MVI entrypoints should have JSON-compatible data as input and output. Note that e.g.
+    ``numpy.ndarray`` and ``pandas.DataFrame`` are not JSON-compatible and must be converted to
+    lists or dictionaries. Read :ref:`sdk-typing-non-json-reference` on how to make it easier to
+    use such data types.
 
 
 Notifications

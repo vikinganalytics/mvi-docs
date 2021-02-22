@@ -4,32 +4,83 @@ Typing in the SDK
 =================
 
 The :ref:`sdk-reference` supports type hints to add validation to the resulting API
-as well as well-defined json schemas for the automatic documentation. In this
+as well as well-defined json schemas for the automated documentation. In this
 tutorial we will see how we can make use of this to make the API and interactive
 docs easier to use.
 
 .. note:: MVI entrypoints communicate with json schemas and do therefore
-  only support json-compatible input and output, such as numericals, strings,
-  lists and dictionaries.
+    only support json-compatible input and output, such as numericals, strings,
+    lists and dictionaries.
 
-Creating an Input Model
------------------------
+Why Type Hints?
+---------------
 
-So far we have seen two example services, the `hello` service from
-:ref:`custom-service-reference`, which had a :py:func:`hello` entrypoint
-that we defined like
+It is not required to use type hints for your entrypoint functions. But if they are
+used they will give validation to the API, which can otherwise require a fair bit
+of code to get good. Let's look at the :py:func:`hello` entrypoint that we've seen
+a few times already, but without type hints:
 
 .. testcode::
-    
+
+    from mvi import service
+
+    @service.entrypoint
+    def hello(name):
+        return f"Hello {name}"
+
+
+    if __name__ == "__main__":
+        service.run()
+
+Without the type hint we allow any data type into the entrypoint. Let's
+say that an error caused a list of names to be sent to name instead of a single name
+then this entrypoint would respond with ``"Hello ['Lars', 'Claus', 'Bob']"`` and a
+status code of 200. We also won't get any schema definitions in the API documentation.
+Let's define the same entrypoint again but with type hints this time:
+
+.. testcode::
+
     from mvi import service
 
     @service.entrypoint
     def hello(name: str) -> str:
-        ...
-        pass
+        return f"Hello {name}"
 
-And we've seen the `iris` service from :ref:`deploy-ml-reference` which had the
-:py:func:`predict` entrypoint that was defined like this
+
+    if __name__ == "__main__":
+        service.run()
+
+With the same input ``{"name": ['Lars', 'Claus', 'Bob']}`` we would get a 422 error
+and the response::
+   
+    {
+    "detail": [
+      {
+        "loc": [
+          "body",
+          "name"
+        ],
+        "msg": "str type expected",
+        "type": "type_error.str"
+        }
+      ]
+    }
+
+Which tells us that the name argument expected a string, but got something else.
+
+.. note:: The validation uses `pydantic <https://pydantic-docs.helpmanual.io/>`_
+    behind the scenes which will try to coerce the input to the correct type,
+    so if we were to call :py:func:`hello` with the input ``{"name": 1}`` it will
+    convert ``1`` to string and respond with ``Hello 1``. If this behaviour is not
+    not desirable, take a look at pydantic's
+    `strict types <https://pydantic-docs.helpmanual.io/usage/types/#strict-types>`_.
+
+Creating an Input Model
+-----------------------
+
+We have seen a few example services, e.g. the `hello` service and the `iris`
+service from :ref:`deploy-ml-reference` which had the :py:func:`predict` entrypoint
+that was defined like:
 
 .. testcode::
     
@@ -37,12 +88,10 @@ And we've seen the `iris` service from :ref:`deploy-ml-reference` which had the
 
     @service.entrypoint
     def predict(data: dict) -> list:
-        ...
         pass
-    
 
-In both of these examples we have used standard python types as type hints. This
-will make sure that only strings can be used as input for :py:func:`hello` and
+In all examples so far we have used standard python types as type hints. This
+makes sure that only strings can be used as input for :py:func:`hello` and
 only dictionaries in :py:func:`predict`. But a dictionary can contain many types
 of data, and usually only one (or a few) ways are correct. To simplify the life
 of the user, we can define something called a data model, that we create by
@@ -115,12 +164,12 @@ MAIN    NAME     VERSION    STATUS    RUNNING
 ------  -------  ---------  --------  -----------------------------------
 *       row_sum  1.0.0      running   Running (since 2020-11-24 10:11:37)
 
-Now if we head on to the automatic documentation at
+Now if we head on to the automated documentation at
 http://your-host/services/row_sum/docs you should see the following:
 
 .. image:: ../img/data_model.png
-  :width: 800
-  :alt: Screenshot of autodocs with data model
+    :width: 800
+    :alt: Screenshot of autodocs with data model
 
 We can see that now, we have an example input ready for us in the schema view, which
 makes testing with the interactive docs much faster, but the most important feature
@@ -230,5 +279,58 @@ within the data model::
 This would change the standard value in the schema example to "Kermit".
 
 .. image:: ../img/schema_example.png
-  :width: 800
-  :alt: Screenshot of autodocs with data model and schema example
+    :width: 800
+    :alt: Screenshot of autodocs with data model and schema example
+
+.. _sdk-typing-non-json-reference:
+
+Using Non-jsonable Data Types
+-----------------------------
+
+Some data types like ``numpy.ndarray`` and ``pandas.DataFrame`` are very common for
+e.g. data science, but are not natively supported by Pydantic. They must first be
+converted to a json-compatible format like lists for arrays and dictionaries for
+dataframes. But this can be made more or less automated by using type hints with
+custom classes. MVI includes input and output types for ``numpy.ndarray`` and
+``pandas.DataFrame``. Let's look at how they can be used:
+
+.. testcode::
+
+    from mvi import service
+    from mvi.data_types import ArrayInput, ArrayOutput
+
+
+    @service.entrypoint
+    def array_sum(array1: ArrayInput, array2: ArrayInput) -> ArrayOutput:
+        return array1 + array2
+
+
+    if __name__ == "__main__":
+        service.run()
+
+Trying out this entrypoint with the input ``{"array1": [1, 2, 3], "array2": [4, 5, 6]}``
+responds with ``[5, 7, 9]``. If we had used lists as type hints they would
+have been concatenated to ``[1, 2, 3, 4, 5, 6]``. The :py:class:`~mvi.data_types.ArrayInput`
+class has a validator that converts its input to numpy arrays and conversely,
+:py:class:`~mvi.data_types.ArrayOutput` has a validator that converts the array to a list.
+
+Let's take a look at how :py:class:`~mvi.data_types.ArrayInput` and
+:py:class:`~mvi.data_types.ArrayOutput` are defined so you can make your own Pydantic
+compatible data types:
+
+.. literalinclude:: ../../../../mvi/data_types.py
+    :pyobject: ArrayInput
+
+.. literalinclude:: ../../../../mvi/data_types.py
+    :pyobject: ArrayOutput
+
+Pydantic looks for the :py:meth:`__get_validators__` method to see if the class has a
+validator method, in this case :py:meth:`validate` that takes a value and returns a value.
+For the input, the value must be a json-compatible type, that should then be converted to the
+type you want to use in your entrypoint and for the output it should be converted back to
+the json-compatible representation.
+
+The :py:meth:`__modify_schema__` method is let's pydantic create a schema for for the data
+type. It takes an argument for the field_schema which should be modified in-place. Take a
+look at `JSON Schema Types <https://pydantic-docs.helpmanual.io/usage/schema/#json-schema-types>`_ 
+that pydantic supports to find which schema fits you data type.

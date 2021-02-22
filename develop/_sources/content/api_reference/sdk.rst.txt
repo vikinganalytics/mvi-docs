@@ -33,3 +33,12 @@ Utilities API (:py:mod:`mvi.utilities`)
    :members:
    :undoc-members:
    :show-inheritance:
+
+
+Data Types API (:py:mod:`mvi.data_types`)
+-------------------------------------------------
+
+.. automodule:: mvi.data_types
+   :members:
+   :undoc-members:
+   :show-inheritance:

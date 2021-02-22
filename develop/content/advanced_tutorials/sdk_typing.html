@@ -109,9 +109,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Typing in the SDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-type-hints">Why Type Hints?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#creating-an-input-model">Creating an Input Model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-validation">Custom Validation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#schema-example">Schema Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-non-jsonable-data-types">Using Non-jsonable Data Types</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="using_multiple_hosts.html">Using Multiple Hosts</a></li>
@@ -212,7 +214,7 @@
   <div class="section" id="typing-in-the-sdk">
 <span id="sdk-typing-reference"></span><h1>Typing in the SDK<a class="headerlink" href="#typing-in-the-sdk" title="Permalink to this headline">¶</a></h1>
 <p>The <a class="reference internal" href="../api_reference/sdk.html#sdk-reference"><span class="std std-ref">Software Development Kit</span></a> supports type hints to add validation to the resulting API
-as well as well-defined json schemas for the automatic documentation. In this
+as well as well-defined json schemas for the automated documentation. In this
 tutorial we will see how we can make use of this to make the API and interactive
 docs easier to use.</p>
 <div class="admonition note">
@@ -221,31 +223,80 @@ docs easier to use.</p>
 only support json-compatible input and output, such as numericals, strings,
 lists and dictionaries.</p>
 </div>
-<div class="section" id="creating-an-input-model">
-<h2>Creating an Input Model<a class="headerlink" href="#creating-an-input-model" title="Permalink to this headline">¶</a></h2>
-<p>So far we have seen two example services, the <cite>hello</cite> service from
-<a class="reference internal" href="../getting_started/custom_service.html#custom-service-reference"><span class="std std-ref">Creating Your Own service</span></a>, which had a <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> entrypoint
-that we defined like</p>
+<div class="section" id="why-type-hints">
+<h2>Why Type Hints?<a class="headerlink" href="#why-type-hints" title="Permalink to this headline">¶</a></h2>
+<p>It is not required to use type hints for your entrypoint functions. But if they are
+used they will give validation to the API, which can otherwise require a fair bit
+of code to get good. Let’s look at the <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> entrypoint that we’ve seen
+a few times already, but without type hints:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Without the type hint we allow any data type into the entrypoint. Let’s
+say that an error caused a list of names to be sent to name instead of a single name
+then this entrypoint would respond with <code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">['Lars',</span> <span class="pre">'Claus',</span> <span class="pre">'Bob']&quot;</span></code> and a
+status code of 200. We also won’t get any schema definitions in the API documentation.
+Let’s define the same entrypoint again but with type hints this time:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
 <span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="o">...</span>
-    <span class="k">pass</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Hello </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>And we’ve seen the <cite>iris</cite> service from <a class="reference internal" href="deploying_ml_model.html#deploy-ml-reference"><span class="std std-ref">Deploying Machine Learning Models</span></a> which had the
-<code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint that was defined like this</p>
+<p>With the same input <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">['Lars',</span> <span class="pre">'Claus',</span> <span class="pre">'Bob']}</span></code> we would get a 422 error
+and the response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;detail&quot;</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;loc&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">&quot;body&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;str type expected&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;type_error.str&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Which tells us that the name argument expected a string, but got something else.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The validation uses <a class="reference external" href="https://pydantic-docs.helpmanual.io/">pydantic</a>
+behind the scenes which will try to coerce the input to the correct type,
+so if we were to call <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> with the input <code class="docutils literal notranslate"><span class="pre">{&quot;name&quot;:</span> <span class="pre">1}</span></code> it will
+convert <code class="docutils literal notranslate"><span class="pre">1</span></code> to string and respond with <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">1</span></code>. If this behaviour is not
+not desirable, take a look at pydantic’s
+<a class="reference external" href="https://pydantic-docs.helpmanual.io/usage/types/#strict-types">strict types</a>.</p>
+</div>
+</div>
+<div class="section" id="creating-an-input-model">
+<h2>Creating an Input Model<a class="headerlink" href="#creating-an-input-model" title="Permalink to this headline">¶</a></h2>
+<p>We have seen a few example services, e.g. the <cite>hello</cite> service and the <cite>iris</cite>
+service from <a class="reference internal" href="deploying_ml_model.html#deploy-ml-reference"><span class="std std-ref">Deploying Machine Learning Models</span></a> which had the <code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code> entrypoint
+that was defined like:</p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
 
 <span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
 <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-    <span class="o">...</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p>In both of these examples we have used standard python types as type hints. This
-will make sure that only strings can be used as input for <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> and
+<p>In all examples so far we have used standard python types as type hints. This
+makes sure that only strings can be used as input for <code class="xref py py-func docutils literal notranslate"><span class="pre">hello()</span></code> and
 only dictionaries in <code class="xref py py-func docutils literal notranslate"><span class="pre">predict()</span></code>. But a dictionary can contain many types
 of data, and usually only one (or a few) ways are correct. To simplify the life
 of the user, we can define something called a data model, that we create by
@@ -315,7 +366,7 @@ send a 422 HTTP-error with an error description.</p>
 <span class="go">*       row_sum  1.0.0      running   Running (since 2020-11-24 10:11:37)</span>
 </pre></div>
 </div>
-<p>Now if we head on to the automatic documentation at
+<p>Now if we head on to the automated documentation at
 <a class="reference external" href="http://your-host/services/row_sum/docs">http://your-host/services/row_sum/docs</a> you should see the following:</p>
 <a class="reference internal image-reference" href="../../_images/data_model.png"><img alt="Screenshot of autodocs with data model" src="../../_images/data_model.png" style="width: 800px;" /></a>
 <p>We can see that now, we have an example input ready for us in the schema view, which
@@ -423,6 +474,79 @@ within the data model:</p>
 </div>
 <p>This would change the standard value in the schema example to “Kermit”.</p>
 <a class="reference internal image-reference" href="../../_images/schema_example.png"><img alt="Screenshot of autodocs with data model and schema example" src="../../_images/schema_example.png" style="width: 800px;" /></a>
+</div>
+<div class="section" id="using-non-jsonable-data-types">
+<span id="sdk-typing-non-json-reference"></span><h2>Using Non-jsonable Data Types<a class="headerlink" href="#using-non-jsonable-data-types" title="Permalink to this headline">¶</a></h2>
+<p>Some data types like <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> and <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code> are very common for
+e.g. data science, but are not natively supported by Pydantic. They must first be
+converted to a json-compatible format like lists for arrays and dictionaries for
+dataframes. But this can be made more or less automated by using type hints with
+custom classes. MVI includes input and output types for <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code>. Let’s look at how they can be used:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mvi</span> <span class="kn">import</span> <span class="n">service</span>
+<span class="kn">from</span> <span class="nn">mvi.data_types</span> <span class="kn">import</span> <span class="n">ArrayInput</span><span class="p">,</span> <span class="n">ArrayOutput</span>
+
+
+<span class="nd">@service</span><span class="o">.</span><span class="n">entrypoint</span>
+<span class="k">def</span> <span class="nf">array_sum</span><span class="p">(</span><span class="n">array1</span><span class="p">:</span> <span class="n">ArrayInput</span><span class="p">,</span> <span class="n">array2</span><span class="p">:</span> <span class="n">ArrayInput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArrayOutput</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">array1</span> <span class="o">+</span> <span class="n">array2</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">service</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Trying out this entrypoint with the input <code class="docutils literal notranslate"><span class="pre">{&quot;array1&quot;:</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3],</span> <span class="pre">&quot;array2&quot;:</span> <span class="pre">[4,</span> <span class="pre">5,</span> <span class="pre">6]}</span></code>
+responds with <code class="docutils literal notranslate"><span class="pre">[5,</span> <span class="pre">7,</span> <span class="pre">9]</span></code>. If we had used lists as type hints they would
+have been concatenated to <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6]</span></code>. The <a class="reference internal" href="../api_reference/sdk.html#mvi.data_types.ArrayInput" title="mvi.data_types.ArrayInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayInput</span></code></a>
+class has a validator that converts its input to numpy arrays and conversely,
+<a class="reference internal" href="../api_reference/sdk.html#mvi.data_types.ArrayOutput" title="mvi.data_types.ArrayOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayOutput</span></code></a> has a validator that converts the array to a list.</p>
+<p>Let’s take a look at how <a class="reference internal" href="../api_reference/sdk.html#mvi.data_types.ArrayInput" title="mvi.data_types.ArrayInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayInput</span></code></a> and
+<a class="reference internal" href="../api_reference/sdk.html#mvi.data_types.ArrayOutput" title="mvi.data_types.ArrayOutput"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArrayOutput</span></code></a> are defined so you can make your own Pydantic
+compatible data types:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ArrayInput</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pydantic compatible data type for numpy ndarray input.&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__get_validators__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="bp">cls</span><span class="o">.</span><span class="n">validate</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__modify_schema__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_schema</span><span class="p">):</span>
+        <span class="n">field_schema</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="c1"># Transform input to ndarray</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ArrayOutput</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pydantic compatible data type for numpy ndarray output.&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__get_validators__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="bp">cls</span><span class="o">.</span><span class="n">validate</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">__modify_schema__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">field_schema</span><span class="p">):</span>
+        <span class="n">field_schema</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="c1"># Transform ndarray to list for output</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Pydantic looks for the <code class="xref py py-meth docutils literal notranslate"><span class="pre">__get_validators__()</span></code> method to see if the class has a
+validator method, in this case <code class="xref py py-meth docutils literal notranslate"><span class="pre">validate()</span></code> that takes a value and returns a value.
+For the input, the value must be a json-compatible type, that should then be converted to the
+type you want to use in your entrypoint and for the output it should be converted back to
+the json-compatible representation.</p>
+<p>The <code class="xref py py-meth docutils literal notranslate"><span class="pre">__modify_schema__()</span></code> method is let’s pydantic create a schema for for the data
+type. It takes an argument for the field_schema which should be modified in-place. Take a
+look at <a class="reference external" href="https://pydantic-docs.helpmanual.io/usage/schema/#json-schema-types">JSON Schema Types</a>
+that pydantic supports to find which schema fits you data type.</p>
 </div>
 </div>
 
