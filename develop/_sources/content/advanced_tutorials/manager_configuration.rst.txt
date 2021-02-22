@@ -118,25 +118,28 @@ control enabled and being activated using a provided activation key:
 
 .. code-block:: shell
 
-    docker run
-        --name mvi_manager
-        -v /var/run/docker.sock:/var/run/docker.sock
-        -v mvi_data:/data
-        -p 80:80
-        -p 443:443
-        -e MVI_HOST_NAME=my.domain.com
-        -e MVI_PROXY_HTTPS=True
-        -e MVI_AUTH_ENABLED=True
-        -e MVI_ACTIVATION_KEY=...
-        -e MVI_CONFIG_EMAIL=<some@email.com>
-        -e MVI_CONFIG_EMAIL_PASSWORD=<password for some@email.com>
-        -e MVI_NOTIFICATION_SMTP_SERVER=<your smtp server address>
-        -e MVI_NOTIFICATION_SMTP_PORT=<your smtp server port>
-        --restart always
-        --log-driver json-file
-        --log-opt max-size=100m
-        --log-opt max-file=5
-        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
+    # We create a docker volume for keeping our data persistent across restarts/upgrades
+    docker volume create mvi_data  
+
+    docker run \
+        --name mvi_manager \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v mvi_data:/data \
+        -p 80:80 \
+        -p 443:443 \
+        -e MVI_HOST_NAME=my.domain.com \
+        -e MVI_PROXY_HTTPS=True \
+        -e MVI_AUTH_ENABLED=True \
+        -e MVI_ACTIVATION_KEY=... \
+        -e MVI_CONFIG_EMAIL=<some@email.com> \
+        -e MVI_CONFIG_EMAIL_PASSWORD=<password for some@email.com> \
+        -e MVI_NOTIFICATION_SMTP_SERVER=<your smtp server address> \
+        -e MVI_NOTIFICATION_SMTP_PORT=<your smtp server port> \
+        --restart always \
+        --log-driver json-file \
+        --log-opt max-size=100m \
+        --log-opt max-file=5 \
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version} \
 
 .. tip:: To ease working with all environment variables, it is possible to make use
     of the ``--env-file`` parameter to ``docker run``. 

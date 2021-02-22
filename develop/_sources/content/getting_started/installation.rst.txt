@@ -47,17 +47,17 @@ a regular ``docker run`` command. A minimal example is given below:
 .. code-block:: shell
 
     # We create a docker volume for keeping our data persistent across restarts/upgrades
-    docker volume create mvi_data  
+    docker volume create mvi_data
 
     # Start a Manager instance in detached mode
-    docker run 
-        --name mvi_manager 
-        -v /var/run/docker.sock:/var/run/docker.sock 
-        -v mvi_data:/data 
-        -p 80:80 
-        -p 443:443
-        --restart always
-        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
+    docker run \
+        --name mvi_manager \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v mvi_data:/data \
+        -p 80:80 \
+        -p 443:443 \
+        --restart always \
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version} \
 
 .. warning:: This will start a Manager instance listening on ``localhost`` **without
     access control and secured communication channels** which is probably what you want

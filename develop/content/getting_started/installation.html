@@ -252,14 +252,14 @@ a regular <code class="docutils literal notranslate"><span class="pre">docker</s
 docker volume create mvi_data
 
 <span class="c1"># Start a Manager instance in detached mode</span>
-docker run
-    --name mvi_manager
-    -v /var/run/docker.sock:/var/run/docker.sock
-    -v mvi_data:/data
-    -p <span class="m">80</span>:80
-    -p <span class="m">443</span>:443
-    --restart always
-    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
+docker run <span class="se">\</span>
+    --name mvi_manager <span class="se">\</span>
+    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+    -v mvi_data:/data <span class="se">\</span>
+    -p <span class="m">80</span>:80 <span class="se">\</span>
+    -p <span class="m">443</span>:443 <span class="se">\</span>
+    --restart always <span class="se">\</span>
+    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span> <span class="se">\</span>
 </pre></div>
 </div>
 <div class="admonition warning">

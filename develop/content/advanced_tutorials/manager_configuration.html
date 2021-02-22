@@ -370,25 +370,28 @@ for the Manager container when starting.</p>
 <h2>Typical production setup<a class="headerlink" href="#typical-production-setup" title="Permalink to this headline">¶</a></h2>
 <p>The example below starts a Manager instance that is listening on <code class="docutils literal notranslate"><span class="pre">my.domain.com</span></code>, enforcing traffic over https with access
 control enabled and being activated using a provided activation key:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>docker run
-    --name mvi_manager
-    -v /var/run/docker.sock:/var/run/docker.sock
-    -v mvi_data:/data
-    -p <span class="m">80</span>:80
-    -p <span class="m">443</span>:443
-    -e <span class="nv">MVI_HOST_NAME</span><span class="o">=</span>my.domain.com
-    -e <span class="nv">MVI_PROXY_HTTPS</span><span class="o">=</span>True
-    -e <span class="nv">MVI_AUTH_ENABLED</span><span class="o">=</span>True
-    -e <span class="nv">MVI_ACTIVATION_KEY</span><span class="o">=</span>...
-    -e <span class="nv">MVI_CONFIG_EMAIL</span><span class="o">=</span>&lt;some@email.com&gt;
-    -e <span class="nv">MVI_CONFIG_EMAIL_PASSWORD</span><span class="o">=</span>&lt;password <span class="k">for</span> some@email.com&gt;
-    -e <span class="nv">MVI_NOTIFICATION_SMTP_SERVER</span><span class="o">=</span>&lt;your smtp server address&gt;
-    -e <span class="nv">MVI_NOTIFICATION_SMTP_PORT</span><span class="o">=</span>&lt;your smtp server port&gt;
-    --restart always
-    --log-driver json-file
-    --log-opt max-size<span class="o">=</span>100m
-    --log-opt max-file<span class="o">=</span><span class="m">5</span>
-    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># We create a docker volume for keeping our data persistent across restarts/upgrades</span>
+docker volume create mvi_data
+
+docker run <span class="se">\</span>
+    --name mvi_manager <span class="se">\</span>
+    -v /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+    -v mvi_data:/data <span class="se">\</span>
+    -p <span class="m">80</span>:80 <span class="se">\</span>
+    -p <span class="m">443</span>:443 <span class="se">\</span>
+    -e <span class="nv">MVI_HOST_NAME</span><span class="o">=</span>my.domain.com <span class="se">\</span>
+    -e <span class="nv">MVI_PROXY_HTTPS</span><span class="o">=</span>True <span class="se">\</span>
+    -e <span class="nv">MVI_AUTH_ENABLED</span><span class="o">=</span>True <span class="se">\</span>
+    -e <span class="nv">MVI_ACTIVATION_KEY</span><span class="o">=</span>... <span class="se">\</span>
+    -e <span class="nv">MVI_CONFIG_EMAIL</span><span class="o">=</span>&lt;some@email.com&gt; <span class="se">\</span>
+    -e <span class="nv">MVI_CONFIG_EMAIL_PASSWORD</span><span class="o">=</span>&lt;password <span class="k">for</span> some@email.com&gt; <span class="se">\</span>
+    -e <span class="nv">MVI_NOTIFICATION_SMTP_SERVER</span><span class="o">=</span>&lt;your smtp server address&gt; <span class="se">\</span>
+    -e <span class="nv">MVI_NOTIFICATION_SMTP_PORT</span><span class="o">=</span>&lt;your smtp server port&gt; <span class="se">\</span>
+    --restart always <span class="se">\</span>
+    --log-driver json-file <span class="se">\</span>
+    --log-opt max-size<span class="o">=</span>100m <span class="se">\</span>
+    --log-opt max-file<span class="o">=</span><span class="m">5</span> <span class="se">\</span>
+    -d ghcr.io/vikinganalytics/mvi/mvi_manager:<span class="o">{</span>version<span class="o">}</span> <span class="se">\</span>
 </pre></div>
 </div>
 <div class="admonition tip">
