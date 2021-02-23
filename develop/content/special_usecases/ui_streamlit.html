@@ -241,13 +241,22 @@ create a new file called <cite>app.sh</cite> with the contents:</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">streamlit</span> <span class="pre">run</span> <span class="pre">script.py</span></code> is the command that is used to start a streamlit app,
 and we have to make MVI run that command when it starts the service. Normally MVI
-runs <cite>service.py</cite> but this can be changed by modifying <code class="docutils literal notranslate"><span class="pre">APP_SCIPT</span></code> in
+runs <cite>service.py</cite> but this can be changed by modifying <code class="docutils literal notranslate"><span class="pre">APP_SCRIPT</span></code> in
 <cite>.s2i/environment</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">APP_SCRIPT</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 <p>This way we tell MVI that <cite>app.sh</cite> is the main file of the service and that it should
-be run on startup. Now that all the boring stuff is out of the way, we can start
+be run on startup. The file <cite>app.sh</cite> must be executable to run properly, we fix this
+by adding yet another file, <cite>.s2i/bin/assemble</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
+# Running stock assemble script
+${STI_SCRIPTS_PATH}/assemble
+# Making app.sh executable
+chmod +x ${APP_ROOT}/src/app.sh
+</pre></div>
+</div>
+<p>Now that all the boring stuff is out of the way, we can start
 writing the app in <cite>die_app.py</cite></p>
 <div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">streamlit</span> <span class="k">as</span> <span class="nn">st</span>
 <span class="kn">from</span> <span class="nn">mvi.communication</span> <span class="kn">import</span> <span class="n">call_service</span>
