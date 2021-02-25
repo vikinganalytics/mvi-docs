@@ -1,0 +1,76 @@
+.. _installation-reference:
+
+Installation
+============
+
+Software Development Kit
+------------------------
+
+The Software Development Kit is available as a
+`pip package <https://pypi.org/project/va-mvi/>`_, that can be downloaded by anyone
+and comes packed with the Command-Line Interface. In your terminal of choice,
+install MVI with:
+
+>>> pip install va-mvi # doctest: +SKIP
+
+Check your installation by running: ``mvi --help`` in a terminal.
+
+The Manager
+-----------
+
+To install the Manager, you first have to have `Docker <https://docs.docker.com/>`_
+installed.
+
+The Manager application runs as a single docker container and the only thing needed to
+get started is a Manager docker image. There are two ways of getting your hands on an
+image:
+
+- By means of pulling a docker image from Viking Analytics container registry. Viking Analytics
+  leverage the built-in container registry in Github (ghcr.io) so in order to get access, a github
+  account with access rights is needed (please contact Viking Analytics!):
+
+  .. code-block:: shell
+
+      docker login ghcr.io
+      docker pull ghcr.io/vikinganalytics/mvi/mvi_manager:{version}
+
+- By means of getting an exported docker image (tar-file) directly from Viking Analytics:
+
+  .. code-block:: shell
+
+      docker load -i path/to/mvi_manager.tar
+
+
+Once a Manager docker image is available on your system, a Manager container can be started using
+a regular ``docker run`` command. A minimal example is given below:
+
+.. code-block:: shell
+
+    # We create a docker volume for keeping our data persistent across restarts/upgrades
+    docker volume create mvi_data
+
+    # Start a Manager instance in detached mode
+    docker run \
+        --name mvi_manager \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        -v mvi_data:/data \
+        -p 80:80 \
+        -p 443:443 \
+        --restart always \
+        -d ghcr.io/vikinganalytics/mvi/mvi_manager:{version} \
+
+.. warning:: This will start a Manager instance listening on ``localhost`` **without
+    access control and secured communication channels** which is probably what you want
+    if running locally as a test/development setup. However, such a setup should **never**
+    be exposed publicly to the internet! For production usage, please refer
+    to :ref:`manager-configuration-reference` for details about available configuration options!
+
+License Activation
+^^^^^^^^^^^^^^^^^^
+
+Starting the Manager according to above will give you a short-lived trial instance that
+you can use without restrictions up to 12 hours. In order to use the Manager for
+continuously running applications you will need to activate it using an Activation Key.
+
+To get an Activation Key, please contact Viking Analytics. To see how to use an Activation Key,
+please refer to :ref:`manager-configuration-reference`.
