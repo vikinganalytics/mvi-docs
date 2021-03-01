@@ -75,6 +75,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/special_usecases/ui_plotly_dash
    content/special_usecases/conda
    content/special_usecases/gpu_services
+   content/special_usecases/hosting_static_html
 
 .. toctree::
    :glob:
