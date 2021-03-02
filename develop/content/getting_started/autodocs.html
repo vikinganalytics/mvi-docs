@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -32,6 +33,8 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -95,7 +98,8 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="first_service.html">Deploying Your First Service</a></li>
-<li class="toctree-l1"><a class="reference internal" href="custom_service.html">Creating Your Own service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="custom_service.html">Service Anatomy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="service_logs.html">Read Logs From Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dashboard.html">Dashboard</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Autodocs</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#interacting-with-the-docs">Interacting with the Docs</a></li>
@@ -107,11 +111,9 @@
 <li class="toctree-l1"><a class="reference internal" href="ticker.html">Schedule Repeating Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="monitoring.html">Monitoring Your Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cross_service_communication.html">Cross-service Communication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="service_logs.html">Read Logs From Service</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
@@ -129,6 +131,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Special Usecases</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/conda.html">Using MVI with Conda</a></li>
@@ -215,7 +218,7 @@
 <p>MVI automatically creates interactive documentation for every service created using
 the <a class="reference internal" href="../api_reference/sdk.html#sdk-reference"><span class="std std-ref">Software Development Kit</span></a>. It can be found at
 <a class="reference external" href="http://your-host/services/servicename_version/docs">http://your-host/services/servicename_version/docs</a>. For the <cite>hello</cite> service we
-created in <a class="reference internal" href="custom_service.html#custom-service-reference"><span class="std std-ref">Creating Your Own service</span></a> it can be reached at
+created in <a class="reference internal" href="custom_service.html#custom-service-reference"><span class="std std-ref">Service Anatomy</span></a> it can be reached at
 <a class="reference external" href="http://your-host/services/hello_1.0.0/docs">http://your-host/services/hello_1.0.0/docs</a> and looks like this:</p>
 <p>(click image to enlarge)</p>
 <a class="reference internal image-reference" href="../../_images/autodocs.png"><img alt="Screenshot of autodocs" src="../../_images/autodocs.png" style="width: 800px;" /></a>

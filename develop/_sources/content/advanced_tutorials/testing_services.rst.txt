@@ -184,9 +184,9 @@ Here we mock :py:func:`~mvi.service.call_service` in the same way as we did with
 :py:obj:`call_service` to make it return that when it is called in
 :py:func:`service.ping_service`.
 
-The :py:func:`patch` function returns an object of the
-`Mock <https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock>`_
-class from :py:mod:`unittest.mock`.
+.. note:: The :py:func:`patch` function returns an object of the
+    `Mock <https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock>`_
+    class from :py:mod:`unittest.mock`.
 
 
 More Testing

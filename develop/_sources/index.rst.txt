@@ -38,6 +38,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/getting_started/installation
    content/getting_started/first_service
    content/getting_started/custom_service
+   content/getting_started/service_logs
    content/getting_started/dashboard
    content/getting_started/autodocs
    content/getting_started/shadow_deployment
@@ -45,13 +46,11 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/getting_started/ticker
    content/getting_started/monitoring
    content/getting_started/cross_service_communication
-   content/getting_started/service_logs
 
 .. toctree::
    :maxdepth: 1
    :caption: Advanced Tutorials
 
-   content/advanced_tutorials/deploying_ml_model
    content/advanced_tutorials/sdk_typing
    content/advanced_tutorials/using_multiple_hosts
    content/advanced_tutorials/email_notifications
@@ -71,6 +70,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    :maxdepth: 1
    :caption: Special Usecases
 
+   content/special_usecases/deploying_ml_model
    content/special_usecases/ui_streamlit
    content/special_usecases/ui_plotly_dash
    content/special_usecases/conda

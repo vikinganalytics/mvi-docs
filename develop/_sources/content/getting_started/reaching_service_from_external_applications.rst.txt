@@ -41,10 +41,12 @@ to start sending requests to the deployed services.
 The authentication token is used as a Bearer token and should be included in the header of the
 applications requests to the services as key-value pair, like this:
 
-``"Authorization: Bearer {your_token}"``
+``"Authorization: Bearer your_token"``
 
 For example, using the `requests <https://requests.readthedocs.io/en/master/>`_
 package in python::
+
+    TOKEN = "your_token"
 
     json_data = {"data": "my_data"}
 

@@ -22,20 +22,7 @@ project_name [my_project]: die_roller_service
 
 Modify the code in `service.py` to
 
-.. testcode::
-
-    import logging
-    from mvi import service
-    from random import randint
-
-    logger = logging.getLogger(__name__)
-
-    @service.entrypoint
-    def roll_die() -> int:
-        return randint(1, 6)
-
-    if __name__ == '__main__':
-        service.run()
+.. literalinclude:: ../../../../examples/cross_service_communication/die_roller_service/service.py
 
 Deploy the service:
 
@@ -63,37 +50,7 @@ project_name [my_project]: yatzee_service
 
 And modify `service.py` to
 
-.. testcode::
-
-    import logging
-    from mvi import service
-    from mvi.communication import notify, Severity, call_service
-
-    logger = logging.getLogger(__name__)
-
-    @service.entrypoint
-    def play() -> list:
-        n_dice = 5
-        die_rolls = []
-
-        for _ in range(n_dice):
-            die_roll = call_service(
-                service_name="die_roller",
-                entrypoint_name="roll_die",
-            )
-            die_rolls.append(die_roll)
-        
-        if sum(die_rolls) == 6 * n_dice:
-            notify(
-                msg="YATZEE!!!",
-                severity=Severity.INFO,
-            )
-
-        return sorted(die_rolls)
-
-
-    if __name__ == '__main__':
-        service.run()
+.. literalinclude:: ../../../../examples/cross_service_communication/yatzee_service/service.py
 
 Deploy the service:
 
@@ -104,7 +61,6 @@ Service deployed successfully
 MAIN    NAME    VERSION    STATUS    RUNNING
 ------  ------  ---------  --------  -----------------------------------
 *       yatzee  1.0.0      running   Running (since 2020-11-24 12:15:57)
-
 
 We use the :py:func:`~mvi.communication.call_service` function to call an entrypoint in
 another service. In this case, the :py:func:`roll_die` function of the `die_roller`

@@ -1,10 +1,10 @@
 .. _custom-service-reference:
 
-Creating Your Own service
-=========================
+Service Anatomy
+===============
 
-This tutorial will continue from where :ref:`first-service-reference` left off.
-There we created a basic service using the ``mvi init`` command.
+In :ref:`first-service-reference` we created a basic service using the
+``mvi init`` command.
 
 >>> mvi init # doctest: +SKIP
 project_name [my_project]: my_first_mvi_project
@@ -14,8 +14,8 @@ And this created three files and two directories.
 >>> ls ./my_first_mvi_project -a # doctest: +SKIP
 .  ..  .s2i/  README.md  requirements.txt  service.py  tests/
 
-Where `service.py` contains the service source code. Let's look at how a typical
-`service.py` file might look.
+Where `service.py` contains the service source code. In this tutorial we will
+go through the contents of that file to learn how a typical MVI service can look.
 
 Setup
 -----

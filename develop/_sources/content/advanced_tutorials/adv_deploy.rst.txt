@@ -84,7 +84,7 @@ For instance, a docker image
 that requires ``privileged`` mode to run properly can be deployed like (using pythons request library)::
 
     requests.post(
-        url='https://<host>/~image,
+        url='http://your-host/~image,
         headers=<headers>,
         data = {
             'image': <image>,

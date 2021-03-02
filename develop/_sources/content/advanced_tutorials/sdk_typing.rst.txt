@@ -32,7 +32,7 @@ a few times already, but without type hints:
     if __name__ == "__main__":
         service.run()
 
-Without the type hint we allow any data type into the entrypoint. Let's
+Without the type hint, any data type is allowed into the entrypoint. Let's
 say that an error caused a list of names to be sent to name instead of a single name
 then this entrypoint would respond with ``"Hello ['Lars', 'Claus', 'Bob']"`` and a
 status code of 200. We also won't get any schema definitions in the API documentation.
@@ -78,81 +78,61 @@ Which tells us that the name argument expected a string, but got something else.
 Creating an Input Model
 -----------------------
 
-We have seen a few example services, e.g. the `hello` service and the `iris`
-service from :ref:`deploy-ml-reference` which had the :py:func:`predict` entrypoint
-that was defined like:
+In our examples so far we have only seen standard python types as type hints:
 
 .. testcode::
     
     from mvi import service
 
     @service.entrypoint
-    def predict(data: dict) -> list:
+    def example(data: dict) -> int:
         pass
 
-In all examples so far we have used standard python types as type hints. This
-makes sure that only strings can be used as input for :py:func:`hello` and
-only dictionaries in :py:func:`predict`. But a dictionary can contain many types
-of data, and usually only one (or a few) ways are correct. To simplify the life
-of the user, we can define something called a data model, that we create by
-extending the :py:class:`BaseModel` class from 
-`pydantic <https://pydantic-docs.helpmanual.io/>`_. For the `iris` service
-example it would be
+This makes sure that only dictionaries can be used as input for :py:func:`example`.
+But a dictionary can contain many types of data, and usually only one (or a few)
+ways are expected. To simplify the life of the user, we can define something called
+a data model, that we create by extending the :py:class:`BaseModel` class from 
+`pydantic <https://pydantic-docs.helpmanual.io/>`_:
 
 .. testcode::
-
+    from typing import Optional
     from pydantic import BaseModel
-    from typing import List
 
-    class IrisData(BaseModel):
-        sepal_length: List[float]
-        sepal_width: List[float]
-        petal_length: List[float]
-        petal_width: List[float]
+    class Item(BaseModel):
+        name: str
+        description: Optional[str] = None
+        price: float
+        tax: Optional[float] = None
+
+The :py:class:`BaseModel`
+describes a JSON ``object`` (or python ``dict``) like::
+
+    {
+        "name": "Foo",
+        "description": "An optional description",
+        "price": 45.2,
+        "tax": 3.5
+    }
 
 The :py:class:`BaseModel` helps the API to know what format the input json should
 conform to. If the request body of your API call does not match the model it will
 send a 422 HTTP-error with an error description.
 
-Let's create a new service that will take data in a schema similar to
-:py:class:`IrisData` and respond with the sum of its rows:
+Let's create a new service that will convert its input into a dataframe and respond
+with the sum of its rows. For this we must be certain that the columns only contains
+floats:
 
 >>> mvi init # doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: row_sum_service
 
-Then in `service.py` write the following code::
+Then in `service.py` write the following code:
 
-    import logging
-    from mvi import service
-    import pandas as pd
-    from pydantic import BaseModel
-    from typing import List
+.. literalinclude:: ../../../../examples/typing/row_sum_service/service.py
 
-    logger = logging.getLogger(__name__)
-
-    class DataForm(BaseModel):
-        col1: List[float]
-        col2: List[float]
-        col3: List[float]
-
-    @service.entrypoint
-    def calculate(data: DataForm) -> list:
-        data = data.dict()
-        df = pd.DataFrame(data)
-        logger.info(f"Recieved data: \n{df}")
-        row_sum = df.sum(axis=1)
-        logger.info(f"Row sums: {row_sum}")
-        return row_sum.to_list()
-
-    if __name__ == '__main__':
-        service.run()
-
-And add `pydantic` and `pandas` to `requirements.txt`::
-
-    va-mvi
-    pydantic
-    pandas
+And add `pydantic` and `pandas` to `requirements.txt`:
+        
+.. literalinclude:: ../../../../examples/typing/row_sum_service/requirements.txt
 
 And deploy the new service:
 
@@ -266,15 +246,8 @@ Last thing we want to show is how to add example inputs for the documentation to
 speed up testing. To do this we create a local class :py:class:`Config`
 within the data model::
 
-    class NameModel(BaseModel):
-        name: str
+.. literalinclude:: ../../../../examples/typing/ndarray_service/service.py
 
-        class Config:
-            schema_extra = {
-                "example": {
-                    "name": "Kermit"
-                }
-            }
 
 This would change the standard value in the schema example to "Kermit".
 
@@ -334,3 +307,9 @@ The :py:meth:`__modify_schema__` method is let's pydantic create a schema for fo
 type. It takes an argument for the field_schema which should be modified in-place. Take a
 look at `JSON Schema Types <https://pydantic-docs.helpmanual.io/usage/schema/#json-schema-types>`_ 
 that pydantic supports to find which schema fits you data type.
+
+Using :py:class:`~mvi.data_types.ArrayInput` and
+:py:class:`~mvi.data_types.dataFrameInput` as input type can be likened to using
+``list`` or ``dict`` and doesn't give as much control of the validation as the
+pydantic models. So in some cases it might be better to use pydantic and convert
+the data inside of the entrypoint.

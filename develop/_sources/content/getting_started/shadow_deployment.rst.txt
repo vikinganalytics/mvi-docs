@@ -20,12 +20,12 @@ When deploying a service for the first time, it will always be the main version
 and every subsequent service with the same name will be a shadow of the main
 service. Let's try this out with the `hello` service we get from ``mvi init``:
 
+(If you still have a `hello` service running from a previous tutorial,
+you can skip to the third step)
+
 >>> mvi init # doctest: +SKIP
 Active host: http://your-host
 project_name [my_project]: hello
-
-(If you still have a `hello` service running from a previous tutorial,
-you can skip to the next step)
 
 >>> mvi deploy hello 1.0.0 ./hello # doctest: +SKIP
 Active host: http://your-host

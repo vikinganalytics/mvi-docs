@@ -95,12 +95,12 @@ your monitored variables.
 
 The time-series data in json format can be collected via the following entrypoint:
 
-``http://<host>/services/<servce_name>_<service_version>/~monitor``
+``http://your-host/services/<servce_name>_<service_version>/~monitor``
 
 It is possible to specify start time and end time for the wanted time-series data by adding
 `end` and `start` query parameters to the url, like this:
 
-``http://<host>/services/<servce>_<service_version>/~monitor?end=<...>?start=<...>``
+``http://your-host/services/<servce>_<service_version>/~monitor?end=<...>?start=<...>``
 
 The `end` and `start` query parameters needs to have the following format: 
 ``YYYY-MM-DD[T]HH:MM[:SS[.ffffff]][Z or [±]HH[:]MM]]]``, so for instance: 2020-01-01 02:30
@@ -108,7 +108,7 @@ The `end` and `start` query parameters needs to have the following format:
 It it also possible to specify which variables to query time-series by specify the query parameter 
 `variables`, like this:
 
-``http://<host>/services/<servce_name>_<service_version>/~monitor?end=<...>?start=<...>?variables=v1?variables=v2``
+``http://your-host/services/<servce_name>_<service_version>/~monitor?end=<...>?start=<...>?variables=v1?variables=v2``
 
 This will query time-series data for variable `a` and `b`. The returned json time-series data will be on the following format:
 
@@ -139,14 +139,14 @@ package in python::
 
 The time-series data can also be returned in csv format, the entrypoint for this is:
 
-``http://<host>/services/<servce_name>_<service_version>/~csv``
+``http://your-host/services/<servce_name>_<service_version>/~csv``
 
 It is possible to specify, which variables and in during which time interval to query
 time-series data for by using the following query parameters:
 `end`, `start` and `varaibles`. For instance:
 
 
-``http://<host>/services/<servce_name>_<service_version>/~monitor/csv?end=<...>?start=<...>?variables=v1?variables=v2``
+``http://your-host/services/<servce_name>_<service_version>/~monitor/csv?end=<...>?start=<...>?variables=v1?variables=v2``
 
 The `end` and `start` query parameters needs to have the following format: 
 ``YYYY-MM-DD[T]HH:MM[:SS[.ffffff]][Z or [±]HH[:]MM]]]``, so for instance: 2020-01-01 02:30
@@ -170,7 +170,7 @@ The csv files has the following format:
 The time-series data is stored a in sqlite databases and the whole
 service database can be requested at the following entrypoint:
 
-``http://<host>/services/<servce_name>_<service_version>/~monitor/db``
+``http://your-host/services/<servce_name>_<service_version>/~monitor/db``
 
 Limiting the Number of Records in the Database
 ----------------------------------------------

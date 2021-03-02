@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -32,6 +33,8 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -95,7 +98,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/first_service.html">Deploying Your First Service</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/custom_service.html">Creating Your Own service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/custom_service.html">Service Anatomy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/service_logs.html">Read Logs From Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/dashboard.html">Dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/autodocs.html">API Autodocs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/shadow_deployment.html">Versioning and Shadow Deployment</a></li>
@@ -103,11 +107,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/ticker.html">Schedule Repeating Actions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/monitoring.html">Monitoring Your Service</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/cross_service_communication.html">Cross-service Communication</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../getting_started/service_logs.html">Read Logs From Service</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Advanced Tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/sdk_typing.html">Typing in the SDK</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/using_multiple_hosts.html">Using Multiple Hosts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../advanced_tutorials/email_notifications.html">Email Notifications</a></li>
@@ -125,6 +127,7 @@
 </ul>
 <p class="caption"><span class="caption-text">Special Usecases</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../special_usecases/deploying_ml_model.html">Deploying Machine Learning Models</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_streamlit.html">Using Streamlit to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/ui_plotly_dash.html">Using Plotly Dash to build a dashboard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../special_usecases/conda.html">Using MVI with Conda</a></li>
@@ -210,7 +213,7 @@
 <span id="command-line-interface"></span><span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#module-mvi.cli.cli" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="mvi.cli.cli.assign">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">assign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.assign" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">assign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.assign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes main service to the service specified.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -227,7 +230,7 @@
 
 <dl class="py function">
 <dt id="mvi.cli.cli.deploy">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">deploy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">source:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">port:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">image_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">git_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.deploy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">deploy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">source:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">port:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">image_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">git_flag:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.deploy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deploy a new service.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -250,7 +253,7 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.init">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates skeleton code for a new MVI project</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -264,7 +267,7 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.kill">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">all_:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.kill" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">all_:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kill one or multiple services by name and version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -282,7 +285,7 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.login">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Login to the specified host</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises</dt>
@@ -293,7 +296,7 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.logs">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">logs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">tail:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">follow:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">date:</span> <span class="pre">Optional[datetime.datetime]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">logs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">tail:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">follow:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">date:</span> <span class="pre">Optional[datetime.datetime]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.logs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows the logs for a service</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -316,7 +319,7 @@ Default to None.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.ls">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">ls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.ls" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">ls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.ls" title="Permalink to this definition">¶</a></dt>
 <dd><p>List running services, filtered by name and version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -331,7 +334,7 @@ version. Defaults to None.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.test">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">test</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">service_path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.test" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">test</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">service_path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.test" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test a service before deployment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -346,7 +349,7 @@ to test. Defaults to Path.cwd().</p>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.token">
-<code class="sig-prename descclassname"><span class="pre">mvi.cli.cli.</span></code><code class="sig-name descname"><span class="pre">token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">lifetime:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.token" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">token</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">lifetime:</span> <span class="pre">Optional[int]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.token" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate a new authentication token</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

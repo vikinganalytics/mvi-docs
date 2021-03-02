@@ -4,38 +4,13 @@ HTTP Status Codes
 =================
 
 In MVI, when an API entrypoint function gets to a ``return`` statement, the
-default behaviour is to respond with a status code of 200. But sometimes it
-might be desireable to respond with some other status code. Let's look at an
-example with a dictionary for storing some data:
+default behaviour is to respond with a status code of 200. If an exception
+is raised somewhere in the function, it will return a `500 Internal Server Error`-response,
+which just means that there has been an internal error. Generally you never
+want to show any 500-responses to the users of the API. Let's look at an example
+that responds with other status codes to see how it can be done:
 
-.. testcode::
-  
-    import logging
-
-    from mvi import service
-    from mvi.exceptions import HTTPException
-
-    logger = logging.getLogger(__name__)
-
-    STORAGE_DICTS = dict()
-
-    @service.entrypoint(status_code=201)
-    def create_new_dict(dict_name: str, content: dict):
-
-        if STORAGE_DICTS.get(dict_name, False):
-            raise HTTPException(status_code=409, detail=f"{dict_name} already exists")
-
-        STORAGE_DICTS[dict_name] = content
-        return "Created"
-
-
-    @service.entrypoint()
-    def get_dict(dict_name: str):
-        return STORAGE_DICTS[dict_name]
-
-
-    if __name__ == "__main__":
-        service.run()
+.. literalinclude:: ../../../../examples/status_code_example/service.py
 
 For :py:func:`create_new_dict` in this example, we have changed the status code
 of a successful request to be `201 Created` instead of `200 OK`. If we try to

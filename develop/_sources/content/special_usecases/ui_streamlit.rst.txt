@@ -24,76 +24,43 @@ Active host: http://your-host
 project_name [my_project]: die_app
 
 The first thing we have to do is to add ``streamlit`` to the `requirements.txt`
-file::
+file:
 
-    va-mvi
-    streamlit
+.. literalinclude:: ../../../../examples/streamlit_service/requirements.txt
 
-We also rename `service.py` to `die_app.py`. This is where we will write our
-streamlit app, but in order for it to run when we start the service, we have to
-create a new file called `app.sh` with the contents::
+We rename `service.py` to `die_app.py` and write our streamlit app in that file: 
 
-    streamlit run die_app.py
+.. literalinclude:: ../../../../examples/streamlit_service/die_app.py
 
-``streamlit run script.py`` is the command that is used to start a streamlit app,
-and we have to make MVI run that command when it starts the service. Normally MVI
-runs `service.py` but this can be changed by modifying ``APP_SCRIPT`` in
-`.s2i/environment`::
+Notice how it does not end with ``service.run()`` like regular MVI services and
+therefore nothing would happen if we were to deploy the service now. To run
+streamlit apps we need to use the shell command ``streamlit run app.py``,
+so for `die_app.py` to run when we deploy the service, we have to create a new
+file called `app.sh` that runs the shell command:
 
-    APP_SCRIPT = app.sh
+.. literalinclude:: ../../../../examples/streamlit_service/app.sh
 
-This way we tell MVI that `app.sh` is the main file of the service and that it should
-be run on startup. The file `app.sh` must be executable to run properly, we fix this
-by adding yet another file, `.s2i/bin/assemble`::
+When an MVI service is deployed it will look at the environment variable ``APP_SCRIPT``
+to decide which file should be run on start-up. It is `service.py` by default but it
+can be changed by modifying the value of ``APP_SCRIPT`` in `.s2i/environment`:
 
-    #!/bin/bash
-    # Running stock assemble script
-    ${STI_SCRIPTS_PATH}/assemble
-    # Making app.sh executable
-    chmod +x ${APP_ROOT}/src/app.sh
+.. literalinclude:: ../../../../examples/streamlit_service/.s2i/environment
 
-Now that all the boring stuff is out of the way, we can start
-writing the app in `die_app.py`
+Now that MVI knows that `app.sh` is the main file of the service we must ensure that
+it is executable, which we can do by adding yet another file, `.s2i/bin/assemble`:
 
-.. testcode::
+.. literalinclude:: ../../../../examples/streamlit_service/.s2i/bin/assemble
 
-    import streamlit as st
-    from mvi.communication import call_service
-
-    st.title("Die App")
-
-    roll = st.button("Roll")
-
-    if roll:
-        data = call_service(
-            service_name="die_roller",
-            entrypoint_name="roll_die"
-        )
-
-
-        st.header("Roll:")
-        st.write(data)
+.. note:: This might seem like a lot of steps just to run a small app, but these same steps
+    can be used to run any bash script on start up.
 
 Deploying the Service
 ---------------------
 
 Since `die_app` is dependent of `die_roller_service` it has to be up and running
-before `die_app` can be used. The code for `die_roller_service` itself
+before `die_app` can be used. The code for `die_roller_service` is:
 
-.. testcode::
-
-    import logging
-    from mvi import service
-    from random import randint
-
-    logger = logging.getLogger(__name__)
-
-    @service.entrypoint
-    def roll_die() -> int:
-        return randint(1, 6)
-
-    if __name__ == '__main__':
-        service.run()
+.. literalinclude:: ../../../../examples/cross_service_communication/die_roller_service/service.py
 
 >>> mvi deploy die_roller 1.0.0 ./die_roller_service # doctest: +SKIP
 Active host: http://your-host

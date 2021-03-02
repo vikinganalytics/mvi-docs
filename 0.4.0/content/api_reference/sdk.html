@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
 
   
   
@@ -32,6 +33,8 @@
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -246,7 +249,7 @@ See FastAPI for keyword arguments of the <code class="docutils literal notransla
 
 <dl class="py function">
 <dt id="mvi._service._Service.store">
-<code class="sig-prename descclassname"><span class="pre">mvi._service._Service.</span></code><code class="sig-name descname"><span class="pre">store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.store" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">store</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Saves variables to the service’s monitoring database. Supports
 numbers and strings. If a variable is not a number or string it store
 will try to coerce it into a string before storing.</p>
@@ -260,7 +263,7 @@ variables will be saved as <code class="docutils literal notranslate"><span clas
 
 <dl class="py function">
 <dt id="mvi._service._Service.call_every">
-<code class="sig-prename descclassname"><span class="pre">mvi._service._Service.</span></code><code class="sig-name descname"><span class="pre">call_every</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_first</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.call_every" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">call_every</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seconds</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_first</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.call_every" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a decorator that converts a function to an awaitable that runs
 every <cite>seconds</cite>.</p>
 <p>Decorate a function with this method to make it run repeatedly:</p>
@@ -287,7 +290,7 @@ every <cite>seconds</cite>.</p>
 
 <dl class="py function">
 <dt id="mvi._service._Service.get_parameter">
-<code class="sig-prename descclassname"><span class="pre">mvi._service._Service.</span></code><code class="sig-name descname"><span class="pre">get_parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#mvi._service._Service.get_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#mvi._service._Service.get_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get specific parameter</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -304,7 +307,7 @@ every <cite>seconds</cite>.</p>
 
 <dl class="py function">
 <dt id="mvi._service._Service.add_parameter">
-<code class="sig-prename descclassname"><span class="pre">mvi._service._Service.</span></code><code class="sig-name descname"><span class="pre">add_parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.add_parameter" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">add_parameter</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">monitor</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.add_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a parameter to the parameter endpoints.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -323,7 +326,7 @@ string Defaults to False.</p></li>
 
 <dl class="py function">
 <dt id="mvi._service._Service.run">
-<code class="sig-prename descclassname"><span class="pre">mvi._service._Service.</span></code><code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi._service._Service.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the service</p>
 <p>This method is usually called at the end of the module when all
 entrypoints etc for the service has been specified</p>
@@ -336,7 +339,7 @@ entrypoints etc for the service has been specified</p>
 <span id="communication-api-mvi-communication"></span><h2>Communication API (<a class="reference internal" href="#module-mvi.communication" title="mvi.communication"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.communication</span></code></a>)<a class="headerlink" href="#module-mvi.communication" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="mvi.communication.Severity">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">mvi.communication.</span></code><code class="sig-name descname"><span class="pre">Severity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.communication.Severity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Severity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.communication.Severity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>An enumeration of notification severities.</p>
 <dl class="py attribute">
@@ -358,7 +361,7 @@ entrypoints etc for the service has been specified</p>
 
 <dl class="py function">
 <dt id="mvi.communication.call_service">
-<code class="sig-prename descclassname"><span class="pre">mvi.communication.</span></code><code class="sig-name descname"><span class="pre">call_service</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">request_kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#mvi.communication.call_service" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">call_service</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entrypoint_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arguments</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_version</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">request_kwargs</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Any</span><a class="headerlink" href="#mvi.communication.call_service" title="Permalink to this definition">¶</a></dt>
 <dd><p>Call an entrypoint in a different service.</p>
 <p>Example usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">call_service</span><span class="p">(</span>
@@ -393,7 +396,7 @@ Default None, the main version and the shadows versions will be called.</p></li>
 
 <dl class="py function">
 <dt id="mvi.communication.notify">
-<code class="sig-prename descclassname"><span class="pre">mvi.communication.</span></code><code class="sig-name descname"><span class="pre">notify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#mvi.communication.Severity" title="mvi.communication.Severity"><span class="pre">mvi.communication.Severity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dashboard</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emails</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.communication.notify" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">notify</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">severity</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#mvi.communication.Severity" title="mvi.communication.Severity"><span class="pre">mvi.communication.Severity</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dashboard</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emails</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.communication.notify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates and sends a notification</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -416,7 +419,7 @@ before the same notification can be send again. Defaults to 0.</p></li>
 <span id="utilities-api-mvi-utilities"></span><h2>Utilities API (<a class="reference internal" href="#module-mvi.utilities" title="mvi.utilities"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mvi.utilities</span></code></a>)<a class="headerlink" href="#module-mvi.utilities" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="mvi.utilities.get_authorized_domains">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_authorized_domains</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="headerlink" href="#mvi.utilities.get_authorized_domains" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_authorized_domains</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">list</span><a class="headerlink" href="#mvi.utilities.get_authorized_domains" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns list of autorized domains for auth header</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -430,7 +433,7 @@ before the same notification can be send again. Defaults to 0.</p></li>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_db_table_limit">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_db_table_limit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#mvi.utilities.get_db_table_limit" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_db_table_limit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#mvi.utilities.get_db_table_limit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Limit of rows or duration to keep records in service database.
 Reads from the environment variable MVI_SERVICE_DB_TABLE_LIMIT.</p>
 <dl class="field-list simple">
@@ -449,7 +452,7 @@ Reads from the environment variable MVI_SERVICE_DB_TABLE_LIMIT.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_headers">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_headers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#mvi.utilities.get_headers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_headers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">dict</span><a class="headerlink" href="#mvi.utilities.get_headers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating headers for API calls</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -463,7 +466,7 @@ Reads from the environment variable MVI_SERVICE_DB_TABLE_LIMIT.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_mvi_manager_hostname">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_mvi_manager_hostname</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_mvi_manager_hostname" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_mvi_manager_hostname</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_mvi_manager_hostname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the hostname of the manager currently running
 this service.</p>
 <dl class="field-list simple">
@@ -478,7 +481,7 @@ this service.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_mvi_manager_url">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_mvi_manager_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_mvi_manager_url" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_mvi_manager_url</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_mvi_manager_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a URL where the manager currently running
 this service can be reached.</p>
 <dl class="field-list simple">
@@ -493,7 +496,7 @@ this service can be reached.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_service_access_token">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_service_access_token</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_access_token" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_service_access_token</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_access_token" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a valid access token for communicating with
 the manager currently running this service and other services
 running on that manager.</p>
@@ -509,7 +512,7 @@ running on that manager.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_service_name">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_service_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_name" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_service_name</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Name of this service</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -523,7 +526,7 @@ running on that manager.</p>
 
 <dl class="py function">
 <dt id="mvi.utilities.get_service_root_path">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_service_root_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_root_path" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_service_root_path</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_root_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the root path at which this service is running.
 Can be for example <cite>/services/&lt;service_name&gt;_&lt;service_version&gt;</cite></p>
 <dl class="field-list simple">
@@ -538,7 +541,7 @@ Can be for example <cite>/services/&lt;service_name&gt;_&lt;service_version&gt;<
 
 <dl class="py function">
 <dt id="mvi.utilities.get_service_version">
-<code class="sig-prename descclassname"><span class="pre">mvi.utilities.</span></code><code class="sig-name descname"><span class="pre">get_service_version</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_version" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_service_version</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#mvi.utilities.get_service_version" title="Permalink to this definition">¶</a></dt>
 <dd><p>Versio of this service</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
