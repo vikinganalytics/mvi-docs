@@ -212,13 +212,15 @@
 <span id="command-line-interface"></span><span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#module-mvi.cli.cli" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="mvi.cli.cli.assign">
-<code class="sig-name descname"><span class="pre">assign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.assign" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">assign</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">validation:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.assign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes main service to the service specified.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – Name of the service to change to primary.</p></li>
 <li><p><strong>version</strong> (<em>str</em>) – Version of the service to change to primary.</p></li>
+<li><p><strong>validation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Give confirmation to kill services at runtime.
+Skips prompt, so use with caution.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -252,11 +254,14 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.init">
-<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.init" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">path:</span> <span class="pre">Optional[pathlib.Path]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">project_name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates skeleton code for a new MVI project</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Project generation output directory.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>Path</em><em>, </em><em>optional</em>) – Project generation output directory.</p></li>
+<li><p><strong>project_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the project to skip prompt.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Raises</dt>
 <dd class="field-even"><p><strong>Exit</strong> – If the output directory could not be found</p>
@@ -266,7 +271,7 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.kill">
-<code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">all_:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.kill" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">kill</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">name:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">version:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">all_:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">validation:</span> <span class="pre">Optional[bool]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Kill one or multiple services by name and version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -274,6 +279,8 @@ is being used for creating the service. Default False.</p></li>
 <li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the service(s) to kill. Defaults to None.</p></li>
 <li><p><strong>version</strong> (<em>str</em><em>, </em><em>optional</em>) – Version of the service to kill. Defaults to None.</p></li>
 <li><p><strong>all</strong> (<em>bool</em><em>, </em><em>optional</em>) – Kill all services. Defaults to False.</p></li>
+<li><p><strong>validation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Give confirmation to kill services at runtime.
+Skips prompt, so use with caution. Defaults to False.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -284,11 +291,24 @@ is being used for creating the service. Default False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.login">
-<code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
-<dd><p>Login to the specified host</p>
+<code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">host:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">username:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">password:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">access_token:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log in to the specified host</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em><em>, </em><em>optional</em>) – Host address to log in to. Defaults to None
+in which case you will be prompted.</p></li>
+<li><p><strong>username</strong> (<em>str</em><em>, </em><em>optional</em>) – Username. Defaults to None in
+which case you will be prompted.</p></li>
+<li><p><strong>password</strong> (<em>str</em><em>, </em><em>optional</em>) – Password. Use with caution because input
+will be saved in terminal history. Defaults to None in
+which case you will be prompted.</p></li>
+<li><p><strong>access_token</strong> (<em>str</em><em>, </em><em>optional</em>) – Log in to a manager using a token instead
+of username and password. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exit</strong> – If there are no services to kill matching the given description.</p>
 </dd>
 </dl>
 </dd></dl>
