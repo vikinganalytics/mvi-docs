@@ -37,6 +37,8 @@ The Manager is highly configurable using environment variables.
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
 | MVI_ACTIVATION_KEY                     | ""                    | License activation key. Without key Manager lives for 12h.  |
 +----------------------------------------+-----------------------+-------------------------------------------------------------+
+| MVI_ADMIN_PASSWORD                     | admin                 | Password for the admin user. Defualt to admin.              |
++----------------------------------------+-----------------------+-------------------------------------------------------------+
 
 Secure Manager Connection
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -131,6 +133,7 @@ control enabled and being activated using a provided activation key:
         -e MVI_PROXY_HTTPS=True \
         -e MVI_AUTH_ENABLED=True \
         -e MVI_ACTIVATION_KEY=... \
+        -e MVI_ADMIN_PASSWORD=... \
         -e MVI_CONFIG_EMAIL=<some@email.com> \
         -e MVI_CONFIG_EMAIL_PASSWORD=<password for some@email.com> \
         -e MVI_NOTIFICATION_SMTP_SERVER=<your smtp server address> \
