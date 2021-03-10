@@ -35,6 +35,7 @@
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
@@ -197,7 +198,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-mvi.cli.cli">
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="module-mvi.cli.cli">
 <span id="command-line-interface"></span><span id="cli-reference"></span><h1>Command-line Interface<a class="headerlink" href="#module-mvi.cli.cli" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="mvi.cli.cli.assign">
@@ -280,7 +305,7 @@ Skips prompt, so use with caution. Defaults to False.</p></li>
 
 <dl class="py function">
 <dt id="mvi.cli.cli.login">
-<code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">host:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">username:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">password:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">access_token:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">login</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">host:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">username:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">password:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em>, <em class="sig-param"><span class="pre">_token:</span> <span class="pre">Optional[str]</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mvi.cli.cli.login" title="Permalink to this definition">¶</a></dt>
 <dd><p>Log in to the specified host</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -292,7 +317,7 @@ which case you will be prompted.</p></li>
 <li><p><strong>password</strong> (<em>str</em><em>, </em><em>optional</em>) – Password. Use with caution because input
 will be saved in terminal history. Defaults to None in
 which case you will be prompted.</p></li>
-<li><p><strong>access_token</strong> (<em>str</em><em>, </em><em>optional</em>) – Log in to a manager using a token instead
+<li><p><strong>_token</strong> (<em>str</em><em>, </em><em>optional</em>) – Log in to a manager using a token instead
 of username and password. Defaults to None.</p></li>
 </ul>
 </dd>

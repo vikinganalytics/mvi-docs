@@ -65,6 +65,7 @@ If you want to get in contact, you can reach us at info@vikinganalytics.se
    content/advanced_tutorials/status_codes
    content/advanced_tutorials/integration_with_other_tools
    content/advanced_tutorials/going_beyond_sdk
+   content/advanced_tutorials/mvi_notebook_service
 
 .. toctree::
    :maxdepth: 1
